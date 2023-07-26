@@ -34,6 +34,7 @@ public class SignUpFragment extends Fragment {
             public void onClick(View view) {
                 if(username.getText().toString().equals("abc")&&password.getText().toString().equals("123456")) {
                     Toast.makeText(getContext(), "Sign Up Success", Toast.LENGTH_LONG).show();
+                    
                 } else {
                     Toast.makeText(getContext(), "Sign Up Failed", Toast.LENGTH_LONG).show();
                 }
