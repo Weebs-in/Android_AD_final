@@ -3,13 +3,13 @@ package com.example.mobile_adproject.HomePageModel;
 import java.time.LocalDateTime;
 
 public class RecommendBook {
-  private Long id;
+    private Long id;
     private int isbn;
 
     private String title;
     private String author;
     private String Cover;//image url
-  private int book_condition;
+    private int book_condition;
     private String description;
     private String genre;
     private String press;
