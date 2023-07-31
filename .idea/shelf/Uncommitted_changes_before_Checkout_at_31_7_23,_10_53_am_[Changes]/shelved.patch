@@ -1,0 +1,19 @@
+Index: .idea/misc.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<project version=\"4\">\n  <component name=\"DesignSurface\">\n    <option name=\"filePathToZoomLevelMap\">\n      <map>\n        <entry key=\"..\\:/andriod game/Mobile_ADProject/app/src/main/res/drawable/background_top_login.xml\" value=\"0.1\" />\n        <entry key=\"..\\:/andriod game/Mobile_ADProject/app/src/main/res/drawable/button_background.xml\" value=\"0.1\" />\n        <entry key=\"..\\:/andriod game/Mobile_ADProject/app/src/main/res/drawable/edit_login_out_background.xml\" value=\"0.1\" />\n        <entry key=\"..\\:/andriod game/Mobile_ADProject/app/src/main/res/drawable/home_bg.xml\" value=\"0.1185\" />\n        <entry key=\"..\\:/andriod game/Mobile_ADProject/app/src/main/res/drawable/ic_baseline_search_24.xml\" value=\"0.202\" />\n        <entry key=\"..\\:/andriod game/Mobile_ADProject/app/src/main/res/drawable/pager_backgound.xml\" value=\"0.1\" />\n        <entry key=\"..\\:/andriod game/Mobile_ADProject/app/src/main/res/drawable/search_bg.xml\" value=\"0.202\" />\n        <entry key=\"..\\:/andriod game/Mobile_ADProject/app/src/main/res/layout/activity_login.xml\" value=\"0.1\" />\n        <entry key=\"..\\:/andriod game/Mobile_ADProject/app/src/main/res/layout/activity_main.xml\" value=\"0.3333333333333333\" />\n        <entry key=\"..\\:/andriod game/Mobile_ADProject/app/src/main/res/layout/login.xml\" value=\"0.2798913043478261\" />\n        <entry key=\"..\\:/andriod game/Mobile_ADProject/app/src/main/res/layout/recommend_books_row_item.xml\" value=\"0.4466666666666667\" />\n        <entry key=\"..\\:/andriod game/Mobile_ADProject/app/src/main/res/layout/signup.xml\" value=\"0.286231884057971\" />\n      </map>\n    </option>\n  </component>\n  <component name=\"ProjectRootManager\" version=\"2\" languageLevel=\"JDK_11\" default=\"true\" project-jdk-name=\"Android Studio default JDK\" project-jdk-type=\"JavaSDK\">\n    <output url=\"file://$PROJECT_DIR$/build/classes\" />\n  </component>\n  <component name=\"ProjectType\">\n    <option name=\"id\" value=\"Android\" />\n  </component>\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/misc.xml b/.idea/misc.xml
+--- a/.idea/misc.xml	(revision 5b1de11302558707d0d85154d04c657c55834644)
++++ b/.idea/misc.xml	(date 1690771973844)
+@@ -18,7 +18,7 @@
+       </map>
+     </option>
+   </component>
+-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
++  <component name="ProjectRootManager" version="2" languageLevel="JDK_17" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+     <output url="file://$PROJECT_DIR$/build/classes" />
+   </component>
+   <component name="ProjectType">
