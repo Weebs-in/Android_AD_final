@@ -7,8 +7,6 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
-import com.example.mobile_adproject.LoginAndRegisterFragment.SignUpFragment;
-
 public class ProfileAdapter extends FragmentPagerAdapter {
     private Context context;
     int totalTabs;//the number of the whole page
@@ -28,7 +26,7 @@ public class ProfileAdapter extends FragmentPagerAdapter {
                 TransactionHistoryFragment transactionHistoryFragment=new TransactionHistoryFragment();
                 return transactionHistoryFragment;
             case 2:
-                ApprovedBookList approvedBookList=new ApprovedBookList();
+                ApprovedBookListFragment approvedBookList=new ApprovedBookListFragment();
                 return approvedBookList;
             default:
                 return null;

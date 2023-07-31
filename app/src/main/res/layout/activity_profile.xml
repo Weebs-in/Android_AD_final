@@ -80,7 +80,6 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="DonateBook"
-                android:textSize="10dp"
                 android:gravity="center" />
 
             <TextView
@@ -89,7 +88,6 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="TransactionHistory"
-                android:textSize="10dp"
                 android:gravity="center" />
             <TextView
                 android:id="@+id/approved_Text_profile"
@@ -97,7 +95,6 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="ApprovedBook"
-                android:textSize="10dp"
                 android:gravity="center" />
 
         </LinearLayout>

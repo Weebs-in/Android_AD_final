@@ -51,18 +51,20 @@ public class MainActivity extends AppCompatActivity {
         setRecommendRecycler(recommendBookList);*/
 
         List<RecommendBook> recommendBookList=new ArrayList<>();
-        recommendBookList.add(new RecommendBook("Harry Potter and the Order of the Phoenix","J. K. Rowling", "http"));
-        recommendBookList.add(new RecommendBook("Harry Potter and the Order of the Phoenix","J. K. Rowling", "http"));
-        recommendBookList.add(new RecommendBook("Harry Potter and the Order of the Phoenix","J. K. Rowling", "http"));
-        recommendBookList.add(new RecommendBook("Harry Potter and the Order of the Phoenix","J. K. Rowling", "http"));
-        recommendBookList.add(new RecommendBook("Harry Potter and the Order of the Phoenix","J. K. Rowling", "http"));
-        recommendBookList.add(new RecommendBook("Harry Potter and the Order of the Phoenix","J. K. Rowling", "http"));
-        recommendBookList.add(new RecommendBook("Harry Potter and the Order of the Phoenix","J. K. Rowling", "http"));
-        recommendBookList.add(new RecommendBook("Harry Potter and the Order of the Phoenix","J. K. Rowling", "http"));
-        recommendBookList.add(new RecommendBook("Harry Potter and the Order of the Phoenix","J. K. Rowling", "http"));
-        recommendBookList.add(new RecommendBook("Harry Potter and the Order of the Phoenix","J. K. Rowling", "http"));
-        recommendBookList.add(new RecommendBook("Harry Potter and the Order of the Phoenix","J. K. Rowling", "http"));
-        recommendBookList.add(new RecommendBook("Harry Potter and the Order of the Phoenix","J. K. Rowling", "http"));
+        recommendBookList.add(new RecommendBook());
+        recommendBookList.add(new RecommendBook());
+        recommendBookList.add(new RecommendBook());
+        recommendBookList.add(new RecommendBook());
+        recommendBookList.add(new RecommendBook());
+        recommendBookList.add(new RecommendBook());
+        recommendBookList.add(new RecommendBook());
+        recommendBookList.add(new RecommendBook());
+        recommendBookList.add(new RecommendBook());
+        recommendBookList.add(new RecommendBook());
+        recommendBookList.add(new RecommendBook());
+        recommendBookList.add(new RecommendBook());
+        recommendBookList.add(new RecommendBook());
+        recommendBookList.add(new RecommendBook());
 
         setRecommendRecycler(recommendBookList);
 

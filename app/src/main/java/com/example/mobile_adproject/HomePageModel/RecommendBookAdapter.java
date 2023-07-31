@@ -36,8 +36,8 @@ public class RecommendBookAdapter extends RecyclerView.Adapter<RecommendBookAdap
     @Override
     public void onBindViewHolder(@NonNull RecommendBookViewHolder holder, int position) {
 
-        holder.bookTitle.setText(recommendBookList.get(position).getTitle());
-        holder.bookAuthor.setText(recommendBookList.get(position).getAuthor());
+        /*holder.bookTitle.setText(recommendBookList.get(position).getTitle());
+        holder.bookAuthor.setText(recommendBookList.get(position).getAuthor());*/
         //String url = recommendBookList.get(position).getCover(); // get image URL
         //load the picture
 
