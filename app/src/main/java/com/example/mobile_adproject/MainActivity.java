@@ -22,7 +22,10 @@ public class MainActivity extends AppCompatActivity {
 
 
     ImageView user_profile;
-
+    ImageView home;
+    ImageView message;
+    ImageView donate;
+    ImageView profile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,12 +51,20 @@ public class MainActivity extends AppCompatActivity {
         setRecommendRecycler(recommendBookList);*/
 
         List<RecommendBook> recommendBookList=new ArrayList<>();
-        recommendBookList.add(new RecommendBook("Harry Potter and the Order of the Phoenix","J. K. Rowling", "http"));
-        recommendBookList.add(new RecommendBook("Harry Potter and the Order of the Phoenix","J. K. Rowling", "http"));
-        recommendBookList.add(new RecommendBook("Harry Potter and the Order of the Phoenix","J. K. Rowling", "http"));
-        recommendBookList.add(new RecommendBook("Harry Potter and the Order of the Phoenix","J. K. Rowling", "http"));
-        recommendBookList.add(new RecommendBook("Harry Potter and the Order of the Phoenix","J. K. Rowling", "http"));
-        recommendBookList.add(new RecommendBook("Harry Potter and the Order of the Phoenix","J. K. Rowling", "http"));
+        recommendBookList.add(new RecommendBook());
+        recommendBookList.add(new RecommendBook());
+        recommendBookList.add(new RecommendBook());
+        recommendBookList.add(new RecommendBook());
+        recommendBookList.add(new RecommendBook());
+        recommendBookList.add(new RecommendBook());
+        recommendBookList.add(new RecommendBook());
+        recommendBookList.add(new RecommendBook());
+        recommendBookList.add(new RecommendBook());
+        recommendBookList.add(new RecommendBook());
+        recommendBookList.add(new RecommendBook());
+        recommendBookList.add(new RecommendBook());
+        recommendBookList.add(new RecommendBook());
+        recommendBookList.add(new RecommendBook());
 
         setRecommendRecycler(recommendBookList);
 
@@ -66,13 +77,47 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        home=findViewById(R.id.home_action_bottom);
+        home.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(MainActivity.this,MainActivity.class);
+                startActivity(intent);
+            }
+        });
 
+        message=findViewById(R.id.message_action_bottom);
+        message.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(MainActivity.this,MessageActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        donate=findViewById(R.id.donate_action_bottom);
+        donate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(MainActivity.this,LoginActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        profile=findViewById(R.id.profile_action_bottom);
+        profile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(MainActivity.this,ProfileActivity.class);
+                startActivity(intent);
+            }
+        });
 
     }
     private  void setRecommendRecycler(List<RecommendBook> recommendBookList){
 
         recommendRecycler = findViewById(R.id.recommend_book_recycler);
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this, RecyclerView.VERTICAL, false);
         recommendRecycler.setLayoutManager(layoutManager);
         recommendBookAdapter = new RecommendBookAdapter(this, recommendBookList);
         recommendRecycler.setAdapter(recommendBookAdapter);
