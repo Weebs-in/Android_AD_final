@@ -11,7 +11,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.mobile_adproject.BookDetailActivity;
+import com.example.mobile_adproject.activities.BookDetailActivity;
 import com.example.mobile_adproject.R;
 
 import java.util.List;

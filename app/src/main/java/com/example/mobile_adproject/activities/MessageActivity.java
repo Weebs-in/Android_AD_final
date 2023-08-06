@@ -1,4 +1,4 @@
-package com.example.mobile_adproject;
+package com.example.mobile_adproject.activities;
 
 import android.os.Bundle;
 
@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mobile_adproject.Message.ConfirmRequestMessage;
 import com.example.mobile_adproject.Message.MessageAdapter;
+import com.example.mobile_adproject.R;
 
 import java.util.ArrayList;
 import java.util.List;
