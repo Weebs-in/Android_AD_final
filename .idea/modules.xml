@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Mobile_ADProject.iml" filepath="$PROJECT_DIR$/.idea/modules/Mobile_ADProject.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/Mobile_ADProject.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/Mobile_ADProject.app.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/Mobile_ADProject.app.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/Mobile_ADProject.app.androidTest.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/Mobile_ADProject.app.main.iml" filepath="$PROJECT_DIR$/.idea/modules/app/Mobile_ADProject.app.main.iml" />
