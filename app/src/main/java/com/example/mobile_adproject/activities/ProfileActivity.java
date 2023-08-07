@@ -1,4 +1,4 @@
-package com.example.mobile_adproject;
+package com.example.mobile_adproject.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
 import com.example.mobile_adproject.Profile.ProfileAdapter;
+import com.example.mobile_adproject.R;
 import com.google.android.material.tabs.TabLayout;
 
 public class ProfileActivity extends AppCompatActivity {

@@ -1,4 +1,4 @@
-package com.example.mobile_adproject;
+package com.example.mobile_adproject.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mobile_adproject.HomePageModel.RecommendBook;
 import com.example.mobile_adproject.HomePageModel.RecommendBookAdapter;
+import com.example.mobile_adproject.R;
 
 import java.util.ArrayList;
 import java.util.List;

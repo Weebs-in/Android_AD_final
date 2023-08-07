@@ -1,5 +1,4 @@
 package com.example.mobile_adproject.LoginAndRegisterFragment;
-
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,79 +12,56 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.mobile_adproject.R;
+import com.example.mobile_adproject.api_responses.LoginApiResponse;
+import com.example.mobile_adproject.models.Member;
+import com.example.mobile_adproject.retrofit.MemberApi;
+import com.example.mobile_adproject.retrofit.RetrofitService;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 public class LoginFragment extends Fragment {
-    private EditText username;
-    private EditText password;
-    private Button login;
-/*    private static final int GET=1;
-    private OkHttpClient client = new OkHttpClient();
-    private Handler handler=new Handler(){
-        @Override
-        public void handleMessage(Message msg){
-            super.handleMessage(msg);
-            switch (msg.what){
-
-                case GET:
-                    //获取数据
-                    username.setText((String) msg.obj);
-            }
-        }
-    };*/
+    EditText inputUsername;
+    EditText inputPassword;
+    Button login;
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle save){
         ViewGroup root=(ViewGroup) inflater.inflate(R.layout.login,container,false);
-        username=root.findViewById(R.id.username_login);
-        password=root.findViewById(R.id.password_login);
+
+        RetrofitService retrofitService = new RetrofitService();
+        MemberApi memberApi = retrofitService.getRetrofit().create(MemberApi.class);
+
+        inputUsername=root.findViewById(R.id.username_login);
+        inputPassword=root.findViewById(R.id.password_login);
         login=root.findViewById(R.id.login_button);
-        login.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(username.getText().toString().equals("abc")&&password.getText().toString().equals("123456")) {
-                    Toast.makeText(getContext(), "Login Success", Toast.LENGTH_LONG).show();
-                } else {
-                    Toast.makeText(getContext(), "Login Failed", Toast.LENGTH_LONG).show();
+        login.setOnClickListener(view -> {
+            String username = String.valueOf(inputUsername.getText());
+            String password = String.valueOf(inputPassword.getText());
 
-                    /*getDataFromGet();//点击事件*/
+            Member member = new Member();
+            member.setUsername(username);
+            member.setPassword(password);
 
-                }
-            }
+            memberApi.login(member)
+                    .enqueue(new Callback<LoginApiResponse>() {
+                        @Override
+                        public void onResponse(Call<LoginApiResponse> call, Response<LoginApiResponse> response) {
+                            LoginApiResponse loginApiResponse = response.body();
+                            String token = loginApiResponse.accessToken;
+                            Toast.makeText(getContext(), "Login Successful!" + token, Toast.LENGTH_SHORT).show();
+                        }
+
+                        @Override
+                        public void onFailure(Call<LoginApiResponse> call, Throwable t) {
+                            Toast.makeText(getContext(), "Login Failed!", Toast.LENGTH_SHORT).show();
+                            t.printStackTrace(); // Print the full stack trace to see the detailed error
+                           // Log.d("TAG", "This is a debug log message.");
+                        }
+                    });
         });
 
         return root;
 
     }
-
-/*    //子线程,运行get请求，但是不能直接显示文本,携带数据用的是message
-    private void getDataFromGet(){
-        new Thread(){
-            @Override
-            public void run(){
-                super.run();
-                try {
-                    String result = get("https://adt8api.azurewebsites.net/swagger-ui/index.html#/staff-controller/getAll_1");
-                    Log.e("TAG",result);
-                    Message msg=Message.obtain();
-                    msg.what=GET;
-                    msg.obj=result;
-                    handler.sendMessage(msg);//返回message之后发到handler这边来
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }.start();
-
-    }*/
-
-/*//get请求
-    private String get(String url) throws IOException {
-        Request request = new Request.Builder()
-                .url(url)
-                .build();//构建url
-
-        try (Response response = client.newCall(request).execute()) {
-            return response.body().string();//返回
-        }
-    }*/
-
 }
