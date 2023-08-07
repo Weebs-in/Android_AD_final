@@ -13,8 +13,11 @@
       </configuration>
     </facet>
   </component>
+<<<<<<< HEAD
   <component name="NewModuleRootManager" inherit-compiler-output="true">
     <exclude-output />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
+=======
+>>>>>>> origin/HninWuttHsan
 </module>
