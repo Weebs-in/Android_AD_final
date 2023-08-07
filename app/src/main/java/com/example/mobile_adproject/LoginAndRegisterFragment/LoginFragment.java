@@ -47,5 +47,4 @@ public class LoginFragment extends Fragment {
         startActivity(intent);
         // Optionally, you can finish the current activity if you don't want the user to navigate back to the login screen with the back button
         getActivity().finish();
-    }
-}
+
