@@ -95,7 +95,7 @@ public class ProfileActivity extends AppCompatActivity {
         donate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(ProfileActivity.this,LoginActivity.class);
+                Intent intent=new Intent(ProfileActivity.this,DonateBookActivity.class);
                 startActivity(intent);
             }
         });

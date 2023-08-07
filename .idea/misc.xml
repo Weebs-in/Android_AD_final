@@ -24,6 +24,7 @@
         <entry key="..\:/andriod game/Mobile_ADProject/app/src/main/res/drawable/profile_top_background.xml" value="0.132" />
         <entry key="..\:/andriod game/Mobile_ADProject/app/src/main/res/drawable/search_bg.xml" value="0.202" />
         <entry key="..\:/andriod game/Mobile_ADProject/app/src/main/res/layout/activity_book_detail.xml" value="0.3333333333333333" />
+        <entry key="..\:/andriod game/Mobile_ADProject/app/src/main/res/layout/activity_donate_book.xml" value="0.22" />
         <entry key="..\:/andriod game/Mobile_ADProject/app/src/main/res/layout/activity_login.xml" value="0.1" />
         <entry key="..\:/andriod game/Mobile_ADProject/app/src/main/res/layout/activity_main.xml" value="0.16666666666666666" />
         <entry key="..\:/andriod game/Mobile_ADProject/app/src/main/res/layout/activity_message.xml" value="0.2069260367678495" />
@@ -40,6 +41,8 @@
         <entry key="..\:/andriod game/Mobile_ADProject/app/src/main/res/layout/tab_text_image_layout.xml" value="0.1923899102180419" />
         <entry key="..\:/andriod game/Mobile_ADProject/app/src/main/res/layout/transaction_history.xml" value="0.1923899102180419" />
         <entry key="..\:/andriod game/Mobile_ADProject/app/src/main/res/layout/transaction_history_item.xml" value="0.5659163987138264" />
+        <entry key="..\:/andriod game/Mobile_ADProject/app/src/main/res/xml/network_security_config.xml" value="0.10773834972210346" />
+        <entry key="..\:/andriod game/Mobile_ADProject/app/src/main/res/xml/provider_paths.xml" value="0.21504916631038906" />
       </map>
     </option>
   </component>

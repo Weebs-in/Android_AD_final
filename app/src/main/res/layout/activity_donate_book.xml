@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".BookDetailActivity">
+
+    <ImageView
+        android:id="@+id/book_cover_background_book_donate"
+        android:layout_width="0dp"
+        android:layout_height="200dp"
+        android:adjustViewBounds="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_baseline_add_photo_alternate_24" />
+
+    <ImageView
+        android:id="@+id/back_img_book_detail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_baseline_arrow_back_ios_new_24" />
+
+    <TextView
+        android:id="@+id/book_title_book_detail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="Book Title : "
+        android:textColor="@android:color/background_dark"
+        android:textSize="18sp"
+        app:fontFamily="sans-serif-black"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/book_cover_background_book_donate" />
+
+    <EditText
+        android:id="@+id/book_title_book_donate_need_add"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:background="@null"
+        android:hint="Harry Potter"
+        app:layout_constraintStart_toEndOf="@+id/book_title_book_detail"
+        app:layout_constraintTop_toBottomOf="@+id/book_cover_background_book_donate" />
+
+    <TextView
+        android:id="@+id/book_author_book_detail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Author :"
+        android:textColor="#044363"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="@+id/book_title_book_detail"
+        app:layout_constraintTop_toBottomOf="@+id/book_title_book_detail" />
+
+    <EditText
+        android:id="@+id/book_author_need_to_add_book_donate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:hint="J. K. Rowling"
+        android:background="@null"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toBottomOf="@+id/book_author_book_detail"
+        app:layout_constraintStart_toEndOf="@+id/book_author_book_detail"
+        app:layout_constraintTop_toTopOf="@+id/book_author_book_detail" />
+
+
+    <TextView
+        android:id="@+id/isbn_book_detail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="ISBN :"
+        android:textColor="#044363"
+        app:layout_constraintStart_toStartOf="@+id/book_author_book_detail"
+        app:layout_constraintTop_toBottomOf="@+id/book_author_book_detail" />
+    <EditText
+        android:id="@+id/isbn_need_to_add_book_donate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:background="@null"
+        android:hint="978-0439358064"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toBottomOf="@+id/isbn_book_detail"
+        app:layout_constraintStart_toEndOf="@+id/isbn_book_detail"
+        app:layout_constraintTop_toTopOf="@+id/isbn_book_detail" />
+
+    <TextView
+        android:id="@+id/book_condition_book_detail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="Condition :"
+        android:textColor="#044363"
+        app:layout_constraintStart_toStartOf="@+id/isbn_book_detail"
+        app:layout_constraintTop_toBottomOf="@+id/isbn_book_detail" />
+    <EditText
+        android:id="@+id/book_condition_need_to_add_book_donate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:hint="totally new"
+        android:background="@null"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toBottomOf="@+id/book_condition_book_detail"
+        app:layout_constraintStart_toEndOf="@+id/book_condition_book_detail"
+        app:layout_constraintTop_toTopOf="@+id/book_condition_book_detail" />
+    <TextView
+        android:id="@+id/book_genre_book_detail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="Genre :"
+        android:textColor="#044363"
+        app:layout_constraintStart_toStartOf="@+id/book_condition_book_detail"
+        app:layout_constraintTop_toBottomOf="@+id/book_condition_book_detail" />
+    <EditText
+        android:id="@+id/book_genre_need_to_add_book_donate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:hint="fiction"
+        android:background="@null"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toBottomOf="@+id/book_genre_book_detail"
+        app:layout_constraintStart_toEndOf="@+id/book_genre_book_detail"
+        app:layout_constraintTop_toTopOf="@+id/book_genre_book_detail" />
+
+    <TextView
+        android:id="@+id/book_press_book_donate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="Press :"
+        android:textColor="#044363"
+        app:layout_constraintStart_toStartOf="@+id/book_genre_book_detail"
+        app:layout_constraintTop_toBottomOf="@+id/book_genre_book_detail" />
+
+    <EditText
+        android:id="@+id/book_press_need_to_add_book_donate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:background="@null"
+        android:hint="Scholastic Inc"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toBottomOf="@+id/book_press_book_donate"
+        app:layout_constraintStart_toEndOf="@+id/book_press_book_donate"
+        app:layout_constraintTop_toTopOf="@+id/book_press_book_donate" />
+
+    <TextView
+        android:id="@+id/book_language_book_donate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="Language :"
+        android:textColor="#044363"
+        app:layout_constraintStart_toStartOf="@+id/book_press_book_donate"
+        app:layout_constraintTop_toBottomOf="@+id/book_press_book_donate" />
+
+    <EditText
+        android:id="@+id/book_language_need_to_add_book_donate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:hint="English"
+        android:textSize="15sp"
+        android:background="@null"
+        app:layout_constraintBottom_toBottomOf="@+id/book_language_book_donate"
+        app:layout_constraintStart_toEndOf="@+id/book_language_book_donate"
+        app:layout_constraintTop_toTopOf="@+id/book_language_book_donate" />
+
+    <TextView
+        android:id="@+id/book_description_book_detail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="Description :"
+        android:textColor="#044363"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/book_language_book_donate" />
+    <EditText
+        android:id="@+id/book_description_need_to_add_book_detail"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="8dp"
+        android:textSize="15sp"
+        android:background="@null"
+        android:hint='"Harry Potter and the Order of the Phoenix" is a part of the series where the plot becomes progressively complex and darker. It reveals more about Harry Potter and his friends, while introducing many new characters and storylines that lay the foundation for the series.'
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/book_description_book_detail"
+        app:layout_constraintTop_toBottomOf="@+id/book_description_book_detail" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="0dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/button_background"
+        android:text="Donate Book"
+        android:textColor="#FFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
