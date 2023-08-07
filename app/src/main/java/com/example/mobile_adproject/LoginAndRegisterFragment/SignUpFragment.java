@@ -55,7 +55,15 @@ public class SignUpFragment extends Fragment {
             member.setPassword(password);
             member.setEmail(email);
             member.setPhoneNumber(phone);
-            member.setBirthday(LocalDate.now());
+
+//            LocalDate currentDate = LocalDate.now();
+//
+//            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+//            String formattedDate = currentDate.format(formatter);
+//
+//            LocalDate localDate = LocalDate.parse(formattedDate, formatter);
+//
+//            member.setBirthday(localDate);
             member.setBio("Bio");
             member.setDisplayName("DisplayName");
             member.setGender(0);
