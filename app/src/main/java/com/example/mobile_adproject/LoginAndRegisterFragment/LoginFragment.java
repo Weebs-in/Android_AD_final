@@ -1,9 +1,4 @@
 package com.example.mobile_adproject.LoginAndRegisterFragment;
-import com.example.mobile_adproject.R;
-import com.example.mobile_adproject.models.Member;
-import com.example.mobile_adproject.api_responses.LoginApiResponse;
-import com.example.mobile_adproject.retrofit.MemberApi;
-import com.example.mobile_adproject.retrofit.RetrofitService;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -16,6 +11,12 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+
+import com.example.mobile_adproject.R;
+import com.example.mobile_adproject.api_responses.LoginApiResponse;
+import com.example.mobile_adproject.models.Member;
+import com.example.mobile_adproject.retrofit.MemberApi;
+import com.example.mobile_adproject.retrofit.RetrofitService;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -55,6 +56,8 @@ public class LoginFragment extends Fragment {
                         @Override
                         public void onFailure(Call<LoginApiResponse> call, Throwable t) {
                             Toast.makeText(getContext(), "Login Failed!", Toast.LENGTH_SHORT).show();
+                            t.printStackTrace(); // Print the full stack trace to see the detailed error
+                           // Log.d("TAG", "This is a debug log message.");
                         }
                     });
         });

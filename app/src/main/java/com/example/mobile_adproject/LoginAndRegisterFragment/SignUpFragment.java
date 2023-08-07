@@ -1,11 +1,7 @@
 package com.example.mobile_adproject.LoginAndRegisterFragment;
-import com.example.mobile_adproject.R;
-import com.example.mobile_adproject.api_responses.SignupApiResponse;
-import com.example.mobile_adproject.models.Member;
-import com.example.mobile_adproject.retrofit.MemberApi;
-import com.example.mobile_adproject.retrofit.RetrofitService;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,9 +13,11 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import java.sql.Date;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+import com.example.mobile_adproject.R;
+import com.example.mobile_adproject.api_responses.SignupApiResponse;
+import com.example.mobile_adproject.models.Member;
+import com.example.mobile_adproject.retrofit.MemberApi;
+import com.example.mobile_adproject.retrofit.RetrofitService;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -85,6 +83,8 @@ public class SignUpFragment extends Fragment {
                         public void onFailure(Call<SignupApiResponse> call, Throwable t) {
                             Toast.makeText(getContext(), "Account Failed to Create: " + t.getMessage(), Toast.LENGTH_SHORT).show();
                             t.printStackTrace(); // Print the full stack trace to see the detailed error
+                            Log.d("TAG", "This is a debug log message.");
+
                         }
                     });
         }
