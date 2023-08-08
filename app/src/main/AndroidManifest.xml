@@ -22,7 +22,7 @@
 
         android:theme="@style/Theme.Mobile_ADProject">
         <activity
-            android:name=".DonateBookActivity"
+            android:name=".activities.DonateBookActivity"
             android:exported="false" />
 
         <meta-data

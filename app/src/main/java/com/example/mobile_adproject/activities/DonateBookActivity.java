@@ -1,4 +1,4 @@
-package com.example.mobile_adproject;
+package com.example.mobile_adproject.activities;
 
 import android.content.ContentResolver;
 import android.content.Intent;
@@ -18,6 +18,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.FileProvider;
 
+import com.example.mobile_adproject.R;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 import java.io.File;
