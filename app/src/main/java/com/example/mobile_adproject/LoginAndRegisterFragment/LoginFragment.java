@@ -70,28 +70,34 @@ public class LoginFragment extends Fragment {
 
                                 System.out.println("Value of 'sub': " + subValue);
 
-//                                memberApi.getMemberById(Integer.parseInt(subValue))
-//                                        .enqueue(new Callback<Member>() {
-//                                            @Override
-//                                            public void onResponse(Call<Member> call, Response<Member> response) {
-//                                                if(response.isSuccessful()){
-//                                                    Toast.makeText(getContext(), "Get Member Successful!", Toast.LENGTH_SHORT).show();
-//                                                    Member loggedInMember = response.body();
-//
-//                                                    System.out.println(loggedInMember);
-//                                                }
-//                                                else {
-//                                                    Toast.makeText(getContext(), "Get Member Response not ok", Toast.LENGTH_SHORT).show();
-//                                                }
-//
-//                                            }
-//
-//                                            @Override
-//                                            public void onFailure(Call<Member> call, Throwable t) {
-//                                                Toast.makeText(getContext(), "Get Member Failed!", Toast.LENGTH_SHORT).show();
-//
-//                                            }
-//                                        });
+                                String authorizationHeader = "Bearer " + jwtToken;
+
+                                memberApi.getMemberById(Integer.parseInt(subValue), authorizationHeader)
+                                        .enqueue(new Callback<Member>() {
+                                            @Override
+                                            public void onResponse(Call<Member> call, Response<Member> response) {
+                                                if(response.isSuccessful()){
+                                                    Toast.makeText(getContext(), "Get Member Successful!", Toast.LENGTH_SHORT).show();
+                                                    Member loggedInMember = response.body();
+
+                                                    String username = loggedInMember.getUsername();
+                                                    String email = loggedInMember.getEmail();
+
+                                                    Log.d("USERNAME",username);
+                                                    Log.d("EMAIL",email);
+                                                }
+                                                else {
+                                                    Toast.makeText(getContext(), "Get Member Response not ok", Toast.LENGTH_SHORT).show();
+                                                }
+
+                                            }
+
+                                            @Override
+                                            public void onFailure(Call<Member> call, Throwable t) {
+                                                Toast.makeText(getContext(), "Get Member Failed!", Toast.LENGTH_SHORT).show();
+
+                                            }
+                                        });
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }

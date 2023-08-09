@@ -14,14 +14,12 @@ public class RetrofitService {
     }
 
     private void initializeRetrofit() {
-    /*    OkHttpClient httpClient = new OkHttpClient.Builder()
-                .addInterceptor(new HeaderInterceptor()) // 添加拦截器
-                .build();*/
+
         retrofit = new Retrofit.Builder()
                 .baseUrl("https://adt8api.azurewebsites.net")
-               // .client(httpClient) // 使用带有拦截器的OkHttpClient
                 .addConverterFactory(GsonConverterFactory.create(new Gson()))
                 .build();
+
     }
 
     public Retrofit getRetrofit(){
