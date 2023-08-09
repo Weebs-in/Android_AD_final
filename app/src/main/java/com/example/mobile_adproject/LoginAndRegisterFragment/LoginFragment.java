@@ -13,7 +13,6 @@ import androidx.fragment.app.Fragment;
 
 import com.example.mobile_adproject.R;
 import com.example.mobile_adproject.api_responses.LoginApiResponse;
-import com.example.mobile_adproject.models.Member;
 import com.example.mobile_adproject.retrofit.MemberApi;
 import com.example.mobile_adproject.retrofit.RetrofitService;
 
@@ -39,18 +38,26 @@ public class LoginFragment extends Fragment {
             String username = String.valueOf(inputUsername.getText());
             String password = String.valueOf(inputPassword.getText());
 
-            Member member = new Member();
-            member.setUsername(username);
-            member.setPassword(password);
-
-            memberApi.login(member)
+            LoginApiResponse loginApiResponse = new LoginApiResponse();
+            loginApiResponse.setUsername(username);
+            loginApiResponse.setPassword(password);
+            memberApi.login(loginApiResponse)
                     .enqueue(new Callback<LoginApiResponse>() {
                         @Override
                         public void onResponse(Call<LoginApiResponse> call, Response<LoginApiResponse> response) {
-                            LoginApiResponse loginApiResponse = response.body();
-                            String token = loginApiResponse.accessToken;
-                            Toast.makeText(getContext(), "Login Successful!" + token, Toast.LENGTH_SHORT).show();
+                            if (response.isSuccessful()) {
+                                LoginApiResponse responseBody = response.body();
+                                if (responseBody != null) {
+                                    String token = responseBody.getAccessToken();
+                                    Toast.makeText(getContext(), "Login Successful!" + token, Toast.LENGTH_SHORT).show();
+                                } else {
+                                    Toast.makeText(getContext(), "Login Failed: Empty Response Body", Toast.LENGTH_SHORT).show();
+                                }
+                            } else {
+                                Toast.makeText(getContext(), "Login Failed：" + response.message(), Toast.LENGTH_SHORT).show();
+                            }
                         }
+
 
                         @Override
                         public void onFailure(Call<LoginApiResponse> call, Throwable t) {
@@ -65,3 +72,8 @@ public class LoginFragment extends Fragment {
 
     }
 }
+
+
+
+
+

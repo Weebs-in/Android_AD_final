@@ -15,7 +15,6 @@ import androidx.fragment.app.Fragment;
 
 import com.example.mobile_adproject.R;
 import com.example.mobile_adproject.api_responses.SignupApiResponse;
-import com.example.mobile_adproject.models.Member;
 import com.example.mobile_adproject.retrofit.MemberApi;
 import com.example.mobile_adproject.retrofit.RetrofitService;
 
@@ -48,11 +47,11 @@ public class SignUpFragment extends Fragment {
             String email = String.valueOf(inputEmail.getText());
             String phone = String.valueOf(inputPhone.getText());
 
-            Member member = new Member();
-            member.setUsername(username);
-            member.setPassword(password);
-            member.setEmail(email);
-            member.setPhoneNumber(phone);
+            SignupApiResponse signupApiResponse = new SignupApiResponse();
+            signupApiResponse.setUsername(username);
+            signupApiResponse.setPassword(password);
+            signupApiResponse.setEmail(email);
+            signupApiResponse.setPhoneNumber(phone);
 
 //            LocalDate currentDate = LocalDate.now();
 //
@@ -62,12 +61,12 @@ public class SignUpFragment extends Fragment {
 //            LocalDate localDate = LocalDate.parse(formattedDate, formatter);
 //
 //            member.setBirthday(localDate);
-            member.setBio("Bio");
-            member.setDisplayName("DisplayName");
-            member.setGender(0);
-            member.setAvatar("Avatar");
+            signupApiResponse.setBio("Bio");
+            signupApiResponse.setDisplayName("DisplayName");
+            signupApiResponse.setGender(0);
+            signupApiResponse.setAvatar("Avatar");
 
-            memberApi.create(member)
+            memberApi.create(signupApiResponse)
                     .enqueue(new Callback<SignupApiResponse>() {
                         @Override
                         public void onResponse(Call<SignupApiResponse> call, Response<SignupApiResponse> response) {

@@ -2,7 +2,6 @@ package com.example.mobile_adproject.retrofit;
 
 import com.example.mobile_adproject.api_responses.LoginApiResponse;
 import com.example.mobile_adproject.api_responses.SignupApiResponse;
-import com.example.mobile_adproject.models.Member;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -14,11 +13,11 @@ import retrofit2.http.Path;
 public interface MemberApi {
     @Headers("Content-Type: application/json")
     @POST("/api/member")
-    Call<SignupApiResponse> create(@Body Member member);
+    Call<SignupApiResponse> create(@Body SignupApiResponse signupApiResponse);
 
     @GET("/api/member/{id}")
-    Call<Member> getMemberById(@Path("id") int id);
+    Call<SignupApiResponse> getMemberById(@Path("id") int id);
 
     @POST("/auth/login")
-    Call<LoginApiResponse> login(@Body Member member);
+    Call<LoginApiResponse> login(@Body LoginApiResponse loginApiResponse);
 }
