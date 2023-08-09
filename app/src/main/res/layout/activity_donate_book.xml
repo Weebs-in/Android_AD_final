@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".BookDetailActivity">
+    tools:context=".activities.DonateBookActivity">
 
     <ImageView
         android:id="@+id/book_cover_background_book_donate"
@@ -205,7 +205,7 @@
         app:layout_constraintTop_toBottomOf="@+id/book_description_book_detail" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/btnDonateBook"
         android:layout_width="0dp"
         android:layout_height="45dp"
         android:layout_marginStart="16dp"

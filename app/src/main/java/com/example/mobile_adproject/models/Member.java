@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 
 public class Member {
     //Attributes
-    private Long id;
+    private Integer id;
     private String username;
     private String displayName;
     private String phoneNumber;

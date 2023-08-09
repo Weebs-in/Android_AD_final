@@ -17,7 +17,7 @@ public interface MemberApi {
     Call<SignupApiResponse> create(@Body Member member);
 
     @GET("/api/member/{id}")
-    Call<Member> getMemberById(@Path("id") int id);
+    Call<Member> getMemberById(@Path("id") Integer id);
 
     @POST("/auth/login")
     Call<LoginApiResponse> login(@Body Member member);
