@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3bc40730-1234-4c6e-8375-f54da224dd5e" name="Changes" comment="add go to next page after login(Login Fragment)">
+    <list default="true" id="3bc40730-1234-4c6e-8375-f54da224dd5e" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/mobile_adproject/LoginAndRegisterFragment/LoginFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/mobile_adproject/LoginAndRegisterFragment/LoginFragment.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
