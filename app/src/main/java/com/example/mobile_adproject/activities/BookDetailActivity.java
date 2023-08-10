@@ -24,7 +24,7 @@ public class BookDetailActivity extends AppCompatActivity {
             Intent intent = new Intent(BookDetailActivity.this, BookRequestActivity.class);
             startActivity(intent);
         });
-
+        //back icon
         imgBookDetail = findViewById(R.id.back_img_book_detail);
         imgBookDetail.setOnClickListener(view -> {
             Intent intent = new Intent(BookDetailActivity.this, MainActivity.class);
