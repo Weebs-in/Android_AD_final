@@ -4,10 +4,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
+import com.example.mobile_adproject.LoginAndRegisterFragment.LoginFragment;
 import com.example.mobile_adproject.Profile.ProfileAdapter;
 import com.example.mobile_adproject.R;
 import com.google.android.material.tabs.TabLayout;
@@ -18,6 +20,11 @@ public class ProfileActivity extends AppCompatActivity {
     ImageView message;
     ImageView donate;
     ImageView profile;
+
+    TextView username_profile;
+    TextView email_profile;
+    private String usernameToSend;
+    private String emailToSend;
 
     TabLayout tabLayout;//provide the choice
     ViewPager viewPager;//change the page

@@ -1,7 +1,9 @@
 package com.example.mobile_adproject.activities;
 
 import android.content.ContentResolver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
@@ -10,23 +12,36 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.FileProvider;
 
+import com.example.mobile_adproject.LoginAndRegisterFragment.LoginFragment;
 import com.example.mobile_adproject.R;
+import com.example.mobile_adproject.models.Book;
+import com.example.mobile_adproject.models.Donor;
+import com.example.mobile_adproject.models.Member;
+import com.example.mobile_adproject.retrofit.BookApi;
+import com.example.mobile_adproject.retrofit.RetrofitService;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 import java.io.File;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
 import com.bumptech.glide.Glide;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class DonateBookActivity extends AppCompatActivity {
     private SimpleDateFormat simpleDateFormat=new SimpleDateFormat("HHmmss", Locale.CHINA);
@@ -35,11 +50,75 @@ public class DonateBookActivity extends AppCompatActivity {
     private int REQUEST_PICKER=111;
     private File file=null;
     ImageView cover;
+    Button btnDonate;
+    SharedPreferences sharedPreferences;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_donate_book);
         init();
+
+        RetrofitService retrofitService = new RetrofitService();
+        BookApi bookApi = retrofitService.getRetrofit().create(BookApi.class);
+
+        btnDonate = findViewById(R.id.btnDonateBook);
+        btnDonate.setOnClickListener(view -> {
+
+            sharedPreferences = getSharedPreferences("Login Credentials", Context.MODE_PRIVATE);
+
+            String jwtToken = sharedPreferences.getString("jwtToken","");
+            Integer loggedInMemberId = sharedPreferences.getInt("memberId",0);
+
+            System.out.println("Token " + jwtToken );
+
+            Member loggedInMember = LoginFragment.loggedInMember;
+
+            Donor donor = new Donor();
+            donor.setId(loggedInMemberId);
+            donor.setUsername(loggedInMember.getUsername());
+            donor.setEmail(loggedInMember.getEmail());
+
+            Book book = new Book();
+            book.setIsbn(123456);
+            book.setTitle("Title");
+            book.setAuthor("Author");
+            book.setCover("Cover");
+            book.setBookCondition(0);
+            book.setDescription("Description");
+            book.setGenre("Genre");
+            book.setPress("Press");
+            book.setLanguage(0);
+            book.setStatus(0);
+            book.setLikeCount(1);
+            book.setDonor(donor);
+
+            String authorizationHeader = "Bearer " + jwtToken;
+
+            bookApi.createBook(book, authorizationHeader)
+                    .enqueue(new Callback<Book>() {
+                        @Override
+                        public void onResponse(Call<Book> call, Response<Book> response) {
+                            if(response.isSuccessful()){
+                                Toast.makeText(DonateBookActivity.this, "Create Book Successful!", Toast.LENGTH_SHORT).show();
+                                Book responseBook = response.body();
+                                System.out.println("BOOK RESPONSE" + responseBook);
+                            }
+                            else {
+                                try {
+                                    Toast.makeText(DonateBookActivity.this, "Create Book Failed: " + response.message() + response.errorBody().string(), Toast.LENGTH_SHORT).show();
+                                } catch (IOException e) {
+                                    throw new RuntimeException(e);
+                                }
+                            }
+
+                        }
+                        @Override
+                        public void onFailure(Call<Book> call, Throwable t) {
+                            Toast.makeText(DonateBookActivity.this, "Response Failed!", Toast.LENGTH_SHORT).show();
+
+                        }
+                    });
+        });
     }
 
     @Override

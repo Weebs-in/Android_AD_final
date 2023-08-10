@@ -16,7 +16,8 @@ public class Book {
     private int language;
     private int status;
     private int likeCount;
-    private Long donorId;
+    private Donor donor;
+
     private LocalDateTime gmtCreated;
     private LocalDateTime gmtModified;
 
@@ -110,11 +111,11 @@ public class Book {
         this.likeCount = likeCount;
     }
 
-    public Long getDonorId() {
-        return donorId;
+    public Donor getDonor() {
+        return donor;
+    }
+    public void setDonor(Donor donor) {
+        this.donor = donor;
     }
 
-    public void setDonorId(Long donorId) {
-        this.donorId = donorId;
-    }
 }

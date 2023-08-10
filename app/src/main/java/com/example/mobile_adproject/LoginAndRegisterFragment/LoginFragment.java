@@ -1,4 +1,6 @@
 package com.example.mobile_adproject.LoginAndRegisterFragment;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -32,6 +34,9 @@ public class LoginFragment extends Fragment {
     EditText inputUsername;
     EditText inputPassword;
     Button login;
+    public static Member loggedInMember;
+
+    SharedPreferences sharedPreferences;
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle save){
         ViewGroup root=(ViewGroup) inflater.inflate(R.layout.login,container,false);
@@ -58,6 +63,11 @@ public class LoginFragment extends Fragment {
                             String jwtToken = loginApiResponse.accessToken;
                             Toast.makeText(getContext(), "Login Successful!" + jwtToken, Toast.LENGTH_SHORT).show();
 
+                            sharedPreferences = getContext().getSharedPreferences("Login Credentials", Context.MODE_PRIVATE);
+                            SharedPreferences.Editor editor = sharedPreferences.edit();
+                            editor.putString("jwtToken",jwtToken);
+                            editor.apply();
+
                             String[] tokenSegments = jwtToken.split("\\.");
 
                             String decoded = JWTDecoder.decodeBase64(tokenSegments[1]);
@@ -67,6 +77,9 @@ public class LoginFragment extends Fragment {
                             try {
                                 JSONObject jsonObject = new JSONObject(decoded);
                                 String subValue = jsonObject.getString("sub");
+
+                                editor.putInt("memberId", Integer.parseInt(subValue));
+                                editor.apply();
 
                                 System.out.println("Value of 'sub': " + subValue);
 
@@ -78,16 +91,16 @@ public class LoginFragment extends Fragment {
                                             public void onResponse(Call<Member> call, Response<Member> response) {
                                                 if(response.isSuccessful()){
                                                     Toast.makeText(getContext(), "Get Member Successful!", Toast.LENGTH_SHORT).show();
-                                                    Member loggedInMember = response.body();
+                                                    loggedInMember = response.body();
 
-                                                    String username = loggedInMember.getUsername();
-                                                    String email = loggedInMember.getEmail();
+                                                    String loggedInMemberUsername = loggedInMember.getUsername();
+                                                    String loggedInMemberEmail = loggedInMember.getEmail();
 
-                                                    Log.d("USERNAME",username);
-                                                    Log.d("EMAIL",email);
+                                                    Log.d("USERNAME", loggedInMemberUsername);
+                                                    Log.d("EMAIL",loggedInMemberEmail);
                                                 }
                                                 else {
-                                                    Toast.makeText(getContext(), "Get Member Response not ok", Toast.LENGTH_SHORT).show();
+                                                    Toast.makeText(getContext(), "Get Member Response not ok: " + response.message(), Toast.LENGTH_SHORT).show();
                                                 }
 
                                             }

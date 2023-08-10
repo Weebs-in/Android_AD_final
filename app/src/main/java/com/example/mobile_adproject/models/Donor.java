@@ -1,31 +1,28 @@
 package com.example.mobile_adproject.models;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.util.Date;
 
-public class Member {
-    //Attributes
-    private Integer id;
+public class Donor {
+
+    private int id;
+    private LocalDate gmtCreated;
+    private LocalDate gmtModified;
     private String username;
     private String displayName;
     private String phoneNumber;
     private String email;
     private String password;
-    private LocalDate birthday;
+    private Date birthday;
     private int gender;
     private String bio;
     private String avatar;
 
-    private LocalDateTime gmtCreated;
-
-    private LocalDateTime gmtModified;
-
-    // Getters and Setters
-
-    public Integer getId() {
+    public int getId() {
         return id;
     }
-    public void setId(Integer id) {
+
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -69,11 +66,11 @@ public class Member {
         this.password = password;
     }
 
-    public LocalDate getBirthday() {
+    public Date getBirthday() {
         return birthday;
     }
 
-    public void setBirthday( LocalDate birthday) {
+    public void setBirthday(Date birthday) {
         this.birthday = birthday;
     }
 
@@ -100,5 +97,4 @@ public class Member {
     public void setAvatar(String avatar) {
         this.avatar = avatar;
     }
-
 }
