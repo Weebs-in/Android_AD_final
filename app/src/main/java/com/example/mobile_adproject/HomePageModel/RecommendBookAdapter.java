@@ -13,14 +13,15 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mobile_adproject.activities.BookDetailActivity;
 import com.example.mobile_adproject.R;
+import com.example.mobile_adproject.models.Book;
 
 import java.util.List;
 
 public class RecommendBookAdapter extends RecyclerView.Adapter<RecommendBookAdapter.RecommendBookViewHolder> {
     Context context;
-    List<RecommendBook> recommendBookList;
+    List<Book> recommendBookList;
 
-    public RecommendBookAdapter(Context context, List<RecommendBook> recommendBookList) {
+    public RecommendBookAdapter(Context context, List<Book> recommendBookList) {
         this.context = context;
         this.recommendBookList = recommendBookList;
     }
@@ -36,8 +37,8 @@ public class RecommendBookAdapter extends RecyclerView.Adapter<RecommendBookAdap
     @Override
     public void onBindViewHolder(@NonNull RecommendBookViewHolder holder, int position) {
 
-        /*holder.bookTitle.setText(recommendBookList.get(position).getTitle());
-        holder.bookAuthor.setText(recommendBookList.get(position).getAuthor());*/
+        holder.bookTitle.setText(recommendBookList.get(position).getTitle());
+        holder.bookAuthor.setText(recommendBookList.get(position).getAuthor());
         //String url = recommendBookList.get(position).getCover(); // get image URL
         //load the picture
 

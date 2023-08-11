@@ -2,6 +2,8 @@ package com.example.mobile_adproject.retrofit;
 
 import com.google.gson.Gson;
 
+import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -14,14 +16,20 @@ public class RetrofitService {
     }
 
     private void initializeRetrofit() {
-    /*    OkHttpClient httpClient = new OkHttpClient.Builder()
-                .addInterceptor(new HeaderInterceptor()) // 添加拦截器
-                .build();*/
+
+        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
+        interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+
+        OkHttpClient client = new OkHttpClient.Builder()
+                .addInterceptor(interceptor)
+                .build();
+
         retrofit = new Retrofit.Builder()
                 .baseUrl("https://adt8api.azurewebsites.net")
-               // .client(httpClient) // 使用带有拦截器的OkHttpClient
+                .client(client)
                 .addConverterFactory(GsonConverterFactory.create(new Gson()))
                 .build();
+
     }
 
     public Retrofit getRetrofit(){

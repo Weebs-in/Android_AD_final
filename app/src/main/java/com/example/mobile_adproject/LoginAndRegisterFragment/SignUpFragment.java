@@ -14,7 +14,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.mobile_adproject.R;
-import com.example.mobile_adproject.api_responses.SignupApiResponse;
+import com.example.mobile_adproject.models.Member;
 import com.example.mobile_adproject.retrofit.MemberApi;
 import com.example.mobile_adproject.retrofit.RetrofitService;
 
@@ -47,11 +47,11 @@ public class SignUpFragment extends Fragment {
             String email = String.valueOf(inputEmail.getText());
             String phone = String.valueOf(inputPhone.getText());
 
-            SignupApiResponse signupApiResponse = new SignupApiResponse();
-            signupApiResponse.setUsername(username);
-            signupApiResponse.setPassword(password);
-            signupApiResponse.setEmail(email);
-            signupApiResponse.setPhoneNumber(phone);
+            Member member = new Member();
+            member.setUsername(username);
+            member.setPassword(password);
+            member.setEmail(email);
+            member.setPhoneNumber(phone);
 
 //            LocalDate currentDate = LocalDate.now();
 //
@@ -61,15 +61,15 @@ public class SignUpFragment extends Fragment {
 //            LocalDate localDate = LocalDate.parse(formattedDate, formatter);
 //
 //            member.setBirthday(localDate);
-            signupApiResponse.setBio("Bio");
-            signupApiResponse.setDisplayName("DisplayName");
-            signupApiResponse.setGender(0);
-            signupApiResponse.setAvatar("Avatar");
+            member.setBio("Bio");
+            member.setDisplayName("DisplayName");
+            member.setGender(0);
+            member.setAvatar("Avatar");
 
-            memberApi.create(signupApiResponse)
-                    .enqueue(new Callback<SignupApiResponse>() {
+            memberApi.create(member)
+                    .enqueue(new Callback<Member>() {
                         @Override
-                        public void onResponse(Call<SignupApiResponse> call, Response<SignupApiResponse> response) {
+                        public void onResponse(Call<Member> call, Response<Member> response) {
                             if(response.isSuccessful()){
                                 Toast.makeText(getContext(), "Account Created Successfully!", Toast.LENGTH_SHORT).show();
                             }
@@ -79,7 +79,7 @@ public class SignUpFragment extends Fragment {
                         }
 
                         @Override
-                        public void onFailure(Call<SignupApiResponse> call, Throwable t) {
+                        public void onFailure(Call<Member> call, Throwable t) {
                             Toast.makeText(getContext(), "Account Failed to Create: " + t.getMessage(), Toast.LENGTH_SHORT).show();
                             t.printStackTrace(); // Print the full stack trace to see the detailed error
                             Log.d("TAG", "This is a debug log message.");
