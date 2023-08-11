@@ -1,0 +1,128 @@
+Index: app/src/main/java/com/example/mobile_adproject/retrofit/BookApi.java
+===================================================================
+diff --git a/app/src/main/java/com/example/mobile_adproject/retrofit/BookApi.java b/app/src/main/java/com/example/mobile_adproject/retrofit/BookApi.java
+--- a/app/src/main/java/com/example/mobile_adproject/retrofit/BookApi.java	
++++ b/app/src/main/java/com/example/mobile_adproject/retrofit/BookApi.java	
+@@ -30,4 +30,7 @@
+     @DELETE("/api/book/{id}")
+     Call<Void> deleteBookById(@Path("id") int id);
+ 
++    @GET("/api/book/recommnad")
++    Call<List<Book>> recommandationBook(@Header("Authorization") String authorizationHeader);
++
+ }
+Index: app/src/main/java/com/example/mobile_adproject/retrofit/RetrofitService.java
+===================================================================
+diff --git a/app/src/main/java/com/example/mobile_adproject/retrofit/RetrofitService.java b/app/src/main/java/com/example/mobile_adproject/retrofit/RetrofitService.java
+--- a/app/src/main/java/com/example/mobile_adproject/retrofit/RetrofitService.java	
++++ b/app/src/main/java/com/example/mobile_adproject/retrofit/RetrofitService.java	
+@@ -25,7 +25,7 @@
+                 .build();
+ 
+         retrofit = new Retrofit.Builder()
+-                .baseUrl("https://adt8api.azurewebsites.net")
++                .baseUrl("https://adt8api.azurewebsites.net-")
+                 .client(client)
+                 .addConverterFactory(GsonConverterFactory.create(new Gson()))
+                 .build();
+Index: app/src/main/java/com/example/mobile_adproject/LoginAndRegisterFragment/LoginFragment.java
+===================================================================
+diff --git a/app/src/main/java/com/example/mobile_adproject/LoginAndRegisterFragment/LoginFragment.java b/app/src/main/java/com/example/mobile_adproject/LoginAndRegisterFragment/LoginFragment.java
+--- a/app/src/main/java/com/example/mobile_adproject/LoginAndRegisterFragment/LoginFragment.java	
++++ b/app/src/main/java/com/example/mobile_adproject/LoginAndRegisterFragment/LoginFragment.java	
+@@ -59,7 +59,7 @@
+                         @Override
+                         public void onResponse(Call<LoginApiResponse> call, Response<LoginApiResponse> response) {
+                             LoginApiResponse loginApiResponse = response.body();
+-                            String jwtToken = loginApiResponse.accessToken;
++                            String jwtToken = loginApiResponse.getAccessToken();
+                             Toast.makeText(getContext(), "Login Successful!" + jwtToken, Toast.LENGTH_SHORT).show();
+ 
+                             sharedPreferences = getContext().getSharedPreferences("Login Credentials", Context.MODE_PRIVATE);
+Index: app/src/main/java/com/example/mobile_adproject/activities/MainActivity.java
+===================================================================
+diff --git a/app/src/main/java/com/example/mobile_adproject/activities/MainActivity.java b/app/src/main/java/com/example/mobile_adproject/activities/MainActivity.java
+--- a/app/src/main/java/com/example/mobile_adproject/activities/MainActivity.java	
++++ b/app/src/main/java/com/example/mobile_adproject/activities/MainActivity.java	
+@@ -4,7 +4,9 @@
+ import android.content.Intent;
+ import android.content.SharedPreferences;
+ import android.os.Bundle;
++import android.text.TextWatcher;
+ import android.view.View;
++import android.widget.EditText;
+ import android.widget.ImageView;
+ import android.widget.Toast;
+ 
+@@ -34,11 +36,40 @@
+     ImageView donate;
+     ImageView profile;
+     SharedPreferences sharedPreferences;
++    String jwtToken;
++    String authorizationHeader;
++
++    EditText searchBook;
++
+ 
+     @Override
+     protected void onCreate(Bundle savedInstanceState) {
+         super.onCreate(savedInstanceState);
+         setContentView(R.layout.activity_main);
++        sharedPreferences = getSharedPreferences("Login Credentials", Context.MODE_PRIVATE);
++
++        jwtToken = sharedPreferences.getString("jwtToken","");
++
++        authorizationHeader = "Bearer " + jwtToken;
++
++        searchBook=findViewById(R.id.search_books);
++        searchBook.addTextChangedListener(new TextWatcher() {
++            @Override
++            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
++
++            }
++
++            @Override
++            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
++                // When the user types, perform search
++                performSearch(charSequence.toString());
++            }
++
++            @Override
++            public void afterTextChanged(Editable editable) {
++                // Not needed for this example
++            }
++        });
+         //add some data just for testing
+        /* List<RecommendBook> recommendBookList=new ArrayList<>();
+         recommendBookList.add(new RecommendBook(1L,1,"Harry Potter and the Order of the Phoenix","J. K. Rowling",
+@@ -76,11 +107,7 @@
+         RetrofitService retrofitService = new RetrofitService();
+         BookApi bookApi = retrofitService.getRetrofit().create(BookApi.class);
+ 
+-        sharedPreferences = getSharedPreferences("Login Credentials", Context.MODE_PRIVATE);
+ 
+-        String jwtToken = sharedPreferences.getString("jwtToken","");
+-
+-        String authorizationHeader = "Bearer " + jwtToken;
+ 
+         bookApi.getAllBook(authorizationHeader)
+                         .enqueue(new Callback<List<Book>>() {
+Index: .idea/misc.xml
+===================================================================
+diff --git a/.idea/misc.xml b/.idea/misc.xml
+--- a/.idea/misc.xml	
++++ b/.idea/misc.xml	
+@@ -1,3 +1,4 @@
++<?xml version="1.0" encoding="UTF-8"?>
+ <project version="4">
+   <component name="DesignSurface">
+     <option name="filePathToZoomLevelMap">
+@@ -48,7 +49,7 @@
+   <component name="ProjectPlainTextFileTypeManager">
+     <file url="file://$PROJECT_DIR$/app/src/main/res/drawable/ic_baseline_check_circle_24.xml" />
+   </component>
+-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="ibm-11" project-jdk-type="JavaSDK">
++  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK">
+     <output url="file://$PROJECT_DIR$/build/classes" />
+   </component>
+   <component name="ProjectType">

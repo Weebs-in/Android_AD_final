@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    app:cardCornerRadius="10dp"
+    android:elevation="5dp"
+    android:layout_marginTop="8dp"
+    android:layout_marginStart="8dp"
+    android:layout_marginEnd="8dp"
+    android:layout_height="wrap_content">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <ImageView
+            android:id="@+id/book_cover"
+            android:layout_width="0dp"
+            android:layout_height="115dp"
+            android:adjustViewBounds="true"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/book" />
+
+        <TextView
+            android:id="@+id/book_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:text="Harry Potter and the Order of the Phoenix"
+            android:textColor="#091020"
+            android:textSize="15sp"
+            app:layout_constraintStart_toEndOf="@+id/book_cover"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <TextView
+            android:id="@+id/book_author"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Author: "
+            android:textColor="#044363"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="@+id/book_title"
+            app:layout_constraintTop_toBottomOf="@+id/book_title" />
+
+        <TextView
+            android:id="@+id/book_author_need_add_transaction"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="J. K. Rowling"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@+id/book_author"
+            app:layout_constraintStart_toEndOf="@+id/book_author" />
+
+        <TextView
+            android:id="@+id/book_donor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Donor: "
+            android:textColor="#044363"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="@+id/book_author"
+            app:layout_constraintTop_toBottomOf="@+id/book_author" />
+
+        <TextView
+            android:id="@+id/book_donor_need_add_transaction"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="admin"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@+id/book_donor"
+            app:layout_constraintStart_toEndOf="@+id/book_donor" />
+
+        <TextView
+            android:id="@+id/book_recipient"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Recipient: "
+            android:textColor="#044363"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="@+id/book_donor"
+            app:layout_constraintTop_toBottomOf="@+id/book_donor" />
+
+        <TextView
+            android:id="@+id/book_recipient_need_add_transaction"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="mnbvcxz"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@+id/book_recipient"
+            app:layout_constraintStart_toEndOf="@+id/book_recipient" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>
