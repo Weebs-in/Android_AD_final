@@ -1,10 +1,13 @@
 package com.example.mobile_adproject.activities;
 
+import android.Manifest;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -20,8 +23,10 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.FileProvider;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
+import com.bumptech.glide.Glide;
 import com.example.mobile_adproject.R;
 import com.example.mobile_adproject.models.Book;
 import com.example.mobile_adproject.models.Donor;
@@ -32,10 +37,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialog;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.Locale;
-
-import com.bumptech.glide.Glide;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -45,6 +47,8 @@ public class DonateBookActivity extends AppCompatActivity {
     private SimpleDateFormat simpleDateFormat=new SimpleDateFormat("HHmmss", Locale.CHINA);
 
     private int REQUEST_CAMERA=110;
+    private static final int CAMERA_PERMISSION_CODE = 1001;
+    private static final int STORAGE_PERMISSION_CODE = 1002;
     private int REQUEST_PICKER=111;
     private File file=null;
     ImageView cover;
@@ -119,23 +123,23 @@ public class DonateBookActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if(resultCode==RESULT_OK){
             if(requestCode==REQUEST_CAMERA){
-                Glide.with(this).load(file).into(cover);
+                Bundle extras = data.getExtras();
+                Bitmap imageBitmap = (Bitmap) extras.get("data");
+                cover.setImageBitmap(imageBitmap);
             }else if(requestCode==REQUEST_PICKER){
-                try{
-                    Uri data1 = data.getData();
-                    ContentResolver contentResolver = getContentResolver();
-                    String[] colum={MediaStore.Images.ImageColumns.DATA};
-                    Cursor query = contentResolver.query(data1, colum, null, null, null);
-                    query.moveToNext();
-                    int columnIndex = query.getColumnIndex(colum[0]);
-                    String string = query.getString(columnIndex);
-                    Glide.with(this).load(string).into(cover);
-                }catch (NullPointerException e){
+                Uri selectedImageUri = data.getData();
+                try {
+                    // 将选中的图片 Uri 转换为 Bitmap
+                    Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), selectedImageUri);
+                    // 将 Bitmap 设置给 ImageView
+                    cover.setImageBitmap(bitmap);
+                } catch (IOException e) {
                     e.printStackTrace();
                 }
             }
         }
     }
+
 
     protected void init(){
         String[] mode={"Camera","Pick","Cancel"};
@@ -157,18 +161,29 @@ public class DonateBookActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 switch (position) {
                     case 0:
-                        // 处理Camera的点击事件
-                        Intent intent=new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                        file = new File(getExternalCacheDir(), simpleDateFormat.format(new Date()) + ".png");
-                        Uri uriForFile = FileProvider.getUriForFile(DonateBookActivity.this, "com.example.mobile_adproject.fileProvider", file);
-                        intent.putExtra(MediaStore.EXTRA_OUTPUT,uriForFile);
-                        startActivityForResult(intent,REQUEST_CAMERA);
+
+                        if (ContextCompat.checkSelfPermission(DonateBookActivity.this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+                            ActivityCompat.requestPermissions(DonateBookActivity.this, new String[]{Manifest.permission.CAMERA}, CAMERA_PERMISSION_CODE);
+                        }
+                            // 启动相机应用
+                            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                            if (intent.resolveActivity(getPackageManager()) != null) {
+                                try {
+                                    startActivityForResult(intent, REQUEST_CAMERA);
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+                            }
                         break;
                     case 1:
-                        // 处理Pick的点击事件
-                        Intent intent1 = new Intent(Intent.ACTION_PICK);
-                        intent1.setType("image/*");
-                        startActivityForResult(intent1,REQUEST_PICKER);
+                        if (ContextCompat.checkSelfPermission(DonateBookActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                            ActivityCompat.requestPermissions(DonateBookActivity.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, STORAGE_PERMISSION_CODE);
+                        }
+                        Intent galleryIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                        galleryIntent.setType("image/*");
+                        if (galleryIntent.resolveActivity(getPackageManager()) != null) {
+                            startActivityForResult(galleryIntent, REQUEST_PICKER);
+                        }
                         break;
                     case 2:
                         // 处理Cancel的点击事件
