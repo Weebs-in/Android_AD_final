@@ -14,6 +14,8 @@ public class TransactionHistoryData {
     private BigDecimal rating_recipient;
     private LocalDateTime gmt_create;
     private LocalDateTime gmt_modified;
+    private LocalDateTime  createTime;
+    private LocalDateTime completeTime;
 
     public Long getTransaction_id() {
         return transaction_id;
