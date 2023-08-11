@@ -94,7 +94,8 @@ public class DonateBookActivity extends AppCompatActivity {
                         public void onResponse(Call<Book> call, Response<Book> response) {
                             if(response.isSuccessful()){
                                 Toast.makeText(DonateBookActivity.this, "Create Book Successful!", Toast.LENGTH_SHORT).show();
-                                Book responseBook = response.body();
+                                Intent intent = new Intent(DonateBookActivity.this, ProfileActivity.class);
+                                startActivity(intent);
                             }
                             else {
                                 try {
