@@ -38,6 +38,8 @@ public class MainActivity extends AppCompatActivity {
     ImageView profile;
     SharedPreferences sharedPreferences;
 
+    String authorizationHeader;
+
     EditText searchbook;
     RetrofitService retrofitService = new RetrofitService();
     BookApi bookApi = retrofitService.getRetrofit().create(BookApi.class);
@@ -51,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
 
         String jwtToken = sharedPreferences.getString("jwtToken","");
 
-        String authorizationHeader = "Bearer " + jwtToken;
+         authorizationHeader = "Bearer " + jwtToken;
 
 
 
@@ -227,7 +229,22 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void performSearch(String toString) {
+    private void performSearch(String search) {
+        bookApi.searchBook(search,authorizationHeader)
+                .enqueue(new Callback<List<Book>>() {
+                    @Override
+                    public void onResponse(Call<List<Book>> call, Response<List<Book>> response) {
+                        if(response.isSuccessful()){
+                            Toast.makeText(MainActivity.this, "Get Recommand  Book Successful!", Toast.LENGTH_SHORT).show();
+                            setRecommendRecycler(response.body());
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<List<Book>> call, Throwable t) {
+                        Toast.makeText(MainActivity.this, "Get Recommand Book Failed: " , Toast.LENGTH_SHORT).show();
+                    }
+                });
     }
 
     private  void setRecommendRecycler(List<Book> recommendBookList){
