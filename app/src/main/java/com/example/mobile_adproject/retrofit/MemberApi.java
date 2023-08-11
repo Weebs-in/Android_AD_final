@@ -16,7 +16,7 @@ public interface MemberApi {
     @POST("/api/member")
     Call<Member> create(@Body Member member);
     @GET("/api/member/{id}")
-    Call<Member> getMemberById(@Path("id") Integer id,
+    Call<Member> getMemberById(@Path("id") Long id,
                                @Header("Authorization") String authorizationHeader);
 
     @POST("/auth/login")

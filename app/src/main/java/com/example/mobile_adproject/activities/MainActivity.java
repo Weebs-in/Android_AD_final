@@ -12,14 +12,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.mobile_adproject.HomePageModel.RecommendBook;
 import com.example.mobile_adproject.HomePageModel.RecommendBookAdapter;
 import com.example.mobile_adproject.R;
 import com.example.mobile_adproject.models.Book;
 import com.example.mobile_adproject.retrofit.BookApi;
 import com.example.mobile_adproject.retrofit.RetrofitService;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -101,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
                             @Override
                             public void onFailure(Call<List<Book>> call, Throwable t) {
                                 Toast.makeText(MainActivity.this, "Get All Books Response Failed!", Toast.LENGTH_SHORT).show();
-
+                                t.printStackTrace(); // Print the full stack trace to see the detailed error
                             }
                         });
 

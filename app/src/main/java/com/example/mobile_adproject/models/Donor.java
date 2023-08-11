@@ -1,13 +1,12 @@
 package com.example.mobile_adproject.models;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 public class Donor {
 
-    private int id;
-    private LocalDate gmtCreated;
-    private LocalDate gmtModified;
+    private Long id;
     private String username;
     private String displayName;
     private String phoneNumber;
@@ -18,11 +17,11 @@ public class Donor {
     private String bio;
     private String avatar;
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

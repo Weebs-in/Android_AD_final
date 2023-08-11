@@ -18,9 +18,6 @@ public class Book {
     private int likeCount;
     private Donor donor;
 
-    private LocalDateTime gmtCreated;
-    private LocalDateTime gmtModified;
-
     // Getters and Setters
 
     public int getIsbn() {

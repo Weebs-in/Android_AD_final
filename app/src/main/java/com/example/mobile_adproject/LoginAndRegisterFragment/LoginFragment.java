@@ -78,14 +78,14 @@ public class LoginFragment extends Fragment {
                                 JSONObject jsonObject = new JSONObject(decoded);
                                 String subValue = jsonObject.getString("sub");
 
-                                editor.putInt("memberId", Integer.parseInt(subValue));
+                                editor.putLong("memberId", Long.parseLong(subValue));
                                 editor.apply();
 
                                 System.out.println("Value of 'sub': " + subValue);
 
                                 String authorizationHeader = "Bearer " + jwtToken;
 
-                                memberApi.getMemberById(Integer.parseInt(subValue), authorizationHeader)
+                                memberApi.getMemberById(Long.parseLong(subValue), authorizationHeader)
                                         .enqueue(new Callback<Member>() {
                                             @Override
                                             public void onResponse(Call<Member> call, Response<Member> response) {

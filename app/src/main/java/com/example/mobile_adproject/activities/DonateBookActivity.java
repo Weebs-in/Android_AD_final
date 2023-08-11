@@ -22,11 +22,9 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.FileProvider;
 
-import com.example.mobile_adproject.LoginAndRegisterFragment.LoginFragment;
 import com.example.mobile_adproject.R;
 import com.example.mobile_adproject.models.Book;
 import com.example.mobile_adproject.models.Donor;
-import com.example.mobile_adproject.models.Member;
 import com.example.mobile_adproject.retrofit.BookApi;
 import com.example.mobile_adproject.retrofit.RetrofitService;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
@@ -67,16 +65,12 @@ public class DonateBookActivity extends AppCompatActivity {
             sharedPreferences = getSharedPreferences("Login Credentials", Context.MODE_PRIVATE);
 
             String jwtToken = sharedPreferences.getString("jwtToken","");
-            Integer loggedInMemberId = sharedPreferences.getInt("memberId",0);
+            Long loggedInMemberId = sharedPreferences.getLong("memberId",0);
 
             System.out.println("Token " + jwtToken );
 
-            Member loggedInMember = LoginFragment.loggedInMember;
-
             Donor donor = new Donor();
             donor.setId(loggedInMemberId);
-            donor.setUsername(loggedInMember.getUsername());
-            donor.setEmail(loggedInMember.getEmail());
 
             Book book = new Book();
             book.setIsbn(123456);
@@ -101,7 +95,6 @@ public class DonateBookActivity extends AppCompatActivity {
                             if(response.isSuccessful()){
                                 Toast.makeText(DonateBookActivity.this, "Create Book Successful!", Toast.LENGTH_SHORT).show();
                                 Book responseBook = response.body();
-                                System.out.println("BOOK RESPONSE" + responseBook);
                             }
                             else {
                                 try {
@@ -115,7 +108,7 @@ public class DonateBookActivity extends AppCompatActivity {
                         @Override
                         public void onFailure(Call<Book> call, Throwable t) {
                             Toast.makeText(DonateBookActivity.this, "Response Failed!", Toast.LENGTH_SHORT).show();
-
+                            t.printStackTrace(); // Print the full stack trace to see the detailed error
                         }
                     });
         });
