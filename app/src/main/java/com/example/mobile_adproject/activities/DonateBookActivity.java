@@ -98,7 +98,7 @@ public class DonateBookActivity extends AppCompatActivity {
                             }
                             else {
                                 try {
-                                    Toast.makeText(DonateBookActivity.this, "Create Book Failed: " + response.message() + response.errorBody().string(), Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(DonateBookActivity.this, "Failed to Create Book: " + response.message() + response.errorBody().string(), Toast.LENGTH_SHORT).show();
                                 } catch (IOException e) {
                                     throw new RuntimeException(e);
                                 }
@@ -107,7 +107,7 @@ public class DonateBookActivity extends AppCompatActivity {
                         }
                         @Override
                         public void onFailure(Call<Book> call, Throwable t) {
-                            Toast.makeText(DonateBookActivity.this, "Response Failed!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(DonateBookActivity.this, "Create Book Response Failed!", Toast.LENGTH_SHORT).show();
                             t.printStackTrace(); // Print the full stack trace to see the detailed error
                         }
                     });

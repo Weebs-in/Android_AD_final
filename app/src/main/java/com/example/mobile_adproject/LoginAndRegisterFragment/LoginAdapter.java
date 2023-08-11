@@ -36,3 +36,5 @@ public class LoginAdapter extends FragmentPagerAdapter {
         return totalTabs;
     }
 }
+
+

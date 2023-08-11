@@ -6,10 +6,11 @@ import androidx.viewpager.widget.ViewPager;
 import android.os.Bundle;
 
 import com.example.mobile_adproject.LoginAndRegisterFragment.LoginAdapter;
+import com.example.mobile_adproject.LoginAndRegisterFragment.SignUpFragment;
 import com.example.mobile_adproject.R;
 import com.google.android.material.tabs.TabLayout;
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity implements SignUpFragment.OnNavigateToLoginListener {
 
     TabLayout tabLayout;//provide the choice (login or register)
     ViewPager viewPager;//change the page between login or register
@@ -42,5 +43,10 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    @Override
+    public void onNavigateToLogin() {
+        viewPager.setCurrentItem(0); // Switch to the Login tab (position 0)
     }
 }

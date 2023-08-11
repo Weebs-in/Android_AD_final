@@ -1,5 +1,6 @@
 package com.example.mobile_adproject.LoginAndRegisterFragment;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -12,6 +13,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.example.mobile_adproject.R;
 import com.example.mobile_adproject.models.Member;
@@ -61,29 +64,28 @@ public class SignUpFragment extends Fragment {
 //            LocalDate localDate = LocalDate.parse(formattedDate, formatter);
 //
 //            member.setBirthday(localDate);
-            member.setBio("Bio");
-            member.setDisplayName("DisplayName");
-            member.setGender(0);
-            member.setAvatar("Avatar");
+//            member.setBio("Bio");
+//            member.setDisplayName("DisplayName");
+//            member.setGender(0);
+//            member.setAvatar("Avatar");
 
             memberApi.create(member)
                     .enqueue(new Callback<Member>() {
                         @Override
                         public void onResponse(Call<Member> call, Response<Member> response) {
                             if(response.isSuccessful()){
-                                Toast.makeText(getContext(), "Account Created Successfully!", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getContext(), "Member Created Successfully!", Toast.LENGTH_SHORT).show();
+                                navigateToLoginListener.onNavigateToLogin(); // Notify the activity to switch to the Login tab
                             }
                             else {
-                                Toast.makeText(getContext(), "Response not ok", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getContext(), "Failed to Create Member: " + response.message(), Toast.LENGTH_SHORT).show();
                             }
                         }
 
                         @Override
                         public void onFailure(Call<Member> call, Throwable t) {
-                            Toast.makeText(getContext(), "Account Failed to Create: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getContext(), "Member Create Response Failed: " + t.getMessage(), Toast.LENGTH_SHORT).show();
                             t.printStackTrace(); // Print the full stack trace to see the detailed error
-                            Log.d("TAG", "This is a debug log message.");
-
                         }
                     });
         }
@@ -91,5 +93,23 @@ public class SignUpFragment extends Fragment {
         return root;
     }
 
+    /*** Navigating to Login Fragment after successful registration ***/
+    public interface OnNavigateToLoginListener {
+        void onNavigateToLogin();
+    }
+
+    private OnNavigateToLoginListener navigateToLoginListener;
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        try {
+            navigateToLoginListener = (OnNavigateToLoginListener) context;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(context.toString() + " must implement OnNavigateToLoginListener");
+        }
+    }
+
+    /*** Navigating to Login Fragment after successful registration ***/
 
 }

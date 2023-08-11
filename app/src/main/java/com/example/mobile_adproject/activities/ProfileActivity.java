@@ -1,6 +1,8 @@
 package com.example.mobile_adproject.activities;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -23,16 +25,29 @@ public class ProfileActivity extends AppCompatActivity {
 
     TextView username_profile;
     TextView email_profile;
-    private String usernameToSend;
-    private String emailToSend;
 
     TabLayout tabLayout;//provide the choice
     ViewPager viewPager;//change the page
+
+    SharedPreferences sharedPreferences;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
+        // Shared Preferences
+        sharedPreferences = getSharedPreferences("Login Credentials", Context.MODE_PRIVATE);
+        String usernameProfile = sharedPreferences.getString("username","");
+        String emailProfile = sharedPreferences.getString("email", "");
+
+        username_profile = findViewById(R.id.username_profile);
+        email_profile = findViewById(R.id.email_profile);
+
+        // Setting Text Views
+        if(!(usernameProfile.isEmpty() && emailProfile.isEmpty())){
+            username_profile.setText(usernameProfile);
+            email_profile.setText(emailProfile);
+        }
 
         tabLayout=findViewById(R.id.tab_layout);
         viewPager=findViewById(R.id.viewPager_profile);
