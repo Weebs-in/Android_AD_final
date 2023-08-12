@@ -12,11 +12,14 @@ import retrofit2.http.Header;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 public interface BookApi {
 
     @POST("/api/book")
     Call<Book> createBook(@Body Book book, @Header("Authorization") String authorizationHeader);
+     @POST("/api/book/Complete")
+    Call<Void> sendCompleteTransactionStatus(@Query("recipientId")Long recipientId,@Query("BookId")Long bookId,@Header("Authorization") String authorizationHeader);
 
     @GET("/api/book")
     Call<List<Book>> getAllBooks(@Header("Authorization") String authorizationHeader);

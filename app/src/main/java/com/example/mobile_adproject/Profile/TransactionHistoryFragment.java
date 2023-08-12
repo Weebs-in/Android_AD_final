@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mobile_adproject.R;
+import com.example.mobile_adproject.models.TransactionHistoryData;
 
 import java.util.ArrayList;
 import java.util.List;

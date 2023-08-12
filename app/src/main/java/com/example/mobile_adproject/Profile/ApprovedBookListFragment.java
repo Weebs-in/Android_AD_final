@@ -31,6 +31,11 @@ public class ApprovedBookListFragment extends Fragment {
     ApprovedBookAdapter approvedBookAdapter;
 
     SharedPreferences sharedPreferences;
+   static String authorizationHeader;
+  static   Long recipientId;
+
+
+
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle save){
         ViewGroup root=(ViewGroup) inflater.inflate(R.layout.approved_book_list,container,false);
         approvedBookRecycler=root.findViewById(R.id.approved_recycleView);
@@ -41,9 +46,9 @@ public class ApprovedBookListFragment extends Fragment {
         sharedPreferences = getActivity().getSharedPreferences("Login Credentials", Context.MODE_PRIVATE);
 
         String jwtToken = sharedPreferences.getString("jwtToken","");
-        Long recipientId = sharedPreferences.getLong("memberId",0);
+        recipientId = sharedPreferences.getLong("memberId",0);
 
-        String authorizationHeader = "Bearer " + jwtToken;
+        authorizationHeader = "Bearer " + jwtToken;
 
         bookApi.approvedBookByRecipientId(recipientId,authorizationHeader)
                 .enqueue(new Callback<List<Book>>() {
@@ -61,7 +66,7 @@ public class ApprovedBookListFragment extends Fragment {
 
                     @Override
                     public void onFailure(Call<List<Book>> call, Throwable t) {
-                        Toast.makeText(getContext(), "Get All Donated Books Response Failed!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), "Get ApprovedBookList Response Failed!", Toast.LENGTH_SHORT).show();
                         t.printStackTrace(); // Print the full stack trace to see the detailed error
                     }
                 });
@@ -89,6 +94,12 @@ public class ApprovedBookListFragment extends Fragment {
         return root;
 
     }
+
+    public static void sendTransactionCompletetoServer(Long bookId) {
+        RetrofitService retrofitService = new RetrofitService();
+        BookApi bookApi1 = retrofitService.getRetrofit().create(BookApi.class);
+        bookApi1.sendCompleteTransactionStatus(recipientId,bookId,authorizationHeader);
+    }
     private  void setTransactionRecycler(List<Book> transactionHistoryData){
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false);
@@ -98,4 +109,5 @@ public class ApprovedBookListFragment extends Fragment {
 
 
     }
+
 }

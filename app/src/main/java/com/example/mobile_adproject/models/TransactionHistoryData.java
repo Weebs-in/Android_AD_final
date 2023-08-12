@@ -1,4 +1,4 @@
-package com.example.mobile_adproject.Profile;
+package com.example.mobile_adproject.models;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
