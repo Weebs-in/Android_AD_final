@@ -42,6 +42,8 @@ public class MainActivity extends AppCompatActivity {
     EditText searchbook;
 
     String authorizationHeader;
+
+    Long memberId;
     RetrofitService retrofitService = new RetrofitService();
     BookApi bookApi = retrofitService.getRetrofit().create(BookApi.class);
 
@@ -116,6 +118,7 @@ public class MainActivity extends AppCompatActivity {
         sharedPreferences = getSharedPreferences("Login Credentials", Context.MODE_PRIVATE);
 
         String jwtToken = sharedPreferences.getString("jwtToken","");
+        memberId = sharedPreferences.getLong("memberId", 0);
 
         if(jwtToken.isEmpty()){
             btnLogout.setVisibility(View.GONE);
@@ -241,7 +244,7 @@ public class MainActivity extends AppCompatActivity {
                         }
                     });
         }else {
-            bookApi.recommandBook(header)
+            bookApi.recommandBook(memberId,header)
                     .enqueue(new Callback<List<Book>>() {
                         @Override
                         public void onResponse(Call<List<Book>> call, Response<List<Book>> response) {

@@ -9,15 +9,16 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mobile_adproject.R;
+import com.example.mobile_adproject.models.Book;
 
 import java.util.List;
 
 public class ApprovedBookAdapter  extends RecyclerView.Adapter<ApprovedBookAdapter.ApprovedBookViewHolder>{
     Context context;
-    List<TransactionHistoryData> transactionHistoryData;
+    List<Book> transactionHistoryData;
 
 
-    public ApprovedBookAdapter(Context context, List<TransactionHistoryData> transactionHistoryData) {
+    public ApprovedBookAdapter(Context context, List<Book> transactionHistoryData) {
         this.context = context;
         this.transactionHistoryData = transactionHistoryData;
     }

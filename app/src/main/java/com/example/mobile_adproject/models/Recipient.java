@@ -8,6 +8,7 @@ public class Recipient {
     private String displayName;
     private String phoneNumber;
     private String email;
+
     private String password;
     private Date birthday;
     private int gender;
