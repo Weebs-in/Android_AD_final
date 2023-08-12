@@ -33,4 +33,9 @@ public interface BookApi {
     @DELETE("/api/book/{id}")
     Call<Void> deleteBookById(@Path("id") int id);
 
+    @GET("/api/book/{id}")
+    Call<Book> getBookByIds(@Header("Authorization") String authorizationHeader, @Path("id") Long id);
+
+
+
 }

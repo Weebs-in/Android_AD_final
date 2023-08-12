@@ -194,4 +194,6 @@ public class MainActivity extends AppCompatActivity {
         recommendRecycler.setAdapter(recommendBookAdapter);
 
     }
+
+
 }

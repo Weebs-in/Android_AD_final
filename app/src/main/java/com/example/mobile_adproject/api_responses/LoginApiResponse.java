@@ -10,7 +10,7 @@ public class LoginApiResponse {
     @SerializedName("password")
     private String password;
 
-    public String getAccessToken() {
+    public static String getAccessToken() {
         return accessToken;
     }
 
