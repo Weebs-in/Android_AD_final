@@ -22,7 +22,9 @@ public class ApprovedBookListFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle save){
         ViewGroup root=(ViewGroup) inflater.inflate(R.layout.approved_book_list,container,false);
         approvedBookRecycler=root.findViewById(R.id.approved_recycleView);
-        List<TransactionHistoryData> transactionHistoryData=new ArrayList<>();
+
+
+        /*List<TransactionHistoryData> transactionHistoryData=new ArrayList<>();
         transactionHistoryData.add(new TransactionHistoryData());
         transactionHistoryData.add(new TransactionHistoryData());
         transactionHistoryData.add(new TransactionHistoryData());
@@ -37,7 +39,7 @@ public class ApprovedBookListFragment extends Fragment {
         transactionHistoryData.add(new TransactionHistoryData());
         transactionHistoryData.add(new TransactionHistoryData());
         transactionHistoryData.add(new TransactionHistoryData());
-        setTransactionRecycler(transactionHistoryData);
+        setTransactionRecycler(transactionHistoryData);*/
 
         return root;
 
