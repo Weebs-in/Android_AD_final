@@ -27,6 +27,14 @@ public interface BookApi {
     @GET("/api/book/{id}")
     Call<Book> getBookById(@Path("id") int id);
 
+    @GET("/api/book/randaom")
+    Call<List<Book>> randomBook();
+
+    @GET("/api/book/randaom")
+    Call<List<Book>> recommandBook(@Header("Authorization") String  authorizationHeader);
+
+    Call<List<Book>> search(@Body String search,@Header("Authorization") String  authorizationHeader);
+
     @PUT("/api/book/{id}")
     Call<Book> editBookById(@Path("id") int id, @Body Book book);
 
