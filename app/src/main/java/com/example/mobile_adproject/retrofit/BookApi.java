@@ -19,7 +19,10 @@ public interface BookApi {
     Call<Book> createBook(@Body Book book, @Header("Authorization") String authorizationHeader);
 
     @GET("/api/book")
-    Call<List<Book>> getAllBook(@Header("Authorization") String authorizationHeader);
+    Call<List<Book>> getAllBooks(@Header("Authorization") String authorizationHeader);
+
+    @GET("/api/book/donor/{id}")
+    Call<List<Book>> getAllBooksByDonor(@Path("id") Long id, @Header("Authorization") String authorizationHeader);
 
     @GET("/api/book/{id}")
     Call<Book> getBookById(@Path("id") int id);

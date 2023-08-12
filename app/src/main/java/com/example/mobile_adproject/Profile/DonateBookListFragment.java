@@ -43,10 +43,11 @@ public class DonateBookListFragment  extends Fragment {
         sharedPreferences = getActivity().getSharedPreferences("Login Credentials", Context.MODE_PRIVATE);
 
         String jwtToken = sharedPreferences.getString("jwtToken","");
+        Long donorId = sharedPreferences.getLong("memberId",0);
 
         String authorizationHeader = "Bearer " + jwtToken;
 
-        bookApi.getAllBook(authorizationHeader)
+        bookApi.getAllBooksByDonor(donorId, authorizationHeader)
                 .enqueue(new Callback<List<Book>>() {
                     @Override
                     public void onResponse(Call<List<Book>> call, Response<List<Book>> response) {

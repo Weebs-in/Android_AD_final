@@ -64,10 +64,10 @@ public class SignUpFragment extends Fragment {
 //            LocalDate localDate = LocalDate.parse(formattedDate, formatter);
 //
 //            member.setBirthday(localDate);
-//            member.setBio("Bio");
-//            member.setDisplayName("DisplayName");
-//            member.setGender(0);
-//            member.setAvatar("Avatar");
+            member.setBio("Bio");
+            member.setDisplayName("DisplayName");
+            member.setGender(0);
+            member.setAvatar("Avatar");
 
             memberApi.create(member)
                     .enqueue(new Callback<Member>() {

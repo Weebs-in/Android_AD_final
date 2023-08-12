@@ -90,7 +90,7 @@ public class MainActivity extends AppCompatActivity {
 
         String authorizationHeader = "Bearer " + jwtToken;
 
-        bookApi.getAllBook(authorizationHeader)
+        bookApi.getAllBooks(authorizationHeader)
                         .enqueue(new Callback<List<Book>>() {
                             @Override
                             public void onResponse(Call<List<Book>> call, Response<List<Book>> response) {
