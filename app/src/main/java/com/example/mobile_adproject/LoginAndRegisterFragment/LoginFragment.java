@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -65,7 +64,7 @@ public class LoginFragment extends Fragment {
                             if (response.isSuccessful()) {
                                 Toast.makeText(getContext(), "Login Successful!", Toast.LENGTH_SHORT).show();
                                 LoginApiResponse loginApiResponse = response.body();
-                                String jwtToken = loginApiResponse.accessToken;
+                                String jwtToken = loginApiResponse.getAccessToken();
 
 
                                 sharedPreferences = getContext().getSharedPreferences("Login Credentials", Context.MODE_PRIVATE);
