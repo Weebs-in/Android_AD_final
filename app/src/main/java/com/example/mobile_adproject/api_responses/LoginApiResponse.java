@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName;
 
 public class LoginApiResponse {
     @SerializedName("accessToken")
-    private String accessToken;
+    private static String accessToken;
     @SerializedName("username")
     private String username;
     @SerializedName("password")
