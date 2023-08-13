@@ -40,7 +40,7 @@ public class DonateBookAdapter extends RecyclerView.Adapter<DonateBookAdapter.Do
         holder.bookAuthor.setText(donatedBookList.get(position).getAuthor());
         switch (donatedBookList.get(position).getStatus()){
             case 0:
-                holder.bookStatus.setText("Created");
+                holder.bookStatus.setText("Pending");
                 break;
             case 1:
                 holder.bookStatus.setText("Deposited");
@@ -49,19 +49,19 @@ public class DonateBookAdapter extends RecyclerView.Adapter<DonateBookAdapter.Do
                 holder.bookStatus.setText("Available");
                 break;
             case 3:
-                holder.bookStatus.setText("Ineligible");
-                break;
-            case 4:
                 holder.bookStatus.setText("Reserved");
                 break;
-            case 5:
+            case 4:
                 holder.bookStatus.setText("Unavailable");
+                break;
+            case 5:
+                holder.bookStatus.setText("Rejected");
                 break;
             default:
                 holder.bookStatus.setText("NA");
                 break;
         }
-//        holder.bookStatus.setText(String.valueOf(donatedBookList.get(position).getStatus()));
+
         //String url = donatedBookList.get(position).getCover(); // get image URL
         //load the picture
 

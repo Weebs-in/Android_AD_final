@@ -64,7 +64,7 @@ public class LoginFragment extends Fragment {
                             if (response.isSuccessful()) {
                                 Toast.makeText(getContext(), "Login Successful!", Toast.LENGTH_SHORT).show();
                                 LoginApiResponse loginApiResponse = response.body();
-                                String jwtToken = loginApiResponse.accessToken;
+                                String jwtToken = loginApiResponse.getAccessToken();
 
 
                                 sharedPreferences = getContext().getSharedPreferences("Login Credentials", Context.MODE_PRIVATE);

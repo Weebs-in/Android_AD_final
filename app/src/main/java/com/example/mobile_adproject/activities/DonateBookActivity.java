@@ -16,9 +16,11 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -29,6 +31,7 @@ import androidx.core.content.ContextCompat;
 import com.bumptech.glide.Glide;
 import com.example.mobile_adproject.R;
 import com.example.mobile_adproject.models.Book;
+import com.example.mobile_adproject.models.CollectionPoint;
 import com.example.mobile_adproject.models.Donor;
 import com.example.mobile_adproject.retrofit.BookApi;
 import com.example.mobile_adproject.retrofit.RetrofitService;
@@ -52,6 +55,14 @@ public class DonateBookActivity extends AppCompatActivity {
     private int REQUEST_PICKER=111;
     private File file=null;
     ImageView cover;
+    EditText bookTitle;
+    EditText bookAuthor;
+    EditText bookIsbn;
+    int bookCondition;
+    EditText bookGenre;
+    EditText bookPress;
+    int bookLanguage;
+    EditText bookDescription;
     Button btnDonate;
     SharedPreferences sharedPreferences;
     @Override
@@ -59,6 +70,53 @@ public class DonateBookActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_donate_book);
         init();
+
+        bookIsbn = findViewById(R.id.isbn_need_to_add_book_donate);
+        bookTitle = findViewById(R.id.book_title_book_donate_need_add);
+        bookAuthor = findViewById(R.id.book_author_need_to_add_book_donate);
+        bookGenre = findViewById(R.id.book_genre_need_to_add_book_donate);
+        bookPress = findViewById(R.id.book_press_need_to_add_book_donate);
+        bookDescription = findViewById(R.id.book_description_need_to_add_book_detail);
+
+        /*** Spinner for Book Conditions ***/
+        Spinner spinnerBookConditions = findViewById(R.id.spinner_book_condition);
+        ArrayAdapter<CharSequence> adapterBookConditions = ArrayAdapter.createFromResource(this, R.array.book_conditions, android.R.layout.simple_spinner_item);
+        adapterBookConditions.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerBookConditions.setAdapter(adapterBookConditions);
+        spinnerBookConditions.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                // Handle the selected item
+                String selectedBookCondition = parent.getItemAtPosition(position).toString();
+                bookCondition = position;
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                // Handle case where nothing is selected
+            }
+        });
+        /*** Spinner for Book Conditions ***/
+
+        /*** Spinner for Book Languages ***/
+        Spinner spinnerBookLanguages = findViewById(R.id.spinner_book_language);
+        ArrayAdapter<CharSequence> adapterBookLanguages = ArrayAdapter.createFromResource(this, R.array.book_languages, android.R.layout.simple_spinner_item);
+        adapterBookLanguages.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerBookLanguages.setAdapter(adapterBookLanguages);
+        spinnerBookLanguages.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                // Handle the selected item
+                String selectedBookLanguage = parent.getItemAtPosition(position).toString();
+                bookLanguage = position;
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                // Handle case where nothing is selected
+            }
+        });
+        /*** Spinner for Book Languages ***/
 
         RetrofitService retrofitService = new RetrofitService();
         BookApi bookApi = retrofitService.getRetrofit().create(BookApi.class);
@@ -73,22 +131,33 @@ public class DonateBookActivity extends AppCompatActivity {
 
             System.out.println("Token " + jwtToken );
 
+            int isbn = Integer.parseInt(String.valueOf(bookIsbn.getText()));
+            String title = String.valueOf(bookTitle.getText());
+            String author = String.valueOf(bookAuthor.getText());
+            String genre = String.valueOf(bookGenre.getText());
+            String press = String.valueOf(bookPress.getText());
+            String description = String.valueOf(bookDescription.getText());
+
             Donor donor = new Donor();
             donor.setId(loggedInMemberId);
 
+            CollectionPoint collectionPoint = new CollectionPoint();
+            collectionPoint.setId((long)16);
+
             Book book = new Book();
-            book.setIsbn(123456);
-            book.setTitle("Title");
-            book.setAuthor("Author");
+            book.setIsbn(isbn);
+            book.setTitle(title);
+            book.setAuthor(author);
             book.setCover("Cover");
-            book.setBookCondition(0);
+            book.setBookCondition(bookCondition);
             book.setDescription("Description");
-            book.setGenre("Genre");
-            book.setPress("Press");
-            book.setLanguage(0);
+            book.setGenre(genre);
+            book.setPress(press);
+            book.setLanguage(bookLanguage);
             book.setStatus(0);
-            book.setLikeCount(1);
+            book.setDescription(description);
             book.setDonor(donor);
+            book.setCollectionPoint(collectionPoint);
 
             String authorizationHeader = "Bearer " + jwtToken;
 

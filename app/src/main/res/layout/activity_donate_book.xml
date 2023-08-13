@@ -46,7 +46,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:background="@null"
-        android:hint="Harry Potter"
+        android:hint="Enter Book Title"
         app:layout_constraintStart_toEndOf="@+id/book_title_book_detail"
         app:layout_constraintTop_toBottomOf="@+id/book_cover_background_book_donate" />
 
@@ -66,7 +66,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:hint="J. K. Rowling"
+        android:hint="Enter Author Name"
         android:background="@null"
         android:textSize="15sp"
         app:layout_constraintBottom_toBottomOf="@+id/book_author_book_detail"
@@ -89,7 +89,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:background="@null"
-        android:hint="978-0439358064"
+        android:hint="Enter ISBN"
         android:textSize="15sp"
         app:layout_constraintBottom_toBottomOf="@+id/isbn_book_detail"
         app:layout_constraintStart_toEndOf="@+id/isbn_book_detail"
@@ -104,17 +104,15 @@
         android:textColor="#044363"
         app:layout_constraintStart_toStartOf="@+id/isbn_book_detail"
         app:layout_constraintTop_toBottomOf="@+id/isbn_book_detail" />
-    <EditText
-        android:id="@+id/book_condition_need_to_add_book_donate"
+    <Spinner
+        android:id="@+id/spinner_book_condition"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:hint="totally new"
-        android:background="@null"
-        android:textSize="15sp"
+        android:entries="@array/book_conditions"
         app:layout_constraintBottom_toBottomOf="@+id/book_condition_book_detail"
         app:layout_constraintStart_toEndOf="@+id/book_condition_book_detail"
         app:layout_constraintTop_toTopOf="@+id/book_condition_book_detail" />
+
     <TextView
         android:id="@+id/book_genre_book_detail"
         android:layout_width="wrap_content"
@@ -129,7 +127,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:hint="fiction"
+        android:hint="Enter Genre"
         android:background="@null"
         android:textSize="15sp"
         app:layout_constraintBottom_toBottomOf="@+id/book_genre_book_detail"
@@ -152,7 +150,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:background="@null"
-        android:hint="Scholastic Inc"
+        android:hint="Enter Press"
         android:textSize="15sp"
         app:layout_constraintBottom_toBottomOf="@+id/book_press_book_donate"
         app:layout_constraintStart_toEndOf="@+id/book_press_book_donate"
@@ -168,17 +166,14 @@
         app:layout_constraintStart_toStartOf="@+id/book_press_book_donate"
         app:layout_constraintTop_toBottomOf="@+id/book_press_book_donate" />
 
-    <EditText
-        android:id="@+id/book_language_need_to_add_book_donate"
+    <Spinner
+        android:id="@+id/spinner_book_language"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:hint="English"
-        android:textSize="15sp"
-        android:background="@null"
+        android:entries="@array/book_languages"
         app:layout_constraintBottom_toBottomOf="@+id/book_language_book_donate"
         app:layout_constraintStart_toEndOf="@+id/book_language_book_donate"
-        app:layout_constraintTop_toTopOf="@+id/book_language_book_donate" />
+        app:layout_constraintTop_toTopOf="@+id/book_langusage_book_donate"/>
 
     <TextView
         android:id="@+id/book_description_book_detail"
@@ -199,7 +194,7 @@
         android:layout_marginBottom="8dp"
         android:textSize="15sp"
         android:background="@null"
-        android:hint='"Harry Potter and the Order of the Phoenix" is a part of the series where the plot becomes progressively complex and darker. It reveals more about Harry Potter and his friends, while introducing many new characters and storylines that lay the foundation for the series.'
+        android:hint='Enter Description'
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/book_description_book_detail"
         app:layout_constraintTop_toBottomOf="@+id/book_description_book_detail" />

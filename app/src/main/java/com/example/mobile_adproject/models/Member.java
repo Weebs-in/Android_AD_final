@@ -17,6 +17,9 @@ public class Member {
     private String bio;
     private String avatar;
 
+    private int donationCount;
+    private int receiveCount;
+
     // Getters and Setters
 
     public Long getId() {
@@ -98,4 +101,19 @@ public class Member {
         this.avatar = avatar;
     }
 
+    public int getDonationCount() {
+        return donationCount;
+    }
+
+    public void setDonationCount(int donationCount) {
+        this.donationCount = donationCount;
+    }
+
+    public int getReceiveCount() {
+        return receiveCount;
+    }
+
+    public void setReceiveCount(int receiveCount) {
+        this.receiveCount = receiveCount;
+    }
 }

@@ -1,3 +1,20 @@
 <resources>
     <string name="app_name">Mobile_ADProject</string>
+    <string-array name="book_conditions">
+        <item>Brand New</item>
+        <item>Like New</item>
+        <item>Lightly Used</item>
+        <item>Well Used</item>
+        <!-- Add more items as needed -->
+    </string-array>
+    <string-array name="book_languages">
+        <item>English</item>
+        <item>Chinese</item>
+        <item>Malay</item>
+        <item>Tamil</item>
+        <item>Japanese</item>
+        <item>French</item>
+        <item>German</item>
+    </string-array>
+
 </resources>

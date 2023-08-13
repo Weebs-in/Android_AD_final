@@ -58,33 +58,13 @@ public class DonateBookListFragment  extends Fragment {
                         else {
                             Toast.makeText(getContext(), "Failed to Get All Donated Books: " + response.message(), Toast.LENGTH_SHORT).show();
                         }
-
                     }
-
                     @Override
                     public void onFailure(Call<List<Book>> call, Throwable t) {
                         Toast.makeText(getContext(), "Get All Donated Books Response Failed!", Toast.LENGTH_SHORT).show();
                         t.printStackTrace(); // Print the full stack trace to see the detailed error
                     }
                 });
-
-//        recommendBookList.add(new RecommendBook());
-//        recommendBookList.add(new RecommendBook());
-//        recommendBookList.add(new RecommendBook());
-//        recommendBookList.add(new RecommendBook());
-//        recommendBookList.add(new RecommendBook());
-//        recommendBookList.add(new RecommendBook());
-//        recommendBookList.add(new RecommendBook());
-//        recommendBookList.add(new RecommendBook());
-//        recommendBookList.add(new RecommendBook());
-//        recommendBookList.add(new RecommendBook());
-//        recommendBookList.add(new RecommendBook());
-//        recommendBookList.add(new RecommendBook());
-//        recommendBookList.add(new RecommendBook());
-
-
-
-
         return root;
 
     }
@@ -94,7 +74,6 @@ public class DonateBookListFragment  extends Fragment {
         donateBookRecycler.setLayoutManager(layoutManager);
         donateBookAdapter = new DonateBookAdapter(requireContext(), donatedBookList);
         donateBookRecycler.setAdapter(donateBookAdapter);
-
 
     }
 }

@@ -51,11 +51,6 @@ public class RecommendBookAdapter extends RecyclerView.Adapter<RecommendBookAdap
                 context.startActivity(intent);
             }
         });
-
-
-
-
-
     }
 
     @Override
