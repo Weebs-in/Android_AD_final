@@ -10,7 +10,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.mobile_adproject.HomePageModel.RecommendBook;
 import com.example.mobile_adproject.R;
 import com.example.mobile_adproject.models.Book;
 
@@ -65,7 +64,7 @@ public class DonateBookAdapter extends RecyclerView.Adapter<DonateBookAdapter.Do
         //String url = donatedBookList.get(position).getCover(); // get image URL
         //load the picture
 
-        holder.bookCover.setImageResource(R.drawable.book);
+        holder.bookCover.setImageResource(R.drawable.ic_baseline_link_off_24);
 
     }
 

@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,11 +41,13 @@ public class RecommendBookAdapter extends RecyclerView.Adapter<RecommendBookAdap
 
     @Override
     public void onBindViewHolder(@NonNull RecommendBookViewHolder holder, int position) {
-
         holder.bookTitle.setText(recommendBookList.get(position).getTitle());
         holder.bookAuthor.setText(recommendBookList.get(position).getAuthor());
-        String coverImageUrl=recommendBookList.get(position).getCover();
-        System.out.println(coverImageUrl);
+
+        // 设置占位图或者清空图片
+        holder.bookCover.setImageBitmap(null); // 或者设置为占位图
+
+        String coverImageUrl = recommendBookList.get(position).getCover();
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
@@ -75,16 +76,15 @@ public class RecommendBookAdapter extends RecyclerView.Adapter<RecommendBookAdap
 
         thread.start();
 
-
-
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(context, BookDetailActivity.class);
+                Intent intent = new Intent(context, BookDetailActivity.class);
                 context.startActivity(intent);
             }
         });
     }
+
 
     @Override
     public int getItemCount() {
@@ -106,15 +106,6 @@ public class RecommendBookAdapter extends RecyclerView.Adapter<RecommendBookAdap
 
         }
     }
-    // 将 Base64 字符串转换为 Bitmap
-    public Bitmap base64ToBitmap(String base64String) {
-        try {
-            byte[] decodedByteArray = Base64.decode(base64String, Base64.DEFAULT);
-            return BitmapFactory.decodeByteArray(decodedByteArray, 0, decodedByteArray.length);
-        } catch (IllegalArgumentException e) {
-            e.printStackTrace();
-            return null; // 或者返回一个默认的 Bitmap，以防解码失败
-        }
-    }
+
 
 }

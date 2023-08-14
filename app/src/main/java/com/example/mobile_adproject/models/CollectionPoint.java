@@ -1,16 +1,6 @@
 package com.example.mobile_adproject.models;
 
 public class CollectionPoint {
-<<<<<<< HEAD
-    // Attributes
-    private Long id;
-    private String name;
-    private String address;
-    private int status;
-    private String qrCode;
-
-    // Getters and Setters
-=======
 
      private Long id;
      private String name;
@@ -18,7 +8,6 @@ public class CollectionPoint {
      private int status;
      private String qrCode;
 
->>>>>>> mnbvcxzZhou
     public Long getId() {
         return id;
     }
@@ -50,8 +39,6 @@ public class CollectionPoint {
     public void setStatus(int status) {
         this.status = status;
     }
-<<<<<<< HEAD
-=======
 
     public String getQrCode() {
         return qrCode;
@@ -60,5 +47,4 @@ public class CollectionPoint {
     public void setQrCode(String qrCode) {
         this.qrCode = qrCode;
     }
->>>>>>> mnbvcxzZhou
 }
