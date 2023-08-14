@@ -1,9 +1,7 @@
 package com.example.mobile_adproject.models;
 
-import java.time.LocalDateTime;
-
 public class Book {
-    //Attributes
+    // Attributes
     private Long id;
     private int isbn;
     private String title;
@@ -112,6 +110,7 @@ public class Book {
     public Donor getDonor() {
         return donor;
     }
+
     public void setDonor(Donor donor) {
         this.donor = donor;
     }

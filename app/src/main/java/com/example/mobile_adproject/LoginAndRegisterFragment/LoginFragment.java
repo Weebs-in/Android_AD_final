@@ -1,4 +1,5 @@
 package com.example.mobile_adproject.LoginAndRegisterFragment;
+
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -30,7 +31,6 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-
 public class LoginFragment extends Fragment {
     EditText inputUsername;
     EditText inputPassword;
@@ -39,15 +39,15 @@ public class LoginFragment extends Fragment {
 
     SharedPreferences sharedPreferences;
 
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle save){
-        ViewGroup root=(ViewGroup) inflater.inflate(R.layout.login,container,false);
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle save) {
+        ViewGroup root = (ViewGroup) inflater.inflate(R.layout.login, container, false);
 
         RetrofitService retrofitService = new RetrofitService();
         MemberApi memberApi = retrofitService.getRetrofit().create(MemberApi.class);
 
-        inputUsername=root.findViewById(R.id.username_login);
-        inputPassword=root.findViewById(R.id.password_login);
-        login=root.findViewById(R.id.login_button);
+        inputUsername = root.findViewById(R.id.username_login);
+        inputPassword = root.findViewById(R.id.password_login);
+        login = root.findViewById(R.id.login_button);
         login.setOnClickListener(view -> {
             String username = String.valueOf(inputUsername.getText());
             String password = String.valueOf(inputPassword.getText());
@@ -66,10 +66,10 @@ public class LoginFragment extends Fragment {
                                 LoginApiResponse loginApiResponse = response.body();
                                 String jwtToken = loginApiResponse.getAccessToken();
 
-
-                                sharedPreferences = getContext().getSharedPreferences("Login Credentials", Context.MODE_PRIVATE);
+                                sharedPreferences = getContext().getSharedPreferences("Login Credentials",
+                                        Context.MODE_PRIVATE);
                                 SharedPreferences.Editor editor = sharedPreferences.edit();
-                                editor.putString("jwtToken",jwtToken);
+                                editor.putString("jwtToken", jwtToken);
                                 editor.apply();
 
                                 String[] tokenSegments = jwtToken.split("\\.");
@@ -93,8 +93,9 @@ public class LoginFragment extends Fragment {
                                             .enqueue(new Callback<Member>() {
                                                 @Override
                                                 public void onResponse(Call<Member> call, Response<Member> response) {
-                                                    if(response.isSuccessful()){
-                                                        Toast.makeText(getContext(), "Get Member Successful!", Toast.LENGTH_SHORT).show();
+                                                    if (response.isSuccessful()) {
+                                                        Toast.makeText(getContext(), "Get Member Successful!",
+                                                                Toast.LENGTH_SHORT).show();
                                                         loggedInMember = response.body();
 
                                                         String loggedInMemberUsername = loggedInMember.getUsername();
@@ -105,20 +106,22 @@ public class LoginFragment extends Fragment {
                                                         editor.apply();
 
                                                         Log.d("USERNAME", loggedInMemberUsername);
-                                                        Log.d("EMAIL",loggedInMemberEmail);
+                                                        Log.d("EMAIL", loggedInMemberEmail);
 
                                                         Intent intent = new Intent(getActivity(), MainActivity.class);
                                                         startActivity(intent);
-                                                    }
-                                                    else {
-                                                        Toast.makeText(getContext(), "Failed to Get Member: " + response.message(), Toast.LENGTH_SHORT).show();
+                                                    } else {
+                                                        Toast.makeText(getContext(),
+                                                                "Failed to Get Member: " + response.message(),
+                                                                Toast.LENGTH_SHORT).show();
                                                     }
 
                                                 }
 
                                                 @Override
                                                 public void onFailure(Call<Member> call, Throwable t) {
-                                                    Toast.makeText(getContext(), "Get Member Response Failed!", Toast.LENGTH_SHORT).show();
+                                                    Toast.makeText(getContext(), "Get Member Response Failed!",
+                                                            Toast.LENGTH_SHORT).show();
                                                     t.printStackTrace();
                                                 }
                                             });
@@ -126,9 +129,9 @@ public class LoginFragment extends Fragment {
                                     e.printStackTrace();
                                 }
 
-                            }
-                            else {
-                                Toast.makeText(getContext(), "Failed to Login: " + response.message(), Toast.LENGTH_SHORT).show();
+                            } else {
+                                Toast.makeText(getContext(), "Failed to Login: " + response.message(),
+                                        Toast.LENGTH_SHORT).show();
                             }
                         }
 
