@@ -15,7 +15,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/book" />
+        app:srcCompat="@drawable/ic_baseline_add_photo_alternate_24" />
 
     <ImageView
         android:id="@+id/back_img_book_detail"

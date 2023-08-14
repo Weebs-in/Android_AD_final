@@ -59,7 +59,7 @@ public class LoginFragment extends Fragment {
                         @Override
                         public void onResponse(Call<LoginApiResponse> call, Response<LoginApiResponse> response) {
                             LoginApiResponse loginApiResponse = response.body();
-                            String jwtToken = loginApiResponse.accessToken;
+                            String jwtToken = loginApiResponse.getAccessToken();
                             Toast.makeText(getContext(), "Login Successful!" + jwtToken, Toast.LENGTH_SHORT).show();
 
                             sharedPreferences = getContext().getSharedPreferences("Login Credentials", Context.MODE_PRIVATE);

@@ -1,12 +1,10 @@
 package com.example.mobile_adproject.activities;
 
 import android.Manifest;
-import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
@@ -27,18 +25,26 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.GlideBuilder;
 import com.example.mobile_adproject.R;
 import com.example.mobile_adproject.models.Book;
+import com.example.mobile_adproject.models.CollectionPoint;
 import com.example.mobile_adproject.models.Donor;
 import com.example.mobile_adproject.retrofit.BookApi;
+import com.example.mobile_adproject.retrofit.ImageApi;
+import com.example.mobile_adproject.retrofit.ImageServer;
 import com.example.mobile_adproject.retrofit.RetrofitService;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
 
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -54,6 +60,8 @@ public class DonateBookActivity extends AppCompatActivity {
     ImageView cover;
     Button btnDonate;
     SharedPreferences sharedPreferences;
+    String coverString;
+    Bitmap coverImageBitmap;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,14 +81,18 @@ public class DonateBookActivity extends AppCompatActivity {
 
             System.out.println("Token " + jwtToken );
 
+
             Donor donor = new Donor();
             donor.setId(loggedInMemberId);
 
             Book book = new Book();
+            CollectionPoint collectionPoint=new CollectionPoint();
+            collectionPoint.setId(16L);
+
             book.setIsbn(123456);
-            book.setTitle("Title");
+            book.setTitle("my");
             book.setAuthor("Author");
-            book.setCover("Cover");
+            book.setCover(coverString);
             book.setBookCondition(0);
             book.setDescription("Description");
             book.setGenre("Genre");
@@ -89,6 +101,7 @@ public class DonateBookActivity extends AppCompatActivity {
             book.setStatus(0);
             book.setLikeCount(1);
             book.setDonor(donor);
+            book.setCollectionPoint(collectionPoint);
 
             String authorizationHeader = "Bearer " + jwtToken;
 
@@ -99,6 +112,8 @@ public class DonateBookActivity extends AppCompatActivity {
                             if(response.isSuccessful()){
                                 Toast.makeText(DonateBookActivity.this, "Create Book Successful!", Toast.LENGTH_SHORT).show();
                                 Book responseBook = response.body();
+
+                                System.out.println(responseBook.getCover());
                             }
                             else {
                                 try {
@@ -124,21 +139,59 @@ public class DonateBookActivity extends AppCompatActivity {
         if(resultCode==RESULT_OK){
             if(requestCode==REQUEST_CAMERA){
                 Bundle extras = data.getExtras();
-                Bitmap imageBitmap = (Bitmap) extras.get("data");
-                cover.setImageBitmap(imageBitmap);
+                coverImageBitmap = (Bitmap) extras.get("data");
+                cover.setImageBitmap(coverImageBitmap);
+    
             }else if(requestCode==REQUEST_PICKER){
                 Uri selectedImageUri = data.getData();
                 try {
                     // 将选中的图片 Uri 转换为 Bitmap
-                    Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), selectedImageUri);
+                    coverImageBitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), selectedImageUri);
                     // 将 Bitmap 设置给 ImageView
-                    cover.setImageBitmap(bitmap);
+                    cover.setImageBitmap(coverImageBitmap);
+
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
             }
+
+
+            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+            coverImageBitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
+            RequestBody imageBody = RequestBody.create(MediaType.parse("image/jpeg"), byteArrayOutputStream.toByteArray());
+            MultipartBody.Part imagePart = MultipartBody.Part.createFormData("image", "image.jpg", imageBody);
+
+            ImageServer imageServer = new ImageServer();
+            ImageApi imageApi = imageServer.getImageServerRetrofit().create(ImageApi.class);
+            imageApi.uploadImage(imagePart)
+                    .enqueue(new Callback<String>() {
+                        @Override
+                        public void onResponse(Call<String> call, Response<String> response) {
+                            if (response.isSuccessful()) {
+                                Toast.makeText(DonateBookActivity.this, "Upload Book Cover Successful!", Toast.LENGTH_SHORT).show();
+                                coverString = response.body();
+                            } else {
+                                try {
+                                    Toast.makeText(DonateBookActivity.this, "Upload Book Cover Failed: " + response.message() + response.errorBody().string(), Toast.LENGTH_SHORT).show();
+                                } catch (IOException e) {
+                                    throw new RuntimeException(e);
+                                }
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<String> call, Throwable t) {
+                            Toast.makeText(DonateBookActivity.this, "Upload Cover Response Failed!", Toast.LENGTH_SHORT).show();
+                            t.printStackTrace(); // Print the full stack trace to see the detailed error
+                        }
+                    });
+
+
+
+
         }
     }
+
 
 
     protected void init(){
@@ -196,4 +249,5 @@ public class DonateBookActivity extends AppCompatActivity {
         });
 
     }
+
 }

@@ -1,7 +1,5 @@
 package com.example.mobile_adproject.models;
 
-import java.time.LocalDateTime;
-
 public class Book {
     //Attributes
     private Long id;
@@ -17,6 +15,7 @@ public class Book {
     private int status;
     private int likeCount;
     private Donor donor;
+    private CollectionPoint collectionPoint;
 
     // Getters and Setters
 
@@ -115,4 +114,13 @@ public class Book {
         this.donor = donor;
     }
 
+
+
+    public CollectionPoint getCollectionPoint() {
+        return collectionPoint;
+    }
+
+    public void setCollectionPoint(CollectionPoint collectionPoint) {
+        this.collectionPoint = collectionPoint;
+    }
 }
