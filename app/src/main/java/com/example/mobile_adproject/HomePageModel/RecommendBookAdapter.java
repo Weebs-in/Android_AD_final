@@ -45,9 +45,10 @@ public class RecommendBookAdapter extends RecyclerView.Adapter<RecommendBookAdap
         holder.bookAuthor.setText(recommendBookList.get(position).getAuthor());
 
         // 设置占位图或者清空图片
-        holder.bookCover.setImageBitmap(null); // 或者设置为占位图
+        holder.bookCover.setImageBitmap(null);
 
         String coverImageUrl = recommendBookList.get(position).getCover();
+        System.out.println(coverImageUrl);
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {

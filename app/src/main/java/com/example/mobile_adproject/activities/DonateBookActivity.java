@@ -158,7 +158,7 @@ public class DonateBookActivity extends AppCompatActivity {
             book.setIsbn(isbn);
             book.setTitle(title);
             book.setAuthor(author);
-            book.setCover("Cover");
+            book.setCover(coverString);
             book.setBookCondition(bookCondition);
             book.setDescription("Description");
             book.setGenre(genre);
