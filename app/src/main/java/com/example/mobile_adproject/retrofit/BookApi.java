@@ -30,10 +30,10 @@ public interface BookApi {
     @GET("/api/book/{id}")
     Call<Book> getBookById(@Path("id") int id);
 
-    @GET("/api/book/randaom")
+    @GET("/api/book/random")
     Call<List<Book>> randomBook();
 
-    @GET("/api/book/randaom")
+    @GET("/api/book/recommend")
     Call<List<Book>> recommandBook(@Path("id")Long id,@Header("Authorization") String  authorizationHeader);
     @GET("/api/book/search")
     Call<List<Book>> search(@Body String search,@Header("Authorization") String  authorizationHeader);
