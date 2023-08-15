@@ -43,40 +43,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         btnLogout = findViewById(R.id.btn_logout);
-        //add some data just for testing
-       /* List<RecommendBook> recommendBookList=new ArrayList<>();
-        recommendBookList.add(new RecommendBook(1L,1,"Harry Potter and the Order of the Phoenix","J. K. Rowling",
-                "http",
-                1,"1","1","1",1,1,1L,time1,time2));
-        recommendBookList.add(new RecommendBook(2L,1,"Harry Potter and the Order of the Phoenix","J. K. Rowling",
-                "http",
-                1,"1","1","1",1,1,1L,time1,time2));
-        recommendBookList.add(new RecommendBook(3L,1,"Harry Potter and the Order of the Phoenix","J. K. Rowling",
-                "http",
-                1,"1","1","1",1,1,1L,time1,time2));
-        recommendBookList.add(new RecommendBook(3L,1,"Harry Potter and the Order of the Phoenix","J. K. Rowling",
-                "http",
-                1,"1","1","1",1,1,1L,time1,time2));
-        recommendBookList.add(new RecommendBook(3L,1,"Harry Potter and the Order of the Phoenix","J. K. Rowling",
-                "http",
-                1,"1","1","1",1,1,1L,time1,time2));
-        setRecommendRecycler(recommendBookList);*/
 
-//        List<RecommendBook> recommendBookList=new ArrayList<>();
-//        recommendBookList.add(new RecommendBook());
-//        recommendBookList.add(new RecommendBook());
-//        recommendBookList.add(new RecommendBook());
-//        recommendBookList.add(new RecommendBook());
-//        recommendBookList.add(new RecommendBook());
-//        recommendBookList.add(new RecommendBook());
-//        recommendBookList.add(new RecommendBook());
-//        recommendBookList.add(new RecommendBook());
-//        recommendBookList.add(new RecommendBook());
-//        recommendBookList.add(new RecommendBook());
-//        recommendBookList.add(new RecommendBook());
-//        recommendBookList.add(new RecommendBook());
-//        recommendBookList.add(new RecommendBook());
-//        recommendBookList.add(new RecommendBook());
         RetrofitService retrofitService = new RetrofitService();
         BookApi bookApi = retrofitService.getRetrofit().create(BookApi.class);
 
