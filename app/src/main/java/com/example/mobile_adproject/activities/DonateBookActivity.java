@@ -141,7 +141,7 @@ public class DonateBookActivity extends AppCompatActivity {
 
             System.out.println("Token " + jwtToken);
 
-            int isbn = Integer.parseInt(String.valueOf(bookIsbn.getText()));
+            String isbn = String.valueOf(bookIsbn.getText());
             String title = String.valueOf(bookTitle.getText());
             String author = String.valueOf(bookAuthor.getText());
             String genre = String.valueOf(bookGenre.getText());
