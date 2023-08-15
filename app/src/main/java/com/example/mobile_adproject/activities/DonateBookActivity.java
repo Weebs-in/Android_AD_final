@@ -33,6 +33,7 @@ import com.example.mobile_adproject.models.Book;
 import com.example.mobile_adproject.models.CollectionPoint;
 import com.example.mobile_adproject.models.Donor;
 import com.example.mobile_adproject.retrofit.BookApi;
+import com.example.mobile_adproject.retrofit.CollectionPointApi;
 import com.example.mobile_adproject.retrofit.ImageApi;
 import com.example.mobile_adproject.retrofit.ImageServer;
 import com.example.mobile_adproject.retrofit.RetrofitService;
@@ -42,6 +43,8 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
 import okhttp3.MediaType;
@@ -72,6 +75,8 @@ public class DonateBookActivity extends AppCompatActivity {
     SharedPreferences sharedPreferences;
     String coverString;
     Bitmap coverImageBitmap;
+    List<CollectionPoint> collectionPoints;
+    CollectionPoint selectedCollectionPoint;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,6 +108,7 @@ public class DonateBookActivity extends AppCompatActivity {
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
                 // Handle case where nothing is selected
+                Toast.makeText(DonateBookActivity.this, "Please select a Condition", Toast.LENGTH_SHORT).show();
             }
         });
         /*** Spinner for Book Conditions ***/
@@ -124,19 +130,89 @@ public class DonateBookActivity extends AppCompatActivity {
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
                 // Handle case where nothing is selected
+                Toast.makeText(DonateBookActivity.this, "Please select a Language", Toast.LENGTH_SHORT).show();
             }
         });
         /*** Spinner for Book Languages ***/
 
         RetrofitService retrofitService = new RetrofitService();
+
+        sharedPreferences = getSharedPreferences("Login Credentials", Context.MODE_PRIVATE);
+
+        String jwtToken = sharedPreferences.getString("jwtToken", "");
+        String authorizationHeader = "Bearer " + jwtToken;
+
+        CollectionPointApi collectionPointApi = retrofitService.getRetrofit().create(CollectionPointApi.class);
+        collectionPointApi.getAllCollectionPoints(authorizationHeader)
+                .enqueue(new Callback<List<CollectionPoint>>() {
+                    @Override
+                    public void onResponse(Call<List<CollectionPoint>> call, Response<List<CollectionPoint>> response) {
+                        if(response.isSuccessful()){
+                            Toast.makeText(DonateBookActivity.this, "Get All Collection Points Successful!", Toast.LENGTH_SHORT)
+                                    .show();
+                            collectionPoints = response.body();
+                            List<String> collectionPointNames = new ArrayList<>();
+                            for (CollectionPoint collectionPoint : collectionPoints){
+                                String name = collectionPoint.getName();
+                                collectionPointNames.add(name);
+                            }
+
+                            // Create an ArrayAdapter using your custom spinner item layout and the list of collection points
+                            ArrayAdapter<String> adapter = new ArrayAdapter<>(DonateBookActivity.this, R.layout.spinner_collection_point_item, collectionPointNames);
+                            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+                            // Find the Spinner view and set the adapter
+                            Spinner collectionPointSpinner = findViewById(R.id.spinner_book_collection_point);
+                            collectionPointSpinner.setAdapter(adapter);
+
+                            // Handle spinner item selection
+                            collectionPointSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                                @Override
+                                public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+
+                                    // Get the selected collection point name
+                                    String selectedName = collectionPointNames.get(position);
+
+                                    // Find the corresponding CollectionPoint object
+                                    for (CollectionPoint collectionPoint : collectionPoints) {
+                                        if (collectionPoint.getName().equals(selectedName)) {
+                                            selectedCollectionPoint = collectionPoint;
+                                            break;
+                                        }
+                                    }
+                                }
+
+                                @Override
+                                public void onNothingSelected(AdapterView<?> parentView) {
+                                    // Handle case where no item is selected
+                                    Toast.makeText(DonateBookActivity.this, "Please select a Collection Point", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+
+                        }
+                        else {
+                            try {
+                                Toast.makeText(DonateBookActivity.this, "Failed to Get Collection Points: "
+                                                + response.message() + response.errorBody().string(), Toast.LENGTH_SHORT)
+                                        .show();
+                            } catch (IOException e) {
+                                throw new RuntimeException(e);
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<List<CollectionPoint>> call, Throwable t) {
+
+                    }
+                });
+
+
         BookApi bookApi = retrofitService.getRetrofit().create(BookApi.class);
 
         btnDonate = findViewById(R.id.btnDonateBook);
         btnDonate.setOnClickListener(view -> {
 
-            sharedPreferences = getSharedPreferences("Login Credentials", Context.MODE_PRIVATE);
-
-            String jwtToken = sharedPreferences.getString("jwtToken", "");
             Long loggedInMemberId = sharedPreferences.getLong("memberId", 0);
 
             System.out.println("Token " + jwtToken);
@@ -151,8 +227,8 @@ public class DonateBookActivity extends AppCompatActivity {
             Donor donor = new Donor();
             donor.setId(loggedInMemberId);
 
-            CollectionPoint collectionPoint = new CollectionPoint();
-            collectionPoint.setId((long) 16);
+//            CollectionPoint collectionPoint = new CollectionPoint();
+//            collectionPoint.setId((long) 16);
 
             Book book = new Book();
             book.setIsbn(isbn);
@@ -167,9 +243,7 @@ public class DonateBookActivity extends AppCompatActivity {
             book.setStatus(0);
             book.setDescription(description);
             book.setDonor(donor);
-            book.setCollectionPoint(collectionPoint);
-
-            String authorizationHeader = "Bearer " + jwtToken;
+            book.setCollectionPoint(selectedCollectionPoint);
 
             bookApi.createBook(book, authorizationHeader)
                     .enqueue(new Callback<Book>() {
