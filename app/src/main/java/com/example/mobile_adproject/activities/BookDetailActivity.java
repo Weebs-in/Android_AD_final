@@ -184,6 +184,7 @@ public class BookDetailActivity extends AppCompatActivity {
             authorizationHeader = "Bearer " + jwtToken;
             favourite.setOnClickListener(view -> {
                 if(favouriteOrNot==false){
+                    favouriteOrNot=true;
                     favourite.setImageResource(R.drawable.ic_baseline_favorite_24);
 
                     try {
@@ -224,6 +225,7 @@ public class BookDetailActivity extends AppCompatActivity {
                         e.printStackTrace();
                     }
                 }else{
+                    favouriteOrNot=false;
                     favourite.setImageResource(R.drawable.ic_baseline_favorite_border_24);
 
                     try {
