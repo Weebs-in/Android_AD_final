@@ -1,6 +1,8 @@
 package com.example.mobile_adproject.Profile;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +15,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.mobile_adproject.R;
 import com.example.mobile_adproject.models.Book;
 
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.List;
 
 public class DonateBookAdapter extends RecyclerView.Adapter<DonateBookAdapter.DonateViewHolder>{
@@ -37,6 +42,38 @@ public class DonateBookAdapter extends RecyclerView.Adapter<DonateBookAdapter.Do
 
         holder.bookTitle.setText(donatedBookList.get(position).getTitle());
         holder.bookAuthor.setText(donatedBookList.get(position).getAuthor());
+        // 设置占位图或者清空图片
+        holder.bookCover.setImageBitmap(null);
+
+        String coverImageUrl = donatedBookList.get(position).getCover();
+        System.out.println(coverImageUrl);
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    URL url = new URL(coverImageUrl);
+                    HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                    conn.setConnectTimeout(5000);
+                    conn.setRequestMethod("GET");
+                    if (conn.getResponseCode() == 200) {
+                        InputStream inputStream = conn.getInputStream();
+                        final Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
+
+                        // 在 UI 线程中更新 ImageView
+                        holder.itemView.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                holder.bookCover.setImageBitmap(bitmap);
+                            }
+                        });
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        thread.start();
         switch (donatedBookList.get(position).getStatus()){
             case 0:
                 holder.bookStatus.setText("Pending");
