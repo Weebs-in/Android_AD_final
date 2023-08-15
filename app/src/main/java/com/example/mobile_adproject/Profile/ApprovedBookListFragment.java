@@ -95,10 +95,26 @@ public class ApprovedBookListFragment extends Fragment {
 
     }
 
-    public static void sendTransactionCompletetoServer(Long bookId) {
+    public void sendTransactionCompletetoServer(Long bookId) {
         RetrofitService retrofitService = new RetrofitService();
         BookApi bookApi1 = retrofitService.getRetrofit().create(BookApi.class);
-        bookApi1.sendCompleteTransactionStatus(recipientId,bookId,authorizationHeader);
+        bookApi1.sendCompleteTransactionStatus(recipientId,bookId,authorizationHeader)
+                .enqueue(new Callback<Void>() {
+                    @Override
+                    public void onResponse(Call<Void> call, Response<Void> response) {
+                        if(response.isSuccessful()){
+                            Toast.makeText(getContext(), "Get Status Change is Successful!", Toast.LENGTH_SHORT).show();
+                        }else {
+                            Toast.makeText(getContext(),"Fail Status is not Successful",Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<Void> call, Throwable t) {
+                        Toast.makeText(getContext(),"Fail respnse in Status Change ",Toast.LENGTH_SHORT).show();
+
+                    }
+                });
     }
     private  void setTransactionRecycler(List<Book> transactionHistoryData){
 
