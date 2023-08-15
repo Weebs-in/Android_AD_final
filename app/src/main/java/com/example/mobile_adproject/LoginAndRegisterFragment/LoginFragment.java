@@ -38,6 +38,7 @@ public class LoginFragment extends Fragment {
     public static Member loggedInMember;
 
     SharedPreferences sharedPreferences;
+    String username;
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle save){
         ViewGroup root=(ViewGroup) inflater.inflate(R.layout.login,container,false);
@@ -49,7 +50,7 @@ public class LoginFragment extends Fragment {
         inputPassword=root.findViewById(R.id.password_login);
         login=root.findViewById(R.id.login_button);
         login.setOnClickListener(view -> {
-            String username = String.valueOf(inputUsername.getText());
+             username = String.valueOf(inputUsername.getText());
             String password = String.valueOf(inputPassword.getText());
 
             Member member = new Member();
@@ -84,6 +85,8 @@ public class LoginFragment extends Fragment {
                                     String subValue = jsonObject.getString("sub");
 
                                     editor.putLong("memberId", Long.parseLong(subValue));
+                                    editor.putString("memberName",username);
+
                                     editor.apply();
 
                                     System.out.println("Value of 'sub': " + subValue);

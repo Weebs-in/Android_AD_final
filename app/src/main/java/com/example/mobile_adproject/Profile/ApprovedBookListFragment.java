@@ -31,8 +31,8 @@ public class ApprovedBookListFragment extends Fragment {
     ApprovedBookAdapter approvedBookAdapter;
 
     SharedPreferences sharedPreferences;
-   static String authorizationHeader;
-  static   Long recipientId;
+    String authorizationHeader;
+    Long recipientId;
 
 
 

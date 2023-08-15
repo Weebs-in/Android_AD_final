@@ -9,6 +9,7 @@ import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
+import retrofit2.http.Headers;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
@@ -41,12 +42,13 @@ public interface BookApi {
     @GET("/api/book/recipient/{id}")
     Call<List<Book>> approvedBookByRecipientId(@Path("id")Long id, @Header("Authorization") String authorizationHeader);
 
-
-
     @PUT("/api/book/{id}")
     Call<Book> editBookById(@Path("id") int id, @Body Book book);
 
     @DELETE("/api/book/{id}")
     Call<Void> deleteBookById(@Path("id") int id);
+
+    @GET("/api/transactionHistory/{id}")
+    Call<List<Book>> TransactionHistory(@Path("id")Long id, @Header("Authorization") String authorizationHeader);
 
 }

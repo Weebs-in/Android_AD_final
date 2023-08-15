@@ -77,7 +77,7 @@ public class DonateBookActivity extends AppCompatActivity {
             donor.setId(loggedInMemberId);
 
             Book book = new Book();
-            book.setIsbn(123456);
+            book.setIsbn("123456");
             book.setTitle("Title");
             book.setAuthor("Author");
             book.setCover("Cover");

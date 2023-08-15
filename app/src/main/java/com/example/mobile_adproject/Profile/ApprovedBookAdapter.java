@@ -105,7 +105,8 @@ public class ApprovedBookAdapter  extends RecyclerView.Adapter<ApprovedBookAdapt
         holder.button.setOnClickListener(new View.OnClickListener() {
                                              @Override
                                              public void onClick(View v) {
-                                                 holder.bookStatus.setText("Unavailable");
+                                                 holder.bookStatus.setText("Complete");
+                                                 holder.button.setText("Thank You ");
                                                  ApprovedBookListFragment approvedBookListFragment=new ApprovedBookListFragment();
                                                 approvedBookListFragment.sendTransactionCompletetoServer(bookId);
                                              }
