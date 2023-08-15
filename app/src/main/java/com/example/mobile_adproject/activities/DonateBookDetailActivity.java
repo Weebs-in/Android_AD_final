@@ -1,9 +1,6 @@
 package com.example.mobile_adproject.activities;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -13,10 +10,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.mobile_adproject.R;
 import com.example.mobile_adproject.SelectedBookHolder;
 import com.example.mobile_adproject.models.Book;
-import com.example.mobile_adproject.models.Donor;
 import com.example.mobile_adproject.retrofit.BookApi;
 import com.example.mobile_adproject.retrofit.RetrofitService;
 
@@ -147,8 +145,13 @@ public class DonateBookDetailActivity extends AppCompatActivity {
                         InputStream inputStream = conn.getInputStream();
                         final Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
 
-                        // To Test
-                        bookCover.setImageBitmap(bitmap);
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                // 在主线程上更新UI元素
+                                bookCover.setImageBitmap(bitmap);
+                            }
+                        });
 
                     }
                 } catch (Exception e) {
@@ -158,7 +161,7 @@ public class DonateBookDetailActivity extends AppCompatActivity {
         });
 
         thread.start();
-        bookCover.setImageResource(R.drawable.ic_baseline_link_off_24);
+
 
         btnDepositBook = findViewById(R.id.button_deposit_donate_book);
         btnDepositBook.setOnClickListener(view -> {
