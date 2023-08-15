@@ -22,11 +22,15 @@ import java.util.List;
 
 public class DonateBookAdapter extends RecyclerView.Adapter<DonateBookAdapter.DonateViewHolder>{
     Context context;
-    List<Book> donatedBookList;//the donate book just the recommmend books, they are all books
+    private List<Book> donatedBookList;
+    private OnItemClickListener listener;
 
-    public DonateBookAdapter(Context context, List<Book> donatedBookList) {
+
+
+    public DonateBookAdapter(Context context, List<Book> donatedBookList, OnItemClickListener listener) {
         this.context = context;
         this.donatedBookList = donatedBookList;
+        this.listener = listener;
     }
 
     @NonNull
@@ -34,7 +38,7 @@ public class DonateBookAdapter extends RecyclerView.Adapter<DonateBookAdapter.Do
     public DonateViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view= LayoutInflater.from(context).inflate(R.layout.donate_book_list_item,parent,false);
 
-        return new DonateViewHolder(view);
+        return new DonateViewHolder(view, listener);
     }
 
     @Override
@@ -114,13 +118,26 @@ public class DonateBookAdapter extends RecyclerView.Adapter<DonateBookAdapter.Do
 
         ImageView bookCover;
         TextView bookTitle, bookAuthor, bookStatus;
-        public DonateViewHolder(@NonNull View itemView) {
+        public DonateViewHolder(@NonNull View itemView, final OnItemClickListener listener) {
             super(itemView);
 
             bookCover = itemView.findViewById(R.id.book_cover);
             bookTitle = itemView.findViewById(R.id.book_title_profile);
             bookAuthor = itemView.findViewById(R.id.book_author_need_add_donate);
             bookStatus = itemView.findViewById(R.id.status_donate_book_need_add);
+
+            itemView.setOnClickListener(view -> {
+                if (listener != null) {
+                    int position = getAdapterPosition();
+                    if (position != RecyclerView.NO_POSITION) {
+                        listener.onItemClick(donatedBookList.get(position));
+                    }
+                }
+            });
         }
+    }
+
+    public interface OnItemClickListener {
+        void onItemClick(Book book);
     }
 }
