@@ -1,10 +1,9 @@
 package com.example.mobile_adproject.models;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.io.Serializable;
 import java.util.Date;
 
-public class Donor {
+public class Donor implements Serializable {
 
     private Long id;
     private String username;

@@ -1,5 +1,6 @@
 package com.example.mobile_adproject.HomePageModel;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -40,7 +41,7 @@ public class RecommendBookAdapter extends RecyclerView.Adapter<RecommendBookAdap
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecommendBookViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull RecommendBookViewHolder holder, @SuppressLint("RecyclerView") int position) {
         holder.bookTitle.setText(recommendBookList.get(position).getTitle());
         holder.bookAuthor.setText(recommendBookList.get(position).getAuthor());
 
@@ -80,7 +81,11 @@ public class RecommendBookAdapter extends RecyclerView.Adapter<RecommendBookAdap
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Book selectedBook = recommendBookList.get(position); // 获取选定的书籍对象
+
                 Intent intent = new Intent(context, BookDetailActivity.class);
+                intent.putExtra("selectedBook", selectedBook); // 将选定的书籍对象放入Intent中
+
                 context.startActivity(intent);
             }
         });

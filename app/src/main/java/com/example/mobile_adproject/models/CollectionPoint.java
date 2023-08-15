@@ -1,6 +1,8 @@
 package com.example.mobile_adproject.models;
 
-public class CollectionPoint {
+import java.io.Serializable;
+
+public class CollectionPoint implements Serializable {
 
      private Long id;
      private String name;

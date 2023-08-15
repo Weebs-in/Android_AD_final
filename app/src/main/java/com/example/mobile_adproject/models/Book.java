@@ -1,6 +1,8 @@
 package com.example.mobile_adproject.models;
 
-public class Book {
+import java.io.Serializable;
+
+public class Book implements Serializable {
     // Attributes
     private Long id;
     private String  isbn;
@@ -19,6 +21,14 @@ public class Book {
 
     // Getters and Setters
 
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getIsbn() {
         return isbn;
