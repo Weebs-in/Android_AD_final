@@ -1,6 +1,7 @@
 package com.example.mobile_adproject.activities;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -13,7 +14,6 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.mobile_adproject.R;
-import com.example.mobile_adproject.SelectedBookHolder;
 import com.example.mobile_adproject.models.Book;
 import com.example.mobile_adproject.retrofit.BookApi;
 import com.example.mobile_adproject.retrofit.RetrofitService;
@@ -54,8 +54,7 @@ public class DonateBookDetailActivity extends AppCompatActivity {
         String jwtToken = sharedPreferences.getString("jwtToken", "");
         String authorizationHeader = "Bearer " + jwtToken;
 
-        // Retrieve the selected book from the singleton instance
-        Book selectedBook = SelectedBookHolder.getInstance().getSelectedBook();
+
 
         titleTextView = findViewById(R.id.book_title_donate_book_detail);
         authorTextView = findViewById(R.id.book_author_need_to_add_donate_book_detail);
@@ -67,8 +66,10 @@ public class DonateBookDetailActivity extends AppCompatActivity {
         collectionPointTextView = findViewById(R.id.book_collection_point_need_to_add_donate_book_detail);
         descriptionTextView = findViewById(R.id.book_description_need_to_add_donate_book_detail);
 
+        Intent intent = getIntent();
+        Book selectedBook = (Book) intent.getSerializableExtra("selectedBook");
         if (selectedBook != null) {
-            // Display the detailed information of the selected book in views
+
             titleTextView.setText(selectedBook.getTitle());
             authorTextView.setText(selectedBook.getAuthor());
             isbnTextView.setText(selectedBook.getIsbn());

@@ -1,6 +1,8 @@
 package com.example.mobile_adproject.Profile;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
@@ -13,6 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mobile_adproject.R;
+import com.example.mobile_adproject.activities.DonateBookDetailActivity;
 import com.example.mobile_adproject.models.Book;
 
 import java.io.InputStream;
@@ -42,7 +45,7 @@ public class DonateBookAdapter extends RecyclerView.Adapter<DonateBookAdapter.Do
     }
 
     @Override
-    public void onBindViewHolder(@NonNull DonateViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull DonateViewHolder holder, @SuppressLint("RecyclerView") int position) {
 
         holder.bookTitle.setText(donatedBookList.get(position).getTitle());
         holder.bookAuthor.setText(donatedBookList.get(position).getAuthor());
@@ -106,6 +109,17 @@ public class DonateBookAdapter extends RecyclerView.Adapter<DonateBookAdapter.Do
         //load the picture
 
         holder.bookCover.setImageResource(R.drawable.ic_baseline_link_off_24);
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Book selectedBook = donatedBookList.get(position); // 获取选定的书籍对象
+
+                Intent intent = new Intent(context, DonateBookDetailActivity.class);
+                intent.putExtra("selectedBook",  selectedBook); // 将选定的书籍对象放入Intent中
+
+                context.startActivity(intent);
+            }
+        });
 
     }
 
@@ -126,14 +140,7 @@ public class DonateBookAdapter extends RecyclerView.Adapter<DonateBookAdapter.Do
             bookAuthor = itemView.findViewById(R.id.book_author_need_add_donate);
             bookStatus = itemView.findViewById(R.id.status_donate_book_need_add);
 
-            itemView.setOnClickListener(view -> {
-                if (listener != null) {
-                    int position = getAdapterPosition();
-                    if (position != RecyclerView.NO_POSITION) {
-                        listener.onItemClick(donatedBookList.get(position));
-                    }
-                }
-            });
+
         }
     }
 

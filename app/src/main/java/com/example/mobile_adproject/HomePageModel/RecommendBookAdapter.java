@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -85,7 +84,7 @@ public class RecommendBookAdapter extends RecyclerView.Adapter<RecommendBookAdap
                 Book selectedBook = recommendBookList.get(position); // 获取选定的书籍对象
 
                 Intent intent = new Intent(context, BookDetailActivity.class);
-                intent.putExtra("selectedBook", (Parcelable) selectedBook); // 将选定的书籍对象放入Intent中
+                intent.putExtra("selectedBook",  selectedBook); // 将选定的书籍对象放入Intent中
 
                 context.startActivity(intent);
             }
