@@ -1,6 +1,7 @@
 package com.example.mobile_adproject.Profile;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -16,11 +17,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mobile_adproject.HomePageModel.RecommendBook;
 import com.example.mobile_adproject.R;
+import com.example.mobile_adproject.SelectedBookHolder;
+import com.example.mobile_adproject.activities.DonateBookDetailActivity;
 import com.example.mobile_adproject.activities.MainActivity;
 import com.example.mobile_adproject.models.Book;
 import com.example.mobile_adproject.retrofit.BookApi;
 import com.example.mobile_adproject.retrofit.RetrofitService;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,7 +32,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class DonateBookListFragment  extends Fragment {
+public class DonateBookListFragment  extends Fragment implements DonateBookAdapter.OnItemClickListener {
     RecyclerView donateBookRecycler;
     DonateBookAdapter donateBookAdapter;
     SharedPreferences sharedPreferences;
@@ -68,12 +72,24 @@ public class DonateBookListFragment  extends Fragment {
         return root;
 
     }
+
+    @Override
+    public void onItemClick(Book book) {
+        // Set the selected book in the singleton instance
+        SelectedBookHolder.getInstance().setSelectedBook(book);
+
+        // Navigate to the detailed page activity
+        Intent intent = new Intent(requireContext(), DonateBookDetailActivity.class);
+        startActivity(intent);
+    }
     private  void setTransactionRecycler(List<Book> donatedBookList){
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false);
         donateBookRecycler.setLayoutManager(layoutManager);
-        donateBookAdapter = new DonateBookAdapter(requireContext(), donatedBookList);
+        donateBookAdapter = new DonateBookAdapter(requireContext(), donatedBookList, this);
         donateBookRecycler.setAdapter(donateBookAdapter);
 
     }
+
+
 }

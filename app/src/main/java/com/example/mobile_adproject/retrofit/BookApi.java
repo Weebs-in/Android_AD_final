@@ -28,7 +28,7 @@ public interface BookApi {
     Call<Book> getBookById(@Path("id") int id);
 
     @PUT("/api/book/{id}")
-    Call<Book> editBookById(@Path("id") int id, @Body Book book);
+    Call<Book> updateBookById(@Path("id") Long id, @Body Book book, @Header("Authorization") String authorizationHeader);
 
     @DELETE("/api/book/{id}")
     Call<Void> deleteBookById(@Path("id") int id);
