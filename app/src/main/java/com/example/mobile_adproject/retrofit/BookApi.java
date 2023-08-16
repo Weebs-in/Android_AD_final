@@ -37,7 +37,7 @@ public interface BookApi {
     @GET("/api/book/recommend")
     Call<List<Book>> recommandBook(@Path("id")Long id,@Header("Authorization") String  authorizationHeader);
     @GET("/api/book/search")
-    Call<List<Book>> search(@Body String search,@Header("Authorization") String  authorizationHeader);
+    Call<List<Book>> search(@Query("searchString") String search,@Header("Authorization") String  authorizationHeader);
 
     @GET("/api/book/recipient/{id}")
     Call<List<Book>> approvedBookByRecipientId(@Path("id")Long id, @Header("Authorization") String authorizationHeader);

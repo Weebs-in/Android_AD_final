@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
         searchbook.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                RecommandationBook(authorizationHeader);
+
             }
 
             @Override
@@ -122,10 +122,30 @@ public class MainActivity extends AppCompatActivity {
 
         if(jwtToken.isEmpty()){
             btnLogout.setVisibility(View.GONE);
+
+            bookApi.randomBook()
+                    .enqueue(new Callback<List<Book>>() {
+                        @Override
+                        public void onResponse(Call<List<Book>> call, Response<List<Book>> response) {
+                            if(response.isSuccessful()){
+                                Toast.makeText(MainActivity.this, "Get Random Successful!", Toast.LENGTH_SHORT).show();
+                                setRecommendRecycler(response.body());
+                            }
+                            else {
+                                Toast.makeText(MainActivity.this, "Failed to Get Books: " + response.message(), Toast.LENGTH_SHORT).show();
+                            }
+
+                        }
+
+                        @Override
+                        public void onFailure(Call<List<Book>> call, Throwable t) {
+                            Toast.makeText(MainActivity.this, "Get Random Response Failed!", Toast.LENGTH_SHORT).show();
+                            t.printStackTrace(); // Print the full stack trace to see the detailed error
+                        }
+                    });
         }
 
         authorizationHeader = "Bearer " + jwtToken;
-
         bookApi.getAllBooks(authorizationHeader)
                         .enqueue(new Callback<List<Book>>() {
                             @Override
@@ -137,15 +157,17 @@ public class MainActivity extends AppCompatActivity {
                                 else {
                                     Toast.makeText(MainActivity.this, "Failed to Get Books: " + response.message(), Toast.LENGTH_SHORT).show();
                                 }
-
                             }
 
                             @Override
                             public void onFailure(Call<List<Book>> call, Throwable t) {
                                 Toast.makeText(MainActivity.this, "Get All Books Response Failed!", Toast.LENGTH_SHORT).show();
                                 t.printStackTrace(); // Print the full stack trace to see the detailed error
+
                             }
                         });
+
+
 
         btnLogout.setOnClickListener(view -> {
             SharedPreferences.Editor editor = sharedPreferences.edit();
