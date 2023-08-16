@@ -26,14 +26,10 @@ import java.util.List;
 public class DonateBookAdapter extends RecyclerView.Adapter<DonateBookAdapter.DonateViewHolder>{
     Context context;
     private List<Book> donatedBookList;
-    private OnItemClickListener listener;
 
-
-
-    public DonateBookAdapter(Context context, List<Book> donatedBookList, OnItemClickListener listener) {
+    public DonateBookAdapter(Context context, List<Book> donatedBookList) {
         this.context = context;
         this.donatedBookList = donatedBookList;
-        this.listener = listener;
     }
 
     @NonNull
@@ -41,7 +37,7 @@ public class DonateBookAdapter extends RecyclerView.Adapter<DonateBookAdapter.Do
     public DonateViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view= LayoutInflater.from(context).inflate(R.layout.donate_book_list_item,parent,false);
 
-        return new DonateViewHolder(view, listener);
+        return new DonateViewHolder(view);
     }
 
     @Override
@@ -132,7 +128,7 @@ public class DonateBookAdapter extends RecyclerView.Adapter<DonateBookAdapter.Do
 
         ImageView bookCover;
         TextView bookTitle, bookAuthor, bookStatus;
-        public DonateViewHolder(@NonNull View itemView, final OnItemClickListener listener) {
+        public DonateViewHolder(@NonNull View itemView) {
             super(itemView);
 
             bookCover = itemView.findViewById(R.id.book_cover);
@@ -144,7 +140,7 @@ public class DonateBookAdapter extends RecyclerView.Adapter<DonateBookAdapter.Do
         }
     }
 
-    public interface OnItemClickListener {
-        void onItemClick(Book book);
-    }
+//    public interface OnItemClickListener {
+//        void onItemClick(Book book);
+//    }
 }

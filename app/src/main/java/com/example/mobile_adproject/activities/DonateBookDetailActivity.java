@@ -179,6 +179,9 @@ public class DonateBookDetailActivity extends AppCompatActivity {
                             if(response.isSuccessful()){
                                 Toast.makeText(DonateBookDetailActivity.this, "Update Book Successful!", Toast.LENGTH_SHORT).show();
 
+                                Intent intent1 = new Intent(DonateBookDetailActivity.this, ProfileActivity.class);
+                                startActivity(intent1);
+                                finish();
                             }
                             else {
                                 try {
