@@ -171,6 +171,7 @@ public class DonateBookDetailActivity extends AppCompatActivity {
 
             selectedBook.setStatus(1);
 
+
             bookApi.updateBookById(selectedBookId, selectedBook, authorizationHeader)
                     .enqueue(new Callback<Book>() {
                         @Override
