@@ -185,6 +185,7 @@ public class DonateBookDetailActivity extends AppCompatActivity {
                                     Toast.makeText(DonateBookDetailActivity.this, "Failed to Update Book: "
                                                     + response.message() + response.errorBody().string(), Toast.LENGTH_SHORT)
                                             .show();
+                                    System.out.println(response.body());
                                 } catch (IOException e) {
                                     throw new RuntimeException(e);
                                 }
