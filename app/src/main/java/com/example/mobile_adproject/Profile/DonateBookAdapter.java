@@ -105,17 +105,22 @@ public class DonateBookAdapter extends RecyclerView.Adapter<DonateBookAdapter.Do
         //load the picture
 
         holder.bookCover.setImageResource(R.drawable.ic_baseline_link_off_24);
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+
+        // Check if the status is Deposited
+        if (donatedBookList.get(position).getStatus() == 1) { // Assuming status 1 corresponds to "Deposited"
+            // Disable click action for Deposited items
+            holder.itemView.setOnClickListener(null);
+        } else {
+            // Enable click action for other items
+            holder.itemView.setOnClickListener(view -> {
                 Book selectedBook = donatedBookList.get(position); // 获取选定的书籍对象
 
                 Intent intent = new Intent(context, DonateBookDetailActivity.class);
                 intent.putExtra("selectedBook",  selectedBook); // 将选定的书籍对象放入Intent中
 
                 context.startActivity(intent);
-            }
-        });
+            });
+        }
 
     }
 
