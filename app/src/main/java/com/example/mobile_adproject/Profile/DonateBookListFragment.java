@@ -32,7 +32,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class DonateBookListFragment  extends Fragment implements DonateBookAdapter.OnItemClickListener {
+public class DonateBookListFragment  extends Fragment {
     RecyclerView donateBookRecycler;
     DonateBookAdapter donateBookAdapter;
     SharedPreferences sharedPreferences;
@@ -73,20 +73,20 @@ public class DonateBookListFragment  extends Fragment implements DonateBookAdapt
 
     }
 
-    @Override
-    public void onItemClick(Book book) {
-        // Set the selected book in the singleton instance
-        SelectedBookHolder.getInstance().setSelectedBook(book);
-
-        // Navigate to the detailed page activity
-        Intent intent = new Intent(requireContext(), DonateBookDetailActivity.class);
-        startActivity(intent);
-    }
+//    @Override
+//    public void onItemClick(Book book) {
+//        // Set the selected book in the singleton instance
+//        SelectedBookHolder.getInstance().setSelectedBook(book);
+//
+//        // Navigate to the detailed page activity
+//        Intent intent = new Intent(requireContext(), DonateBookDetailActivity.class);
+//        startActivity(intent);
+//    }
     private  void setTransactionRecycler(List<Book> donatedBookList){
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false);
         donateBookRecycler.setLayoutManager(layoutManager);
-        donateBookAdapter = new DonateBookAdapter(requireContext(), donatedBookList, this);
+        donateBookAdapter = new DonateBookAdapter(requireContext(), donatedBookList);
         donateBookRecycler.setAdapter(donateBookAdapter);
 
     }
