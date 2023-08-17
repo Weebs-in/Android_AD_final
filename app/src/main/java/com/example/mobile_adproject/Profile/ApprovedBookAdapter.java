@@ -78,7 +78,7 @@ public class ApprovedBookAdapter  extends RecyclerView.Adapter<ApprovedBookAdapt
             holder.button.setVisibility(View.GONE);
         }
 
-        holder.bookCover.setImageResource(R.drawable.book);
+        holder.bookCover.setImageResource(R.drawable.ic_baseline_link_off_24);
         holder.bookTitle.setText(transactionHistoryData.get(position).getTitle());
         holder.bookAuthor.setText(transactionHistoryData.get(position).getTitle());
         switch (transactionHistoryData.get(position).getStatus()){

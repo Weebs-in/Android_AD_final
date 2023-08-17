@@ -39,7 +39,7 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull TransactionViewHolder holder, int position) {
-        holder.bookCover.setImageResource(R.drawable.book);
+        holder.bookCover.setImageResource(R.drawable.ic_baseline_link_off_24);
         holder.bookTitle.setText(transactionHistoryData.get(position).getTitle());
         holder.bookauthor.setText(transactionHistoryData.get(position).getAuthor());
         holder.bookdonor.setText(transactionHistoryData.get(position).getDonor().getUsername());
