@@ -372,6 +372,7 @@ public class DonateBookActivity extends AppCompatActivity {
                                 e.printStackTrace();
                             }
                         }
+                        dialog.dismiss();
                         break;
                     case 1:
                         if (ContextCompat.checkSelfPermission(DonateBookActivity.this,
@@ -386,6 +387,7 @@ public class DonateBookActivity extends AppCompatActivity {
                         if (galleryIntent.resolveActivity(getPackageManager()) != null) {
                             startActivityForResult(galleryIntent, REQUEST_PICKER);
                         }
+                        dialog.dismiss();
                         break;
                     case 2:
                         // 处理Cancel的点击事件

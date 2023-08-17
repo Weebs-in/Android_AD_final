@@ -31,7 +31,7 @@
         <entry key="..\:/andriod game/Mobile_ADProject/app/src/main/res/layout/activity_message.xml" value="0.2069260367678495" />
         <entry key="..\:/andriod game/Mobile_ADProject/app/src/main/res/layout/activity_profile.xml" value="0.22" />
         <entry key="..\:/andriod game/Mobile_ADProject/app/src/main/res/layout/approved_book_list.xml" value="0.1923899102180419" />
-        <entry key="..\:/andriod game/Mobile_ADProject/app/src/main/res/layout/approved_book_list_item.xml" value="0.1923899102180419" />
+        <entry key="..\:/andriod game/Mobile_ADProject/app/src/main/res/layout/approved_book_list_item.xml" value="0.3333333333333333" />
         <entry key="..\:/andriod game/Mobile_ADProject/app/src/main/res/layout/approved_book_list_otem.xml" value="0.1923899102180419" />
         <entry key="..\:/andriod game/Mobile_ADProject/app/src/main/res/layout/dialog_confirm_deposit.xml" value="0.19429347826086957" />
         <entry key="..\:/andriod game/Mobile_ADProject/app/src/main/res/layout/donate_book_list.xml" value="0.2069260367678495" />
@@ -51,7 +51,7 @@
   <component name="ProjectPlainTextFileTypeManager">
     <file url="file://$PROJECT_DIR$/app/src/main/res/drawable/ic_baseline_check_circle_24.xml" />
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="ibm-11" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">

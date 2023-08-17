@@ -11,10 +11,15 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.mobile_adproject.R;
+import com.example.mobile_adproject.models.Application;
 import com.example.mobile_adproject.models.Book;
+import com.example.mobile_adproject.models.Donor;
+import com.example.mobile_adproject.models.Member;
+import com.example.mobile_adproject.retrofit.ApplicationApi;
 import com.example.mobile_adproject.retrofit.BookApi;
 import com.example.mobile_adproject.retrofit.RetrofitService;
 
@@ -267,11 +272,80 @@ public class BookDetailActivity extends AppCompatActivity {
                 }
             });
 
-            btnRequest = findViewById(R.id.button_request);
-            btnRequest.setOnClickListener(view -> {
-                Intent intentBookRequest = new Intent(BookDetailActivity.this, BookRequestActivity.class);
-                startActivity(intentBookRequest);
-            });
+            if(selectedBook.getBookCondition()==2){
+                btnRequest = findViewById(R.id.button_request);
+                btnRequest.setOnClickListener(view -> {
+                    // Create and show the confirmation dialog
+                    AlertDialog.Builder builder = new AlertDialog.Builder(BookDetailActivity.this);
+
+                    builder.setView(R.layout.dialog_confirm_deposit);
+                    AlertDialog dialog = builder.create();
+
+                    // Show the dialog
+                    dialog.show();
+
+                    // Find the buttons in the dialog layout
+                    Button confirmButton = dialog.findViewById(R.id.btn_confirm);
+                    Button cancelButton = dialog.findViewById(R.id.btn_cancel);
+
+                    ApplicationApi applicationApi = retrofitService.getRetrofit().create(ApplicationApi.class);
+                    sharedPreferences = getSharedPreferences("Login Credentials", Context.MODE_PRIVATE);
+                    jwtToken = sharedPreferences.getString("jwtToken", "");
+                    authorizationHeader = "Bearer " + jwtToken;
+                    // Set click listener for the "Confirm" button
+                    confirmButton.setOnClickListener(v -> {
+                        // Perform the request action here
+                        // create application
+
+                        Application application=new Application();
+                        application.setBook(selectedBook);
+                        Long loggedInMemberId = sharedPreferences.getLong("memberId", 0);
+                        Member member=new Member();
+                        member.setId(loggedInMemberId);
+                        application.setRecipient(member);
+                        application.setStatus(0);
+                        applicationApi.createApplication(application, authorizationHeader)
+                                .enqueue(new Callback<Application>() {
+                                    @Override
+                                    public void onResponse(Call<Application> call, Response<Application> response) {
+                                        if(response.isSuccessful()){
+                                            Toast.makeText(BookDetailActivity.this, "Create Application Successful!", Toast.LENGTH_SHORT).show();
+
+                                            Intent intent1 = new Intent(BookDetailActivity.this, ProfileActivity.class);
+                                            startActivity(intent1);
+                                            finish();
+                                        }
+                                        else {
+                                            try {
+                                                Toast.makeText(BookDetailActivity.this, "Failed to create applicayion: "
+                                                        + response.message() + response.errorBody().string(), Toast.LENGTH_SHORT)
+                                                        .show();
+                                            } catch (IOException e) {
+                                                throw new RuntimeException(e);
+                                            }
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onFailure(Call<Application> call, Throwable t) {
+                                        Toast.makeText(BookDetailActivity.this, "Create Application Response Failed!", Toast.LENGTH_SHORT)
+                                                .show();
+                                        t.printStackTrace(); // Print the full stack trace to see the detailed error
+                                    }
+                                });
+
+                        // Dismiss the dialog
+                        dialog.dismiss();
+                    });
+
+                    // Set click listener for the "Cancel" button
+                    cancelButton.setOnClickListener(v -> {
+                        // Dismiss the dialog
+                        dialog.dismiss();
+                    });
+                });
+            }
+
 
         }
 

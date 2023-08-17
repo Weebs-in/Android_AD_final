@@ -15,7 +15,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mobile_adproject.R;
+import com.example.mobile_adproject.models.Application;
 import com.example.mobile_adproject.models.Book;
+import com.example.mobile_adproject.retrofit.ApplicationApi;
 import com.example.mobile_adproject.retrofit.BookApi;
 import com.example.mobile_adproject.retrofit.RetrofitService;
 
@@ -41,7 +43,7 @@ public class ApprovedBookListFragment extends Fragment {
         approvedBookRecycler=root.findViewById(R.id.approved_recycleView);
 
         RetrofitService retrofitService = new RetrofitService();
-        BookApi bookApi = retrofitService.getRetrofit().create(BookApi.class);
+        ApplicationApi applicationApi = retrofitService.getRetrofit().create(ApplicationApi.class);
 
         sharedPreferences = getActivity().getSharedPreferences("Login Credentials", Context.MODE_PRIVATE);
 
@@ -49,53 +51,28 @@ public class ApprovedBookListFragment extends Fragment {
         recipientId = sharedPreferences.getLong("memberId",0);
 
         authorizationHeader = "Bearer " + jwtToken;
-
-        bookApi.approvedBookByRecipientId(recipientId,authorizationHeader)
-                .enqueue(new Callback<List<Book>>() {
+        applicationApi.getAllApplicationsByMember(recipientId, authorizationHeader)
+                .enqueue(new Callback<List<Application>>() {
                     @Override
-                    public void onResponse(Call<List<Book>> call, Response<List<Book>> response) {
+                    public void onResponse(Call<List<Application>> call, Response<List<Application>> response) {
                         if(response.isSuccessful()){
-                            Toast.makeText(getContext(), "Get Approved BookList Successful!", Toast.LENGTH_SHORT).show();
-                            setTransactionRecycler(response.body());
+                            Toast.makeText(getContext(), "Get All Request Books Successful!", Toast.LENGTH_SHORT).show();
+                            setApprovedBookRecycler(response.body());
                         }
                         else {
-                            Toast.makeText(getContext(), "Failed Approved BookList  Books: " + response.message(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getContext(), "Failed to Get All Request Books: " + response.message(), Toast.LENGTH_SHORT).show();
                         }
-
                     }
-
                     @Override
-                    public void onFailure(Call<List<Book>> call, Throwable t) {
-                        Toast.makeText(getContext(), "Get ApprovedBookList Response Failed!", Toast.LENGTH_SHORT).show();
+                    public void onFailure(Call<List<Application>> call, Throwable t) {
+                        Toast.makeText(getContext(), "Get All Request Books Response Failed!", Toast.LENGTH_SHORT).show();
                         t.printStackTrace(); // Print the full stack trace to see the detailed error
                     }
                 });
-
-
-
-
-        /*List<TransactionHistoryData> transactionHistoryData=new ArrayList<>();
-        transactionHistoryData.add(new TransactionHistoryData());
-        transactionHistoryData.add(new TransactionHistoryData());
-        transactionHistoryData.add(new TransactionHistoryData());
-        transactionHistoryData.add(new TransactionHistoryData());
-        transactionHistoryData.add(new TransactionHistoryData());
-        transactionHistoryData.add(new TransactionHistoryData());
-        transactionHistoryData.add(new TransactionHistoryData());
-        transactionHistoryData.add(new TransactionHistoryData());
-        transactionHistoryData.add(new TransactionHistoryData());
-        transactionHistoryData.add(new TransactionHistoryData());
-        transactionHistoryData.add(new TransactionHistoryData());
-        transactionHistoryData.add(new TransactionHistoryData());
-        transactionHistoryData.add(new TransactionHistoryData());
-        transactionHistoryData.add(new TransactionHistoryData());
-        setTransactionRecycler(transactionHistoryData);*/
-
         return root;
-
     }
 
-    public void sendTransactionCompletetoServer(Long bookId) {
+/*    public void sendTransactionCompletetoServer(Long bookId) {
         RetrofitService retrofitService = new RetrofitService();
         BookApi bookApi1 = retrofitService.getRetrofit().create(BookApi.class);
         bookApi1.sendCompleteTransactionStatus(recipientId,bookId,authorizationHeader)
@@ -115,12 +92,12 @@ public class ApprovedBookListFragment extends Fragment {
 
                     }
                 });
-    }
-    private  void setTransactionRecycler(List<Book> transactionHistoryData){
+    }*/
+    private  void setApprovedBookRecycler(List<Application> requestedBookList){
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false);
         approvedBookRecycler.setLayoutManager(layoutManager);
-        approvedBookAdapter = new ApprovedBookAdapter(requireContext(), transactionHistoryData);
+        approvedBookAdapter = new ApprovedBookAdapter(requireContext(), requestedBookList);
         approvedBookRecycler.setAdapter(approvedBookAdapter);
 
 

@@ -79,28 +79,6 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-        //add some data just for testing
-       /* List<RecommendBook> recommendBookList=new ArrayList<>();
-        recommendBookList.add(new RecommendBook(1L,1,"Harry Potter and the Order of the Phoenix","J. K. Rowling",
-                "http",
-                1,"1","1","1",1,1,1L,time1,time2));
-        recommendBookList.add(new RecommendBook(2L,1,"Harry Potter and the Order of the Phoenix","J. K. Rowling",
-                "http",
-                1,"1","1","1",1,1,1L,time1,time2));
-        recommendBookList.add(new RecommendBook(3L,1,"Harry Potter and the Order of the Phoenix","J. K. Rowling",
-                "http",
-                1,"1","1","1",1,1,1L,time1,time2));
-        recommendBookList.add(new RecommendBook(3L,1,"Harry Potter and the Order of the Phoenix","J. K. Rowling",
-                "http",
-                1,"1","1","1",1,1,1L,time1,time2));
-        recommendBookList.add(new RecommendBook(3L,1,"Harry Potter and the Order of the Phoenix","J. K. Rowling",
-                "http",
-                1,"1","1","1",1,1,1L,time1,time2));
-        setRecommendRecycler(recommendBookList);*/
-
-        RetrofitService retrofitService = new RetrofitService();
-        BookApi bookApi = retrofitService.getRetrofit().create(BookApi.class);
-
         sharedPreferences = getSharedPreferences("Login Credentials", Context.MODE_PRIVATE);
 
         String jwtToken = sharedPreferences.getString("jwtToken","");
