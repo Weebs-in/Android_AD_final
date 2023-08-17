@@ -164,7 +164,7 @@ public class ApprovedBookAdapter  extends RecyclerView.Adapter<ApprovedBookAdapt
             // Create and show the confirmation dialog
             AlertDialog.Builder builder = new AlertDialog.Builder(context);
 
-            builder.setView(R.layout.dialog_confirm_deposit);
+            builder.setView(R.layout.dialog_confirm_complete_take_over_book);
             AlertDialog dialog = builder.create();
 
             // Show the dialog

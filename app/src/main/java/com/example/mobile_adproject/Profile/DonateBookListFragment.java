@@ -1,7 +1,6 @@
 package com.example.mobile_adproject.Profile;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -15,17 +14,11 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.mobile_adproject.HomePageModel.RecommendBook;
 import com.example.mobile_adproject.R;
-import com.example.mobile_adproject.SelectedBookHolder;
-import com.example.mobile_adproject.activities.DonateBookDetailActivity;
-import com.example.mobile_adproject.activities.MainActivity;
 import com.example.mobile_adproject.models.Book;
 import com.example.mobile_adproject.retrofit.BookApi;
 import com.example.mobile_adproject.retrofit.RetrofitService;
 
-import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
