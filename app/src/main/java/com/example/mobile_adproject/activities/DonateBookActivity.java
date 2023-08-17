@@ -157,7 +157,7 @@ public class DonateBookActivity extends AppCompatActivity {
                                 collectionPointNames.add(name);
                             }
 
-                            // Create an ArrayAdapter using your custom spinner item layout and the list of collection points
+                            // Create an ArrayAdapter using custom spinner item layout and the list of collection points
                             ArrayAdapter<String> adapter = new ArrayAdapter<>(DonateBookActivity.this, R.layout.spinner_collection_point_item, collectionPointNames);
                             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
@@ -226,9 +226,6 @@ public class DonateBookActivity extends AppCompatActivity {
 
             Donor donor = new Donor();
             donor.setId(loggedInMemberId);
-
-//            CollectionPoint collectionPoint = new CollectionPoint();
-//            collectionPoint.setId((long) 16);
 
             Book book = new Book();
             book.setIsbn(isbn);

@@ -90,9 +90,9 @@ public class DonateBookAdapter extends RecyclerView.Adapter<DonateBookAdapter.Do
             case 3:
                 holder.bookStatus.setText("Reserved");
                 break;
-            case 4:
-                holder.bookStatus.setText("Unavailable");
-                break;
+//            case 4:
+//                holder.bookStatus.setText("Unavailable");
+//                break;
             case 5:
                 holder.bookStatus.setText("Rejected");
                 break;
@@ -101,27 +101,38 @@ public class DonateBookAdapter extends RecyclerView.Adapter<DonateBookAdapter.Do
                 break;
         }
 
-        //String url = donatedBookList.get(position).getCover(); // get image URL
-        //load the picture
-
         holder.bookCover.setImageResource(R.drawable.ic_baseline_link_off_24);
 
-        // Check if the status is Deposited
-        if (donatedBookList.get(position).getStatus() == 1) { // Assuming status 1 corresponds to "Deposited"
-            // Disable click action for Deposited items
-            holder.itemView.setOnClickListener(null);
-        } else {
-            // Enable click action for other items
-            holder.itemView.setOnClickListener(view -> {
-                Book selectedBook = donatedBookList.get(position); // 获取选定的书籍对象
+        int status = donatedBookList.get(position).getStatus();
 
-                Intent intent = new Intent(context, DonateBookDetailActivity.class);
-                intent.putExtra("selectedBook",  selectedBook); // 将选定的书籍对象放入Intent中
-
-                context.startActivity(intent);
-            });
+        if(status == 4 || status == 6){
+            // Hide the item
+            holder.itemView.setVisibility(View.GONE);
+            holder.itemView.setLayoutParams(new RecyclerView.LayoutParams(0, 0));
         }
+        else {
+            holder.itemView.setVisibility(View.VISIBLE);
+            holder.itemView.setLayoutParams(new RecyclerView.LayoutParams(
+                    ViewGroup.LayoutParams.MATCH_PARENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT
+            ));
+            // Check if the status is not Pending
+            if (donatedBookList.get(position).getStatus() != 0) {
+                // Disable click action for items except Pending status
+                holder.itemView.setOnClickListener(null);
+                holder.txtContinue.setVisibility(View.GONE);
+            } else {
+                // Enable click action for other items
+                holder.itemView.setOnClickListener(view -> {
+                    Book selectedBook = donatedBookList.get(position); // 获取选定的书籍对象
 
+                    Intent intent = new Intent(context, DonateBookDetailActivity.class);
+                    intent.putExtra("selectedBook",  selectedBook); // 将选定的书籍对象放入Intent中
+
+                    context.startActivity(intent);
+                });
+            }
+        }
     }
 
     @Override
@@ -132,7 +143,7 @@ public class DonateBookAdapter extends RecyclerView.Adapter<DonateBookAdapter.Do
     public class DonateViewHolder extends RecyclerView.ViewHolder{
 
         ImageView bookCover;
-        TextView bookTitle, bookAuthor, bookStatus;
+        TextView bookTitle, bookAuthor, bookStatus, txtContinue;
         public DonateViewHolder(@NonNull View itemView) {
             super(itemView);
 
@@ -140,12 +151,8 @@ public class DonateBookAdapter extends RecyclerView.Adapter<DonateBookAdapter.Do
             bookTitle = itemView.findViewById(R.id.book_title_profile);
             bookAuthor = itemView.findViewById(R.id.book_author_need_add_donate);
             bookStatus = itemView.findViewById(R.id.status_donate_book_need_add);
-
+            txtContinue = itemView.findViewById(R.id.contiguous_donate_book);
 
         }
     }
-
-//    public interface OnItemClickListener {
-//        void onItemClick(Book book);
-//    }
 }

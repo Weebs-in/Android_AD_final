@@ -12,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AlertDialog;
 
 import com.example.mobile_adproject.R;
 import com.example.mobile_adproject.models.Book;
@@ -167,40 +168,68 @@ public class DonateBookDetailActivity extends AppCompatActivity {
         btnDepositBook = findViewById(R.id.button_deposit_donate_book);
         btnDepositBook.setOnClickListener(view -> {
 
-            Long selectedBookId = selectedBook.getId();
+            // Create and show the confirmation dialog
+            AlertDialog.Builder builder = new AlertDialog.Builder(DonateBookDetailActivity.this);
+            builder.setView(R.layout.dialog_confirm_deposit);
+            AlertDialog dialog = builder.create();
 
-            selectedBook.setStatus(1);
+            // Show the dialog
+            dialog.show();
+
+            // Find the buttons in the dialog layout
+            Button confirmButton = dialog.findViewById(R.id.btn_confirm);
+            Button cancelButton = dialog.findViewById(R.id.btn_cancel);
+
+            // Set click listener for the "Confirm" button
+            confirmButton.setOnClickListener(v -> {
+                // Perform the deposit action here
+                // Update book status and make API call
+
+                Long selectedBookId = selectedBook.getId();
+
+                selectedBook.setStatus(1);
 
 
-            bookApi.updateBookById(selectedBookId, selectedBook, authorizationHeader)
-                    .enqueue(new Callback<Book>() {
-                        @Override
-                        public void onResponse(Call<Book> call, Response<Book> response) {
-                            if(response.isSuccessful()){
-                                Toast.makeText(DonateBookDetailActivity.this, "Update Book Successful!", Toast.LENGTH_SHORT).show();
+                bookApi.updateBookById(selectedBookId, selectedBook, authorizationHeader)
+                        .enqueue(new Callback<Book>() {
+                            @Override
+                            public void onResponse(Call<Book> call, Response<Book> response) {
+                                if(response.isSuccessful()){
+                                    Toast.makeText(DonateBookDetailActivity.this, "Update Book Successful!", Toast.LENGTH_SHORT).show();
 
-                                Intent intent1 = new Intent(DonateBookDetailActivity.this, ProfileActivity.class);
-                                startActivity(intent1);
-                                finish();
-                            }
-                            else {
-                                try {
-                                    Toast.makeText(DonateBookDetailActivity.this, "Failed to Update Book: "
-                                                    + response.message() + response.errorBody().string(), Toast.LENGTH_SHORT)
-                                            .show();
-                                } catch (IOException e) {
-                                    throw new RuntimeException(e);
+                                    Intent intent1 = new Intent(DonateBookDetailActivity.this, ProfileActivity.class);
+                                    startActivity(intent1);
+                                    finish();
+                                }
+                                else {
+                                    try {
+                                        Toast.makeText(DonateBookDetailActivity.this, "Failed to Update Book: "
+                                                        + response.message() + response.errorBody().string(), Toast.LENGTH_SHORT)
+                                                .show();
+                                    } catch (IOException e) {
+                                        throw new RuntimeException(e);
+                                    }
                                 }
                             }
-                        }
 
-                        @Override
-                        public void onFailure(Call<Book> call, Throwable t) {
-                            Toast.makeText(DonateBookDetailActivity.this, "Update Book Response Failed!", Toast.LENGTH_SHORT)
-                                    .show();
-                            t.printStackTrace(); // Print the full stack trace to see the detailed error
-                        }
-                    });
+                            @Override
+                            public void onFailure(Call<Book> call, Throwable t) {
+                                Toast.makeText(DonateBookDetailActivity.this, "Update Book Response Failed!", Toast.LENGTH_SHORT)
+                                        .show();
+                                t.printStackTrace(); // Print the full stack trace to see the detailed error
+                            }
+                        });
+
+                // Dismiss the dialog
+                dialog.dismiss();
+            });
+
+            // Set click listener for the "Cancel" button
+            cancelButton.setOnClickListener(v -> {
+                // Dismiss the dialog
+                dialog.dismiss();
+            });
+
         });
     }
 }

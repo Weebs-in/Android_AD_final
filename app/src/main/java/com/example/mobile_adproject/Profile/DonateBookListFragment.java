@@ -72,16 +72,6 @@ public class DonateBookListFragment  extends Fragment {
         return root;
 
     }
-
-//    @Override
-//    public void onItemClick(Book book) {
-//        // Set the selected book in the singleton instance
-//        SelectedBookHolder.getInstance().setSelectedBook(book);
-//
-//        // Navigate to the detailed page activity
-//        Intent intent = new Intent(requireContext(), DonateBookDetailActivity.class);
-//        startActivity(intent);
-//    }
     private  void setTransactionRecycler(List<Book> donatedBookList){
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false);
