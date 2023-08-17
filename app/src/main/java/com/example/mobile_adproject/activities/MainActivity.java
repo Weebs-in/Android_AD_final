@@ -4,8 +4,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -36,6 +39,13 @@ public class MainActivity extends AppCompatActivity {
     ImageView profile;
     Button btnLogout;
     SharedPreferences sharedPreferences;
+    EditText searchbook;
+
+    String authorizationHeader;
+
+    Long memberId;
+    RetrofitService retrofitService = new RetrofitService();
+    BookApi bookApi = retrofitService.getRetrofit().create(BookApi.class);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,19 +54,84 @@ public class MainActivity extends AppCompatActivity {
 
         btnLogout = findViewById(R.id.btn_logout);
 
+
+        searchbook=findViewById(R.id.search_books);
+        searchbook.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                // When the user types, perform search
+                performSearch(charSequence.toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                // Not needed for this example
+            }
+
+
+
+
+        });
+
+
+        //add some data just for testing
+       /* List<RecommendBook> recommendBookList=new ArrayList<>();
+        recommendBookList.add(new RecommendBook(1L,1,"Harry Potter and the Order of the Phoenix","J. K. Rowling",
+                "http",
+                1,"1","1","1",1,1,1L,time1,time2));
+        recommendBookList.add(new RecommendBook(2L,1,"Harry Potter and the Order of the Phoenix","J. K. Rowling",
+                "http",
+                1,"1","1","1",1,1,1L,time1,time2));
+        recommendBookList.add(new RecommendBook(3L,1,"Harry Potter and the Order of the Phoenix","J. K. Rowling",
+                "http",
+                1,"1","1","1",1,1,1L,time1,time2));
+        recommendBookList.add(new RecommendBook(3L,1,"Harry Potter and the Order of the Phoenix","J. K. Rowling",
+                "http",
+                1,"1","1","1",1,1,1L,time1,time2));
+        recommendBookList.add(new RecommendBook(3L,1,"Harry Potter and the Order of the Phoenix","J. K. Rowling",
+                "http",
+                1,"1","1","1",1,1,1L,time1,time2));
+        setRecommendRecycler(recommendBookList);*/
+
         RetrofitService retrofitService = new RetrofitService();
         BookApi bookApi = retrofitService.getRetrofit().create(BookApi.class);
 
         sharedPreferences = getSharedPreferences("Login Credentials", Context.MODE_PRIVATE);
 
         String jwtToken = sharedPreferences.getString("jwtToken","");
+        memberId = sharedPreferences.getLong("memberId", 0);
 
         if(jwtToken.isEmpty()){
             btnLogout.setVisibility(View.GONE);
+
+            bookApi.randomBook()
+                    .enqueue(new Callback<List<Book>>() {
+                        @Override
+                        public void onResponse(Call<List<Book>> call, Response<List<Book>> response) {
+                            if(response.isSuccessful()){
+                                Toast.makeText(MainActivity.this, "Get Random Successful!", Toast.LENGTH_SHORT).show();
+                                setRecommendRecycler(response.body());
+                            }
+                            else {
+                                Toast.makeText(MainActivity.this, "Failed to Get Books: " + response.message(), Toast.LENGTH_SHORT).show();
+                            }
+
+                        }
+
+                        @Override
+                        public void onFailure(Call<List<Book>> call, Throwable t) {
+                            Toast.makeText(MainActivity.this, "Get Random Response Failed!", Toast.LENGTH_SHORT).show();
+                            t.printStackTrace(); // Print the full stack trace to see the detailed error
+                        }
+                    });
         }
 
-        String authorizationHeader = "Bearer " + jwtToken;
-
+        authorizationHeader = "Bearer " + jwtToken;
         bookApi.getAllBooks(authorizationHeader)
                         .enqueue(new Callback<List<Book>>() {
                             @Override
@@ -75,8 +150,11 @@ public class MainActivity extends AppCompatActivity {
                             public void onFailure(Call<List<Book>> call, Throwable t) {
                                 Toast.makeText(MainActivity.this, "Get All Books Response Failed!", Toast.LENGTH_SHORT).show();
                                 t.printStackTrace(); // Print the full stack trace to see the detailed error
+
                             }
                         });
+
+
 
         btnLogout.setOnClickListener(view -> {
             SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -150,6 +228,65 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+
+    }
+    private void RecommandationBook(String header) {
+        if(header==null){
+            bookApi.randomBook()
+                    .enqueue(new Callback<List<Book>>() {
+                        @Override
+                        public void onResponse(Call<List<Book>> call, Response<List<Book>> response) {
+                            if(response.isSuccessful()){
+                                Toast.makeText(MainActivity.this, "Get Random Book Successful!", Toast.LENGTH_SHORT).show();
+                                setRecommendRecycler(response.body());
+                            }
+                            else {
+                                Toast.makeText(MainActivity.this, "Get Random Book Failed: " + response.message(), Toast.LENGTH_SHORT).show();
+                            }
+
+                        }
+
+                        @Override
+                        public void onFailure(Call<List<Book>> call, Throwable t) {
+                            Toast.makeText(MainActivity.this, "Get Random Book Failed!", Toast.LENGTH_SHORT).show();
+                            t.printStackTrace(); // Print the full stack trace to see the detailed error
+                        }
+                    });
+        }else {
+            bookApi.recommandBook(memberId,header)
+                    .enqueue(new Callback<List<Book>>() {
+                        @Override
+                        public void onResponse(Call<List<Book>> call, Response<List<Book>> response) {
+                            if(response.isSuccessful()){
+                                Toast.makeText(MainActivity.this, "Get Recommand  Book Successful!", Toast.LENGTH_SHORT).show();
+                                setRecommendRecycler(response.body());
+                            }
+
+                        }
+
+                        @Override
+                        public void onFailure(Call<List<Book>> call, Throwable t) {
+                            Toast.makeText(MainActivity.this, "Get Recommand Book Failed: " , Toast.LENGTH_SHORT).show();
+                        }
+                    });
+        }
+    }
+    private void performSearch(String search) {
+        bookApi.search(search,authorizationHeader)
+                .enqueue(new Callback<List<Book>>() {
+                    @Override
+                    public void onResponse(Call<List<Book>> call, Response<List<Book>> response) {
+                        if(response.isSuccessful()){
+                            Toast.makeText(MainActivity.this, "Get Search All Book Successful!", Toast.LENGTH_SHORT).show();
+                            setRecommendRecycler(response.body());
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<List<Book>> call, Throwable t) {
+                        Toast.makeText(MainActivity.this, "Get Search Book Failed: " , Toast.LENGTH_SHORT).show();
+                    }
+                });
 
     }
     private  void setRecommendRecycler(List<Book> recommendBookList){

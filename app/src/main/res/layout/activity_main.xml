@@ -49,7 +49,7 @@
             android:drawableLeft="@drawable/ic_baseline_search_24"
             android:drawablePadding="16dp"
             android:paddingStart="16dp"
-            android:text="Search Books"
+            android:hint="Search Books"
             android:textColor="#62878F"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/category_img"

@@ -61,17 +61,17 @@
             android:id="@+id/book_donor"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Donor: "
+            android:text="Book Status"
             android:textColor="#044363"
             android:textSize="14sp"
             app:layout_constraintStart_toStartOf="@+id/book_author"
             app:layout_constraintTop_toBottomOf="@+id/book_author" />
 
         <TextView
-            android:id="@+id/book_donor_need_add_approved"
+            android:id="@+id/book_status"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="admin"
+            android:text="Approve"
             android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="@+id/book_donor"
             app:layout_constraintStart_toEndOf="@+id/book_donor" />
@@ -88,11 +88,26 @@
 
         <TextView
             android:id="@+id/book_recipient_need_add_transaction"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Singapore 123456"
+            android:layout_width="87dp"
+            android:layout_height="19dp"
+            android:text="@string/HQ"
             android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="@+id/book_collection_place"
             app:layout_constraintStart_toEndOf="@+id/book_collection_place" />
+
+        <Button
+            android:id="@+id/Status_button"
+            android:layout_width="105dp"
+            android:layout_height="36dp"
+            android:text="Complete"
+            android:textSize="10sp"
+            app:layout_constraintBottom_toBottomOf="@id/book_cover"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.937"
+            app:layout_constraintStart_toEndOf="@id/book_cover"
+            app:layout_constraintTop_toTopOf="@id/book_cover"
+            app:layout_constraintVertical_bias="1.0" />
+
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

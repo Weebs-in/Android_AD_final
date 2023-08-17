@@ -16,4 +16,5 @@
         <item>German</item>
     </string-array>
 
+    <string name="HQ">Head of Office</string>
 </resources>
