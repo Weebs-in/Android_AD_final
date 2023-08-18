@@ -129,71 +129,80 @@ public class ApprovedBookAdapter  extends RecyclerView.Adapter<ApprovedBookAdapt
                 break;
         }
 
-        holder.button.setOnClickListener(view -> {
+        System.out.println(ex4ApplicationList.get(position).getStatus());
 
-            // Create and show the confirmation dialog
-            AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        if (ex4ApplicationList.get(position).getStatus() == 3) {
+            holder.button.setOnClickListener(view -> {
 
-            builder.setView(R.layout.dialog_confirm_complete_take_over_book);
-            AlertDialog dialog = builder.create();
+                // Create and show the confirmation dialog
+                AlertDialog.Builder builder = new AlertDialog.Builder(context);
 
-            // Show the dialog
-            dialog.show();
+                builder.setView(R.layout.dialog_confirm_complete_take_over_book);
+                AlertDialog dialog = builder.create();
 
-            // Find the buttons in the dialog layout
-            Button confirmButton = dialog.findViewById(R.id.btn_confirm);
-            Button cancelButton = dialog.findViewById(R.id.btn_cancel);
+                // Show the dialog
+                dialog.show();
 
-            RetrofitService retrofitService=new RetrofitService();
-            ApplicationApi applicationApi = retrofitService.getRetrofit().create(ApplicationApi.class);
+                // Find the buttons in the dialog layout
+                Button confirmButton = dialog.findViewById(R.id.btn_confirm);
+                Button cancelButton = dialog.findViewById(R.id.btn_cancel);
 
-            SharedPreferences sharedPreferences = context.getSharedPreferences("Login Credentials", Context.MODE_PRIVATE);
-            String jwtToken = sharedPreferences.getString("jwtToken", "");
-            String authorizationHeader = "Bearer " + jwtToken;
-            // Set click listener for the "Confirm" button
-            confirmButton.setOnClickListener(v -> {
-                // Perform the request action here
-                // create application
-                Application application=ex4ApplicationList.get(position);
-                application.setStatus(4);
-                applicationApi.updateApplicationById(ex4ApplicationList.get(position).getId(), application,authorizationHeader)
-                        .enqueue(new Callback<Application>() {
-                            @Override
-                            public void onResponse(Call<Application> call, Response<Application> response) {
-                                if(response.isSuccessful()){
-                                    Toast.makeText(context, "Update Application Successful!", Toast.LENGTH_SHORT).show();
-                                }
-                                else {
-                                    try {
-                                        Toast.makeText(context, "Failed to update applicayion: "
-                                                + response.message() + response.errorBody().string(), Toast.LENGTH_SHORT)
-                                                .show();
-                                    } catch (IOException e) {
-                                        throw new RuntimeException(e);
+                RetrofitService retrofitService = new RetrofitService();
+                ApplicationApi applicationApi = retrofitService.getRetrofit().create(ApplicationApi.class);
+
+                SharedPreferences sharedPreferences = context.getSharedPreferences("Login Credentials", Context.MODE_PRIVATE);
+                String jwtToken = sharedPreferences.getString("jwtToken", "");
+                String authorizationHeader = "Bearer " + jwtToken;
+                // Set click listener for the "Confirm" button
+                confirmButton.setOnClickListener(v -> {
+                    // Perform the request action here
+                    // create application
+                    Application application = ex4ApplicationList.get(position);
+                    application.setStatus(4);
+                    applicationApi.updateApplicationById(ex4ApplicationList.get(position).getId(), application, authorizationHeader)
+                            .enqueue(new Callback<Application>() {
+                                @Override
+                                public void onResponse(Call<Application> call, Response<Application> response) {
+                                    if (response.isSuccessful()) {
+                                        Toast.makeText(context, "Update Application Successful!", Toast.LENGTH_SHORT).show();
+                                        Intent intent = new Intent(context, ProfileActivity.class);
+                                        context.startActivity(intent);
+                                    } else {
+                                        try {
+                                            Toast.makeText(context, "Failed to update applicayion: "
+                                                    + response.message() + response.errorBody().string(), Toast.LENGTH_SHORT)
+                                                    .show();
+                                        } catch (IOException e) {
+                                            throw new RuntimeException(e);
+                                        }
                                     }
                                 }
-                            }
 
-                            @Override
-                            public void onFailure(Call<Application> call, Throwable t) {
-                                Toast.makeText(context, "Update Application Response Failed!", Toast.LENGTH_SHORT)
-                                        .show();
-                                t.printStackTrace(); // Print the full stack trace to see the detailed error
-                            }
-                        });
+                                @Override
+                                public void onFailure(Call<Application> call, Throwable t) {
+                                    Toast.makeText(context, "Update Application Response Failed!", Toast.LENGTH_SHORT)
+                                            .show();
+                                    t.printStackTrace(); // Print the full stack trace to see the detailed error
+                                }
+                            });
 
-                // Dismiss the dialog
-                dialog.dismiss();
+                    // Dismiss the dialog
+                    dialog.dismiss();
+                });
+
+                // Set click listener for the "Cancel" button
+                cancelButton.setOnClickListener(v -> {
+                    // Dismiss the dialog
+                    dialog.dismiss();
+                });
+
             });
 
-            // Set click listener for the "Cancel" button
-            cancelButton.setOnClickListener(v -> {
-                // Dismiss the dialog
-                dialog.dismiss();
-            });
 
-        });
 
+        } else {
+            holder.button.setVisibility(View.GONE);
+        }
 
 
     }
