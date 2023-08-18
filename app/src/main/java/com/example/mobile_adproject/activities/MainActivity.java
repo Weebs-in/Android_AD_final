@@ -145,11 +145,14 @@ public class MainActivity extends AppCompatActivity {
 
 
         user_profile=findViewById(R.id.your_account);
+        user_profile.setEnabled(jwtToken.isEmpty()); // Disable if jwtToken is not empty
         user_profile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(MainActivity.this,LoginActivity.class);
-                startActivity(intent);
+                if(jwtToken.isEmpty()){
+                    Intent intent=new Intent(MainActivity.this,LoginActivity.class);
+                    startActivity(intent);
+                }
             }
         });
 

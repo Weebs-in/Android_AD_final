@@ -278,7 +278,7 @@ public class BookDetailActivity extends AppCompatActivity {
                     // Create and show the confirmation dialog
                     AlertDialog.Builder builder = new AlertDialog.Builder(BookDetailActivity.this);
 
-                    builder.setView(R.layout.dialog_confirm_deposit);
+                    builder.setView(R.layout.dialog_confirm_request);
                     AlertDialog dialog = builder.create();
 
                     // Show the dialog
