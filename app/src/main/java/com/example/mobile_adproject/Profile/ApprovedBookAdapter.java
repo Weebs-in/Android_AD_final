@@ -1,5 +1,6 @@
 package com.example.mobile_adproject.Profile;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -60,49 +61,12 @@ public class ApprovedBookAdapter  extends RecyclerView.Adapter<ApprovedBookAdapt
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ApprovedBookViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ApprovedBookViewHolder holder, @SuppressLint("RecyclerView") int position) {
         if(applicationList.get(position).getStatus() == 4 ){
-            // Hide the item
-            holder.itemView.setVisibility(View.GONE);
+           return;
 
         }
-        /*holder.bookTitle.setText(donatedBookList.get(position).getTitle());
-        holder.bookAuthor.setText(donatedBookList.get(position).getAuthor());
-        switch (donatedBookList.get(position).getStatus()){
-            case 0:
-                holder.bookStatus.setText("Created");
-                break;
-            case 1:
-                holder.bookStatus.setText("Deposited");
-                break;
-            case 2:
-                holder.bookStatus.setText("Available");
-                break;
-            case 3:
-                holder.bookStatus.setText("Ineligible");
-                break;
-            case 4:
-                holder.bookStatus.setText("Reserved");
-                break;
-            case 5:
-                holder.bookStatus.setText("Unavailable");
-                break;
-            default:
-                holder.bookStatus.setText("NA");
-                break;*/
 
-//        holder.bookStatus.setText(String.valueOf(donatedBookList.get(position).getStatus()));
-        //String url = donatedBookList.get(position).getCover(); // get image URL
-        //load the picture
-
-        /*holder.bookCover.setImageResource(R.drawable.book);*/
-       /* Integer status=applicationList.get(position).getStatus();
-        Long bookId=applicationList.get(position).getId();
-        if(status==1){
-            holder.button.setVisibility(View.VISIBLE);
-        }else{
-            holder.button.setVisibility(View.GONE);
-        }*/
 
         // 设置占位图或者清空图片
         holder.bookCover.setImageBitmap(null);
@@ -184,8 +148,6 @@ public class ApprovedBookAdapter  extends RecyclerView.Adapter<ApprovedBookAdapt
             confirmButton.setOnClickListener(v -> {
                 // Perform the request action here
                 // create application
-
-                holder.itemView.setVisibility(View.GONE);
                 Application application=applicationList.get(position);
                 application.setStatus(4);
                 applicationApi.updateApplicationById(applicationList.get(position).getId(), application,authorizationHeader)
@@ -194,7 +156,6 @@ public class ApprovedBookAdapter  extends RecyclerView.Adapter<ApprovedBookAdapt
                             public void onResponse(Call<Application> call, Response<Application> response) {
                                 if(response.isSuccessful()){
                                     Toast.makeText(context, "Update Application Successful!", Toast.LENGTH_SHORT).show();
-
                                 }
                                 else {
                                     try {
@@ -226,6 +187,7 @@ public class ApprovedBookAdapter  extends RecyclerView.Adapter<ApprovedBookAdapt
             });
 
         });
+
 
 
     }
