@@ -26,6 +26,7 @@ import com.example.mobile_adproject.activities.DonateBookDetailActivity;
 import com.example.mobile_adproject.activities.ProfileActivity;
 import com.example.mobile_adproject.models.Application;
 import com.example.mobile_adproject.models.Book;
+import com.example.mobile_adproject.models.CompleteDTO;
 import com.example.mobile_adproject.models.Member;
 import com.example.mobile_adproject.retrofit.ApplicationApi;
 import com.example.mobile_adproject.retrofit.BookApi;
@@ -159,10 +160,13 @@ public class ApprovedBookAdapter  extends RecyclerView.Adapter<ApprovedBookAdapt
                     // create application
                     Application application = ex4ApplicationList.get(position);
                     application.setStatus(4);
-                    applicationApi.updateApplicationById(ex4ApplicationList.get(position).getId(), application, authorizationHeader)
-                            .enqueue(new Callback<Application>() {
+                    CompleteDTO completeDTO=new CompleteDTO();
+                    completeDTO.setBookId(application.getBook().getId());
+                    completeDTO.setRecipientId(application.getRecipient().getId());
+                    applicationApi.updateApplicationComplete( completeDTO ,authorizationHeader)
+                            .enqueue(new Callback<Void>() {
                                 @Override
-                                public void onResponse(Call<Application> call, Response<Application> response) {
+                                public void onResponse(Call<Void> call, Response<Void> response) {
                                     if (response.isSuccessful()) {
                                         Toast.makeText(context, "Update Application Successful!", Toast.LENGTH_SHORT).show();
                                         Intent intent = new Intent(context, ProfileActivity.class);
@@ -179,7 +183,7 @@ public class ApprovedBookAdapter  extends RecyclerView.Adapter<ApprovedBookAdapt
                                 }
 
                                 @Override
-                                public void onFailure(Call<Application> call, Throwable t) {
+                                public void onFailure(Call<Void> call, Throwable t) {
                                     Toast.makeText(context, "Update Application Response Failed!", Toast.LENGTH_SHORT)
                                             .show();
                                     t.printStackTrace(); // Print the full stack trace to see the detailed error

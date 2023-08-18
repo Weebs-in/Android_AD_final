@@ -2,6 +2,7 @@ package com.example.mobile_adproject.retrofit;
 
 import com.example.mobile_adproject.models.Application;
 import com.example.mobile_adproject.models.Book;
+import com.example.mobile_adproject.models.CompleteDTO;
 
 import java.util.List;
 
@@ -27,7 +28,7 @@ public interface ApplicationApi {
     Call<List<Application>> getAllApplicationsByMember(@Path("id") Long id, @Header("Authorization") String authorizationHeader);
 
     @PUT("/api/application/complete")
-    Call<Application> updateApplicationComplete(@Body Application application, @Header("Authorization") String authorizationHeader);
+    Call<Void> updateApplicationComplete(@Body CompleteDTO completeDTO, @Header("Authorization") String authorizationHeader);
 
     @PUT("/api/application/{id}")
     Call<Application> updateApplicationById(@Path("id") Long id,@Body Application application, @Header("Authorization") String authorizationHeader);
