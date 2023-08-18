@@ -30,6 +30,6 @@ public interface ApplicationApi {
     @PUT("/api/application/complete")
     Call<Void> updateApplicationComplete(@Body CompleteDTO completeDTO, @Header("Authorization") String authorizationHeader);
 
-    @PUT("/api/application/{id}")
-    Call<Application> updateApplicationById(@Path("id") Long id,@Body Application application, @Header("Authorization") String authorizationHeader);
+    @PUT("/api/application/cancel")
+    Call<Void> cancelApplication(@Body CompleteDTO completeDTO, @Header("Authorization") String authorizationHeader);
 }

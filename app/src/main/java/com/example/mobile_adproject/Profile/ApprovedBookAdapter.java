@@ -57,7 +57,7 @@ public class ApprovedBookAdapter  extends RecyclerView.Adapter<ApprovedBookAdapt
         ex4ApplicationList = new ArrayList<>(); // Initialize the list
 
         for (Application application : applicationList) {
-            if (application.getStatus() != 4) {
+            if (application.getStatus() != 4&&application.getStatus()!=5) {
                 ex4ApplicationList.add(application);
             }
         }
@@ -125,14 +125,85 @@ public class ApprovedBookAdapter  extends RecyclerView.Adapter<ApprovedBookAdapt
             case 4:
                 holder.applicationStatus.setText("Completed");
                 break;
+            case 5:
+                holder.applicationStatus.setText("Disabled");
+                break;
+
             default:
                 holder.applicationStatus.setText("NA");
                 break;
         }
 
-        System.out.println(ex4ApplicationList.get(position).getStatus());
 
         if (ex4ApplicationList.get(position).getStatus() == 3) {
+            holder.cancel_button.setOnClickListener(view -> {
+
+                // Create and show the confirmation dialog
+                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+
+                builder.setView(R.layout.dialog_confirm_complete_take_over_book);
+                AlertDialog dialog = builder.create();
+
+                // Show the dialog
+                dialog.show();
+
+                // Find the buttons in the dialog layout
+                Button confirmButton = dialog.findViewById(R.id.btn_confirm);
+                Button cancelButton = dialog.findViewById(R.id.btn_cancel);
+
+                RetrofitService retrofitService = new RetrofitService();
+                ApplicationApi applicationApi = retrofitService.getRetrofit().create(ApplicationApi.class);
+
+                SharedPreferences sharedPreferences = context.getSharedPreferences("Login Credentials", Context.MODE_PRIVATE);
+                String jwtToken = sharedPreferences.getString("jwtToken", "");
+                String authorizationHeader = "Bearer " + jwtToken;
+                // Set click listener for the "Confirm" button
+                confirmButton.setOnClickListener(v -> {
+                    // Perform the request action here
+                    // create application
+                    Application application = ex4ApplicationList.get(position);
+                    CompleteDTO completeDTO=new CompleteDTO();
+                    completeDTO.setBookId(application.getBook().getId());
+                    completeDTO.setRecipientId(application.getRecipient().getId());
+                    applicationApi.cancelApplication( completeDTO ,authorizationHeader)
+                            .enqueue(new Callback<Void>() {
+                                @Override
+                                public void onResponse(Call<Void> call, Response<Void> response) {
+                                    if (response.isSuccessful()) {
+                                        Toast.makeText(context, "Cancel Application Successful!", Toast.LENGTH_SHORT).show();
+                                        System.out.println(application.getStatus());
+                                        Intent intent = new Intent(context, ProfileActivity.class);
+                                        context.startActivity(intent);
+                                    } else {
+                                        try {
+                                            Toast.makeText(context, "Failed to cancel application: "
+                                                    + response.message() + response.errorBody().string(), Toast.LENGTH_SHORT)
+                                                    .show();
+                                        } catch (IOException e) {
+                                            throw new RuntimeException(e);
+                                        }
+                                    }
+                                }
+
+                                @Override
+                                public void onFailure(Call<Void> call, Throwable t) {
+                                    Toast.makeText(context, "Cancel Application Response Failed!", Toast.LENGTH_SHORT)
+                                            .show();
+                                    t.printStackTrace(); // Print the full stack trace to see the detailed error
+                                }
+                            });
+
+                    // Dismiss the dialog
+                    dialog.dismiss();
+                });
+
+                // Set click listener for the "Cancel" button
+                cancelButton.setOnClickListener(v -> {
+                    // Dismiss the dialog
+                    dialog.dismiss();
+                });
+
+            });
             holder.button.setOnClickListener(view -> {
 
                 // Create and show the confirmation dialog
@@ -173,7 +244,7 @@ public class ApprovedBookAdapter  extends RecyclerView.Adapter<ApprovedBookAdapt
                                         context.startActivity(intent);
                                     } else {
                                         try {
-                                            Toast.makeText(context, "Failed to update applicayion: "
+                                            Toast.makeText(context, "Failed to update application: "
                                                     + response.message() + response.errorBody().string(), Toast.LENGTH_SHORT)
                                                     .show();
                                         } catch (IOException e) {
@@ -219,7 +290,8 @@ public class ApprovedBookAdapter  extends RecyclerView.Adapter<ApprovedBookAdapt
     public class ApprovedBookViewHolder  extends RecyclerView.ViewHolder {
         ImageView bookCover;
         TextView bookTitle, bookAuthor, applicationStatus;
-        Button button;
+        TextView button;
+        TextView cancel_button;
 
         public ApprovedBookViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -228,6 +300,7 @@ public class ApprovedBookAdapter  extends RecyclerView.Adapter<ApprovedBookAdapt
             bookAuthor = itemView.findViewById(R.id.book_author_need_add_approved);
             applicationStatus = itemView.findViewById(R.id.book_status);
             button = itemView.findViewById(R.id.Status_button);
+            cancel_button=itemView.findViewById(R.id.cancel_button);
         }
 
 
