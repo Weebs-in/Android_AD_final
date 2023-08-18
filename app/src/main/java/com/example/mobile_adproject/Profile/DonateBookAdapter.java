@@ -105,17 +105,17 @@ public class DonateBookAdapter extends RecyclerView.Adapter<DonateBookAdapter.Do
 
         int status = donatedBookList.get(position).getStatus();
 
-        if(status == 4 || status == 6){
+        /*if(status == 4 || status == 6){
             // Hide the item
             holder.itemView.setVisibility(View.GONE);
             holder.itemView.setLayoutParams(new RecyclerView.LayoutParams(0, 0));
-        }
-        else {
-            holder.itemView.setVisibility(View.VISIBLE);
+        }*/
+       /* else {*/
+           /* holder.itemView.setVisibility(View.VISIBLE);
             holder.itemView.setLayoutParams(new RecyclerView.LayoutParams(
                     ViewGroup.LayoutParams.MATCH_PARENT,
                     ViewGroup.LayoutParams.WRAP_CONTENT
-            ));
+            ));*/
             // Check if the status is not Pending
             if (donatedBookList.get(position).getStatus() != 0) {
                 // Disable click action for items except Pending status
@@ -133,7 +133,7 @@ public class DonateBookAdapter extends RecyclerView.Adapter<DonateBookAdapter.Do
                 });
             }
         }
-    }
+  //  }
 
     @Override
     public int getItemCount() {
