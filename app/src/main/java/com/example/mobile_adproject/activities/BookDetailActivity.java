@@ -272,7 +272,7 @@ public class BookDetailActivity extends AppCompatActivity {
                 }
             });
 
-            if(selectedBook.getBookCondition()==2){
+            if(selectedBook.getStatus()==2){
                 btnRequest = findViewById(R.id.button_request);
                 btnRequest.setOnClickListener(view -> {
                     // Create and show the confirmation dialog

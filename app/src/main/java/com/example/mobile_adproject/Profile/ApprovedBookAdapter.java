@@ -36,6 +36,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -46,10 +47,19 @@ public class ApprovedBookAdapter  extends RecyclerView.Adapter<ApprovedBookAdapt
     Context context;
     List<Application> applicationList;
 
+    List<Application> ex4ApplicationList;
 
     public ApprovedBookAdapter(Context context, List<Application> applicationList) {
         this.context = context;
         this.applicationList = applicationList;
+
+        ex4ApplicationList = new ArrayList<>(); // Initialize the list
+
+        for (Application application : applicationList) {
+            if (application.getStatus() != 4) {
+                ex4ApplicationList.add(application);
+            }
+        }
     }
 
     @NonNull
@@ -62,16 +72,12 @@ public class ApprovedBookAdapter  extends RecyclerView.Adapter<ApprovedBookAdapt
 
     @Override
     public void onBindViewHolder(@NonNull ApprovedBookViewHolder holder, @SuppressLint("RecyclerView") int position) {
-        if(applicationList.get(position).getStatus() == 4 ){
-           return;
-
-        }
 
 
         // 设置占位图或者清空图片
         holder.bookCover.setImageBitmap(null);
 
-        String coverImageUrl = applicationList.get(position).getBook().getCover();
+        String coverImageUrl = ex4ApplicationList.get(position).getBook().getCover();
         System.out.println(coverImageUrl);
         Thread thread = new Thread(new Runnable() {
             @Override
@@ -100,9 +106,9 @@ public class ApprovedBookAdapter  extends RecyclerView.Adapter<ApprovedBookAdapt
         });
 
         thread.start();
-        holder.bookTitle.setText(applicationList.get(position).getBook().getTitle());
-        holder.bookAuthor.setText(applicationList.get(position).getBook().getAuthor());
-        switch (applicationList.get(position).getStatus()){
+        holder.bookTitle.setText(ex4ApplicationList.get(position).getBook().getTitle());
+        holder.bookAuthor.setText(ex4ApplicationList.get(position).getBook().getAuthor());
+        switch (ex4ApplicationList.get(position).getStatus()){
             case 0:
                 holder.applicationStatus.setText("Pending");
                 break;
@@ -148,9 +154,9 @@ public class ApprovedBookAdapter  extends RecyclerView.Adapter<ApprovedBookAdapt
             confirmButton.setOnClickListener(v -> {
                 // Perform the request action here
                 // create application
-                Application application=applicationList.get(position);
+                Application application=ex4ApplicationList.get(position);
                 application.setStatus(4);
-                applicationApi.updateApplicationById(applicationList.get(position).getId(), application,authorizationHeader)
+                applicationApi.updateApplicationById(ex4ApplicationList.get(position).getId(), application,authorizationHeader)
                         .enqueue(new Callback<Application>() {
                             @Override
                             public void onResponse(Call<Application> call, Response<Application> response) {
@@ -194,7 +200,7 @@ public class ApprovedBookAdapter  extends RecyclerView.Adapter<ApprovedBookAdapt
 
     @Override
     public int getItemCount() {
-        return applicationList.size();
+        return ex4ApplicationList.size();
     }
 
     public class ApprovedBookViewHolder  extends RecyclerView.ViewHolder {
