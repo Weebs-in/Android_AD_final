@@ -277,6 +277,7 @@ public class ApprovedBookAdapter  extends RecyclerView.Adapter<ApprovedBookAdapt
 
         } else {
             holder.button.setVisibility(View.GONE);
+            holder.cancel_button.setVisibility(View.GONE);
         }
 
 
