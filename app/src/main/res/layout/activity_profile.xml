@@ -145,13 +145,6 @@
             android:src="@drawable/ic_baseline_home_24"
             android:scaleType="centerInside"/>
 
-        <ImageView
-            android:id="@+id/message_action_bottom"
-            android:layout_width="35dp"
-            android:layout_height="55dp"
-            android:layout_weight="1"
-            app:srcCompat="@drawable/ic_baseline_message_24"
-            android:scaleType="centerInside"/>
 
         <ImageView
             android:id="@+id/donate_action_bottom"

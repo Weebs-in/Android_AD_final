@@ -165,20 +165,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        message=findViewById(R.id.message_action_bottom);
-        message.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(jwtToken.isEmpty()){
-                    Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-                    startActivity(intent);
-                }
-                else {
-                    Intent intent=new Intent(MainActivity.this,MessageActivity.class);
-                    startActivity(intent);
-                }
-            }
-        });
+
 
         donate=findViewById(R.id.donate_action_bottom);
         donate.setOnClickListener(new View.OnClickListener() {
@@ -211,47 +198,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
-    private void RecommandationBook(String header) {
-        if(header==null){
-            bookApi.randomBook()
-                    .enqueue(new Callback<List<Book>>() {
-                        @Override
-                        public void onResponse(Call<List<Book>> call, Response<List<Book>> response) {
-                            if(response.isSuccessful()){
-                                Toast.makeText(MainActivity.this, "Get Random Book Successful!", Toast.LENGTH_SHORT).show();
-                                setRecommendRecycler(response.body());
-                            }
-                            else {
-                                Toast.makeText(MainActivity.this, "Get Random Book Failed: " + response.message(), Toast.LENGTH_SHORT).show();
-                            }
 
-                        }
-
-                        @Override
-                        public void onFailure(Call<List<Book>> call, Throwable t) {
-                            Toast.makeText(MainActivity.this, "Get Random Book Failed!", Toast.LENGTH_SHORT).show();
-                            t.printStackTrace(); // Print the full stack trace to see the detailed error
-                        }
-                    });
-        }else {
-            bookApi.recommandBook(memberId,header)
-                    .enqueue(new Callback<List<Book>>() {
-                        @Override
-                        public void onResponse(Call<List<Book>> call, Response<List<Book>> response) {
-                            if(response.isSuccessful()){
-                                Toast.makeText(MainActivity.this, "Get Recommand  Book Successful!", Toast.LENGTH_SHORT).show();
-                                setRecommendRecycler(response.body());
-                            }
-
-                        }
-
-                        @Override
-                        public void onFailure(Call<List<Book>> call, Throwable t) {
-                            Toast.makeText(MainActivity.this, "Get Recommand Book Failed: " , Toast.LENGTH_SHORT).show();
-                        }
-                    });
-        }
-    }
     private void performSearch(String search) {
         bookApi.search(search,authorizationHeader)
                 .enqueue(new Callback<List<Book>>() {

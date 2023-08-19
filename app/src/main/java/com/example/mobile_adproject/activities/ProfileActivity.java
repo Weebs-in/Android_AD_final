@@ -105,14 +105,6 @@ public class ProfileActivity extends AppCompatActivity {
             }
         });
 
-        message=findViewById(R.id.message_action_bottom);
-        message.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent=new Intent(ProfileActivity.this,MessageActivity.class);
-                startActivity(intent);
-            }
-        });
 
         donate=findViewById(R.id.donate_action_bottom);
         donate.setOnClickListener(new View.OnClickListener() {
