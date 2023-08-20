@@ -74,7 +74,7 @@ public class SignUpFragment extends Fragment {
                         @Override
                         public void onResponse(Call<Member> call, Response<Member> response) {
                             if(response.isSuccessful()){
-                                Toast.makeText(getContext(), "Member Created Successfully!", Toast.LENGTH_SHORT).show();
+                                //Toast.makeText(getContext(), "Member Created Successfully!", Toast.LENGTH_SHORT).show();
                                 navigateToLoginListener.onNavigateToLogin(); // Notify the activity to switch to the Login tab
                             }
                             else {

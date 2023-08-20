@@ -56,7 +56,7 @@ public class ApprovedBookListFragment extends Fragment {
                     @Override
                     public void onResponse(Call<List<Application>> call, Response<List<Application>> response) {
                         if(response.isSuccessful()){
-                            Toast.makeText(getContext(), "Get All Request Books Successful!", Toast.LENGTH_SHORT).show();
+                           // Toast.makeText(getContext(), "Get All Request Books Successful!", Toast.LENGTH_SHORT).show();
                             setApprovedBookRecycler(response.body());
                         }
                         else {

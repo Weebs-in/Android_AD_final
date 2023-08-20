@@ -27,9 +27,6 @@
             android:name=".activities.DonateBookDetailActivity"
             android:exported="false" />
         <activity
-            android:name=".activities.BookRequestActivity"
-            android:exported="false" />
-        <activity
             android:name=".activities.DonateBookActivity"
             android:exported="false" />
 

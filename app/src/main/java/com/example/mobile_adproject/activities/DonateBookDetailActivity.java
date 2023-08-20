@@ -176,8 +176,8 @@ public class DonateBookDetailActivity extends AppCompatActivity {
                         @Override
                         public void onResponse(Call<List<CollectionPoint>> call, Response<List<CollectionPoint>> response) {
                             if(response.isSuccessful()){
-                                Toast.makeText(DonateBookDetailActivity.this, "Get All Collection Points Successful!", Toast.LENGTH_SHORT)
-                                        .show();
+                                //Toast.makeText(DonateBookDetailActivity.this, "Get All Collection Points Successful!", Toast.LENGTH_SHORT)
+                                  //      .show();
                                 collectionPoints = response.body();
                                 collectionPointNames = new ArrayList<>();
                                 for (CollectionPoint collectionPoint : collectionPoints){
@@ -331,7 +331,7 @@ public class DonateBookDetailActivity extends AppCompatActivity {
                     .enqueue(new Callback<Book>() {
                         @Override
                         public void onResponse(Call<Book> call, Response<Book> response) {
-                            Toast.makeText(DonateBookDetailActivity.this, "Update Success!", Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(DonateBookDetailActivity.this, "Update Success!", Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(DonateBookDetailActivity.this, ProfileActivity.class);
                             startActivity(intent);
                         }
@@ -380,8 +380,8 @@ public class DonateBookDetailActivity extends AppCompatActivity {
                         @Override
                         public void onResponse(Call<String> call, Response<String> response) {
                             if (response.isSuccessful()) {
-                                Toast.makeText(DonateBookDetailActivity.this, "Upload Book Cover Successful!",
-                                        Toast.LENGTH_SHORT).show();
+                               // Toast.makeText(DonateBookDetailActivity.this, "Upload Book Cover Successful!",
+                                 //       Toast.LENGTH_SHORT).show();
                                 coverString = response.body();
                             } else {
                                 try {

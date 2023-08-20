@@ -63,7 +63,7 @@ public class LoginFragment extends Fragment {
                         public void onResponse(Call<LoginApiResponse> call, Response<LoginApiResponse> response) {
 
                             if (response.isSuccessful()) {
-                                Toast.makeText(getContext(), "Login Successful!", Toast.LENGTH_SHORT).show();
+                                //Toast.makeText(getContext(), "Login Successful!", Toast.LENGTH_SHORT).show();
                                 LoginApiResponse loginApiResponse = response.body();
                                 String jwtToken = loginApiResponse.getAccessToken();
 
@@ -98,8 +98,8 @@ public class LoginFragment extends Fragment {
                                                 @Override
                                                 public void onResponse(Call<Member> call, Response<Member> response) {
                                                     if (response.isSuccessful()) {
-                                                        Toast.makeText(getContext(), "Get Member Successful!",
-                                                                Toast.LENGTH_SHORT).show();
+                                                        //Toast.makeText(getContext(), "Get Member Successful!",
+                                                               // Toast.LENGTH_SHORT).show();
                                                         loggedInMember = response.body();
 
                                                         String loggedInMemberUsername = loggedInMember.getUsername();

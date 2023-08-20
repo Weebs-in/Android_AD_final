@@ -187,7 +187,7 @@ public class DonateBookAdapter extends RecyclerView.Adapter<DonateBookAdapter.Do
                                     @Override
                                     public void onResponse(Call<Book> call, Response<Book> response) {
                                         if(response.isSuccessful()){
-                                            Toast.makeText(context, "Update Book Successful!", Toast.LENGTH_SHORT).show();
+                                          //  Toast.makeText(context, "Update Book Successful!", Toast.LENGTH_SHORT).show();
 
                                             Intent intent1 = new Intent(context, ProfileActivity.class);
                                             context.startActivity(intent1);
@@ -254,7 +254,7 @@ public class DonateBookAdapter extends RecyclerView.Adapter<DonateBookAdapter.Do
                                 .enqueue(new Callback<Void>() {
                                     @Override
                                     public void onResponse(Call<Void> call, Response<Void> response) {
-                                        Toast.makeText(context, "Delete Book Success!", Toast.LENGTH_SHORT).show();
+                                      //  Toast.makeText(context, "Delete Book Success!", Toast.LENGTH_SHORT).show();
                                     }
 
                                     @Override

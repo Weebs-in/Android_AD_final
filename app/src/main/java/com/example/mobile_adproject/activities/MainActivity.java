@@ -92,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
                         @Override
                         public void onResponse(Call<List<Book>> call, Response<List<Book>> response) {
                             if(response.isSuccessful()){
-                                Toast.makeText(MainActivity.this, "Get Random Successful!", Toast.LENGTH_SHORT).show();
+                               // Toast.makeText(MainActivity.this, "Get Random Successful!", Toast.LENGTH_SHORT).show();
                                 setRecommendRecycler(response.body());
                             }
                             else {
@@ -115,7 +115,7 @@ public class MainActivity extends AppCompatActivity {
                             @Override
                             public void onResponse(Call<List<Book>> call, Response<List<Book>> response) {
                                 if(response.isSuccessful()){
-                                    Toast.makeText(MainActivity.this, "Get All Books Successful!", Toast.LENGTH_SHORT).show();
+                                   // Toast.makeText(MainActivity.this, "Get All Books Successful!", Toast.LENGTH_SHORT).show();
                                     setRecommendRecycler(response.body());
                                 }
                                 else {
@@ -205,7 +205,7 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(Call<List<Book>> call, Response<List<Book>> response) {
                         if(response.isSuccessful()){
-                            Toast.makeText(MainActivity.this, "Get Search All Book Successful!", Toast.LENGTH_SHORT).show();
+                           // Toast.makeText(MainActivity.this, "Get Search All Book Successful!", Toast.LENGTH_SHORT).show();
                             setRecommendRecycler(response.body());
                         }
                     }

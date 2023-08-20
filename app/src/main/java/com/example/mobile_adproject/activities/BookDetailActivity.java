@@ -205,7 +205,7 @@ public class BookDetailActivity extends AppCompatActivity {
                                         @Override
                                         public void onResponse(Call<Void> call, Response<Void> response) {
                                             if (response.isSuccessful()) {
-                                                Toast.makeText(BookDetailActivity.this, "save like count successful!", Toast.LENGTH_SHORT).show();
+                                                //Toast.makeText(BookDetailActivity.this, "save like count successful!", Toast.LENGTH_SHORT).show();
                                             } else {
                                                 try {
                                                     Toast.makeText(BookDetailActivity.this, "Failed to save like count: "
@@ -245,7 +245,7 @@ public class BookDetailActivity extends AppCompatActivity {
                                     @Override
                                     public void onResponse(Call<Void> call, Response<Void> response) {
                                         if (response.isSuccessful()) {
-                                            Toast.makeText(BookDetailActivity.this, "save like count successful!", Toast.LENGTH_SHORT).show();
+                                            //Toast.makeText(BookDetailActivity.this, "save like count successful!", Toast.LENGTH_SHORT).show();
                                         } else {
                                             try {
                                                 Toast.makeText(BookDetailActivity.this, "Failed to save like count: "

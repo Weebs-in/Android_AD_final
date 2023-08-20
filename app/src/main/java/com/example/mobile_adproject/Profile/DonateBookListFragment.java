@@ -49,7 +49,7 @@ public class DonateBookListFragment  extends Fragment {
                     @Override
                     public void onResponse(Call<List<Book>> call, Response<List<Book>> response) {
                         if(response.isSuccessful()){
-                            Toast.makeText(getContext(), "Get All Donated Books Successful!", Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(getContext(), "Get All Donated Books Successful!", Toast.LENGTH_SHORT).show();
                             setTransactionRecycler(response.body());
                         }
                         else {

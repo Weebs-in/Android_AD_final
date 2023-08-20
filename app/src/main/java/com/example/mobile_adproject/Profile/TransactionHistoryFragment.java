@@ -55,7 +55,7 @@ public class TransactionHistoryFragment extends Fragment  {
                     @Override
                     public void onResponse(Call<List<Application>> call, Response<List<Application>> response) {
                         if(response.isSuccessful()){
-                            Toast.makeText(getContext(), "Get All Transaction History Successful!", Toast.LENGTH_SHORT).show();
+                         //   Toast.makeText(getContext(), "Get All Transaction History Successful!", Toast.LENGTH_SHORT).show();
                             List<Application> body =response.body();
                             List<Application>completed = new ArrayList<>();
                             for(int i=0;i<body.size();i++){

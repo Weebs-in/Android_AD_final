@@ -170,7 +170,7 @@ public class ApprovedBookAdapter  extends RecyclerView.Adapter<ApprovedBookAdapt
                                 @Override
                                 public void onResponse(Call<Void> call, Response<Void> response) {
                                     if (response.isSuccessful()) {
-                                        Toast.makeText(context, "Cancel Application Successful!", Toast.LENGTH_SHORT).show();
+                                       // Toast.makeText(context, "Cancel Application Successful!", Toast.LENGTH_SHORT).show();
                                         System.out.println(application.getStatus());
                                         Intent intent = new Intent(context, ProfileActivity.class);
                                         context.startActivity(intent);
@@ -239,7 +239,7 @@ public class ApprovedBookAdapter  extends RecyclerView.Adapter<ApprovedBookAdapt
                                 @Override
                                 public void onResponse(Call<Void> call, Response<Void> response) {
                                     if (response.isSuccessful()) {
-                                        Toast.makeText(context, "Update Application Successful!", Toast.LENGTH_SHORT).show();
+                                       // Toast.makeText(context, "Update Application Successful!", Toast.LENGTH_SHORT).show();
                                         Intent intent = new Intent(context, ProfileActivity.class);
                                         context.startActivity(intent);
                                     } else {
