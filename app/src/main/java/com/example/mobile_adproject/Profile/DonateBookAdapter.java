@@ -210,7 +210,8 @@ public class DonateBookAdapter extends RecyclerView.Adapter<DonateBookAdapter.Do
                                         t.printStackTrace(); // Print the full stack trace to see the detailed error
                                     }
                                 });
-
+                        // Dismiss the dialog
+                        dialog.dismiss();
                     });
 
                     // Set click listener for the "Cancel" button
@@ -256,7 +257,8 @@ public class DonateBookAdapter extends RecyclerView.Adapter<DonateBookAdapter.Do
                                         Toast.makeText(context, "Delete Book Failed!", Toast.LENGTH_SHORT).show();
                                     }
                                 });
-
+                        // Dismiss the dialog
+                        dialog.dismiss();
                     });
 
                     // Set click listener for the "Cancel" button
