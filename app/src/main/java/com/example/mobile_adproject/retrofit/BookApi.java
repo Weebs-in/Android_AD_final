@@ -20,9 +20,6 @@ public interface BookApi {
     @POST("/api/book")
     Call<Book> createBook(@Body Book book, @Header("Authorization") String authorizationHeader);
 
-    @PUT("/api/book/{id}")
-    Call<Book> updateBook(@Body Book book, @Header("Authorization") String authorizationHeader);
-
     @PUT("/api/book/like/{id}")
     Call<Void> updateLikeCount(@Path("id")Long id, @Header("Authorization") String authorizationHeader);
 
@@ -45,6 +42,9 @@ public interface BookApi {
 
     @PUT("/api/book/{id}")
     Call<Book> updateBookById(@Path("id") Long id, @Body Book book, @Header("Authorization") String authorizationHeader);
+
+    @DELETE("/api/book/{id}")
+    Call<Void> deleteBookById(@Path("id") Long id, @Header("Authorization") String authorizationHeader);
 
 
 

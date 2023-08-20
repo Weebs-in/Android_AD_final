@@ -78,18 +78,32 @@
             app:layout_constraintTop_toBottomOf="@+id/book_author_need_add_donate" />
 
         <TextView
-            android:id="@+id/contiguous_donate_book"
+            android:id="@+id/deposit_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="  Continue  "
-            android:textColor="#FFFFFF"
-
-            android:layout_marginBottom="8dp"
+            android:background="@drawable/button_background"
+            android:text="  Deposit  "
+            android:textSize="13sp"
+            android:textColor="#ffffff"
             android:layout_marginEnd="8dp"
-            android:background="@drawable/donate_reject_bg"
+
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            />
+            app:layout_constraintTop_toBottomOf="@+id/status_donate_book_need_add" />
+
+        <TextView
+            android:id="@+id/cancel_donate_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/donate_reject_bg"
+            android:text="    Cancel    "
+            android:textColor="#ffffff"
+            android:layout_marginEnd="8dp"
+
+            android:textSize="13sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/deposit_button"
+            app:layout_constraintTop_toBottomOf="@+id/status_donate_book_need_add" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

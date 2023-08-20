@@ -300,7 +300,7 @@ public class DonateBookDetailActivity extends AppCompatActivity {
             selectedBook.setDonor(donor);
             selectedBook.setCollectionPoint(selectedCollectionPoint);
 
-            bookApi.updateBook(selectedBook, authorizationHeader)
+            bookApi.updateBookById(selectedBook.getId(), selectedBook, authorizationHeader)
                     .enqueue(new Callback<Book>() {
                         @Override
                         public void onResponse(Call<Book> call, Response<Book> response) {
