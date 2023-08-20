@@ -309,7 +309,7 @@ public class BookDetailActivity extends AppCompatActivity {
                                     @Override
                                     public void onResponse(Call<Application> call, Response<Application> response) {
                                         if(response.isSuccessful()){
-                                            Toast.makeText(BookDetailActivity.this, "Create Application Successful!", Toast.LENGTH_SHORT).show();
+                                           // Toast.makeText(BookDetailActivity.this, "Create Application Successful!", Toast.LENGTH_SHORT).show();
 
                                             Intent intent1 = new Intent(BookDetailActivity.this, ProfileActivity.class);
                                             startActivity(intent1);

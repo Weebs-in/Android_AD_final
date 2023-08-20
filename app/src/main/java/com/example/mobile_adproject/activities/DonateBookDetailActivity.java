@@ -312,7 +312,12 @@ public class DonateBookDetailActivity extends AppCompatActivity {
             selectedBook.setIsbn(isbn);
             selectedBook.setTitle(title);
             selectedBook.setAuthor(author);
-            selectedBook.setCover(selectedBook.getCover());
+            if(coverString==null){
+                selectedBook.setCover(selectedBook.getCover());
+            }else{
+                selectedBook.setCover(coverString);
+            }
+
             selectedBook.setBookCondition(bookCondition);
             selectedBook.setGenre(genre);
             selectedBook.setPress(press);
