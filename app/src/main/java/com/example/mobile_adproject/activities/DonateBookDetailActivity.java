@@ -48,6 +48,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -80,6 +81,7 @@ public class DonateBookDetailActivity extends AppCompatActivity {
     private CollectionPoint selectedCollectionPoint;
     private EditText descriptionEditText;
     private Button btnUpdateBook;
+    List<String> collectionPointNames;
     SharedPreferences sharedPreferences;
     BookApi bookApi;
     @Override
@@ -136,6 +138,9 @@ public class DonateBookDetailActivity extends AppCompatActivity {
                     Toast.makeText(DonateBookDetailActivity.this, "Please select a Condition", Toast.LENGTH_SHORT).show();
                 }
             });
+            // 在获取到已有书籍信息后，设置 Spinner 的选中项
+            conditionSpinner.setSelection(selectedBook.getBookCondition());
+
             /*** Spinner for Book Conditions ***/
 
             genreEditText.setText(selectedBook.getGenre());
@@ -160,7 +165,9 @@ public class DonateBookDetailActivity extends AppCompatActivity {
                     Toast.makeText(DonateBookDetailActivity.this, "Please select a Language", Toast.LENGTH_SHORT).show();
                 }
             });
+            languageSpinner.setSelection(selectedBook.getLanguage());
             /*** Spinner for Book Languages ***/
+
 
 
             CollectionPointApi collectionPointApi = retrofitService.getRetrofit().create(CollectionPointApi.class);
@@ -172,11 +179,15 @@ public class DonateBookDetailActivity extends AppCompatActivity {
                                 Toast.makeText(DonateBookDetailActivity.this, "Get All Collection Points Successful!", Toast.LENGTH_SHORT)
                                         .show();
                                 collectionPoints = response.body();
-                                List<String> collectionPointNames = new ArrayList<>();
+                                collectionPointNames = new ArrayList<>();
                                 for (CollectionPoint collectionPoint : collectionPoints){
                                     String name = collectionPoint.getName();
                                     collectionPointNames.add(name);
                                 }
+                             /*   System.out.println(selectedBook.getCollectionPoint().getName());
+                                System.out.println(collectionPointNames.get(1));
+                                System.out.println(Objects.equals(selectedBook.getCollectionPoint().getName(),collectionPointNames.get(1)));*/
+
 
                                 // Create an ArrayAdapter using custom spinner item layout and the list of collection points
                                 ArrayAdapter<String> adapter = new ArrayAdapter<>(DonateBookDetailActivity.this, R.layout.spinner_collection_point_item, collectionPointNames);
@@ -185,6 +196,16 @@ public class DonateBookDetailActivity extends AppCompatActivity {
                                 // Find the Spinner view and set the adapter
 
                                 collectionPointSpinner.setAdapter(adapter);
+
+                                for(int i=0;i<collectionPointNames.size();i++){
+                                    if(selectedBook.getCollectionPoint().getName().equals(collectionPointNames.get(i))){
+                                        collectionPointSpinner.setSelection(i);
+
+                                       /* System.out.println(collectionPointNames.get(i));
+                                        System.out.println("1");*/
+                                        break;
+                                    }
+                                }
 
                                 // Handle spinner item selection
                                 collectionPointSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -203,12 +224,14 @@ public class DonateBookDetailActivity extends AppCompatActivity {
                                         }
                                     }
 
+
                                     @Override
                                     public void onNothingSelected(AdapterView<?> parentView) {
                                         // Handle case where no item is selected
                                         Toast.makeText(DonateBookDetailActivity.this, "Please select a Collection Point", Toast.LENGTH_SHORT).show();
                                     }
                                 });
+
 
                             }
                             else {
@@ -222,12 +245,12 @@ public class DonateBookDetailActivity extends AppCompatActivity {
                             }
                         }
 
+
                         @Override
                         public void onFailure(Call<List<CollectionPoint>> call, Throwable t) {
 
                         }
                     });
-
 
             descriptionEditText.setText(selectedBook.getDescription());
 
@@ -289,9 +312,8 @@ public class DonateBookDetailActivity extends AppCompatActivity {
             selectedBook.setIsbn(isbn);
             selectedBook.setTitle(title);
             selectedBook.setAuthor(author);
-            selectedBook.setCover(coverString);
+            selectedBook.setCover(selectedBook.getCover());
             selectedBook.setBookCondition(bookCondition);
-            selectedBook.setDescription("Description");
             selectedBook.setGenre(genre);
             selectedBook.setPress(press);
             selectedBook.setLanguage(bookLanguage);

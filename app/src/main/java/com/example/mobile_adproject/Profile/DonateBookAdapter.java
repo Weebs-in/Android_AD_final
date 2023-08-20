@@ -119,7 +119,7 @@ public class DonateBookAdapter extends RecyclerView.Adapter<DonateBookAdapter.Do
 
         holder.bookCover.setImageResource(R.drawable.ic_baseline_link_off_24);
 
-        int status = donatedBookList.get(position).getStatus();
+       // int status = donatedBookList.get(position).getStatus();
 
         /*if(status == 4 || status == 6){
             // Hide the item

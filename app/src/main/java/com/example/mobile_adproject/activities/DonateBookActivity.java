@@ -233,7 +233,6 @@ public class DonateBookActivity extends AppCompatActivity {
             book.setAuthor(author);
             book.setCover(coverString);
             book.setBookCondition(bookCondition);
-            book.setDescription("Description");
             book.setGenre(genre);
             book.setPress(press);
             book.setLanguage(bookLanguage);
