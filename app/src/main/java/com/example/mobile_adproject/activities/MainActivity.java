@@ -118,10 +118,10 @@ public class MainActivity extends AppCompatActivity {
                                    // Toast.makeText(MainActivity.this, "Get All Books Successful!", Toast.LENGTH_SHORT).show();
                                     setRecommendRecycler(response.body());
                                 }
-                                else {
+                              /*  else {
                                     Toast.makeText(MainActivity.this, "Failed to Get Books: " + response.message(), Toast.LENGTH_SHORT).show();
                                 }
-
+*/
                             }
 
                             @Override
