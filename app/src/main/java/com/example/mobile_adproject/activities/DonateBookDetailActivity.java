@@ -332,6 +332,8 @@ public class DonateBookDetailActivity extends AppCompatActivity {
                         @Override
                         public void onResponse(Call<Book> call, Response<Book> response) {
                             Toast.makeText(DonateBookDetailActivity.this, "Update Success!", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(DonateBookDetailActivity.this, ProfileActivity.class);
+                            startActivity(intent);
                         }
 
                         @Override
