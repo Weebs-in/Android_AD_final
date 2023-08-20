@@ -242,6 +242,11 @@ public class DonateBookAdapter extends RecyclerView.Adapter<DonateBookAdapter.Do
 
                         Long selectedBookId = selectedBook.getId();
 
+                        retrofitService = new RetrofitService();
+                        bookApi = retrofitService.getRetrofit().create(BookApi.class);
+
+                        sharedPreferences = context.getSharedPreferences("Login Credentials", Context.MODE_PRIVATE);
+
                         String jwtToken = sharedPreferences.getString("jwtToken", "");
                         String authorizationHeader = "Bearer " + jwtToken;
 
