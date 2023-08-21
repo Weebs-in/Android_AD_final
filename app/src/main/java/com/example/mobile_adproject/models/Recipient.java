@@ -1,5 +1,6 @@
 package com.example.mobile_adproject.models;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 public class Recipient {
@@ -10,7 +11,7 @@ public class Recipient {
     private String email;
 
     private String password;
-    private Date birthday;
+    //private LocalDate birthday;
     private int gender;
     private String bio;
     private String avatar;
@@ -63,13 +64,13 @@ public class Recipient {
         this.password = password;
     }
 
-    public Date getBirthday() {
+   /* public Date getBirthday() {
         return birthday;
     }
 
     public void setBirthday(Date birthday) {
         this.birthday = birthday;
-    }
+    }*/
 
     public int getGender() {
         return gender;

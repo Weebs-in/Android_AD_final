@@ -1,6 +1,7 @@
 package com.example.mobile_adproject.models;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Date;
 
 public class Donor implements Serializable {
@@ -11,7 +12,7 @@ public class Donor implements Serializable {
     private String phoneNumber;
     private String email;
     private String password;
-    private Date birthday;
+    //private LocalDate birthday;
     private int gender;
     private String bio;
     private String avatar;
@@ -64,13 +65,13 @@ public class Donor implements Serializable {
         this.password = password;
     }
 
-    public Date getBirthday() {
+    /*public LocalDate getBirthday() {
         return birthday;
     }
 
-    public void setBirthday(Date birthday) {
+    public void setBirthday(LocalDate birthday) {
         this.birthday = birthday;
-    }
+    }*/
 
     public int getGender() {
         return gender;
